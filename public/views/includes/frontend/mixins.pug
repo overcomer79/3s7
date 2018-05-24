@@ -1,0 +1,7 @@
+mixin room(room)
+    .room-card
+        //= room._id
+        .room-card-title= room.type
+        if room.tables.length < 100
+            button.room-card-botton join
+        

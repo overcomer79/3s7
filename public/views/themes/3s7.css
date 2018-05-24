@@ -1,0 +1,20 @@
+.room-card {
+    min-height: 60px;
+    width: 300px;
+    padding: 10px;
+    border: 2px coral solid;
+    text-align: center;
+    margin: 20px;
+}
+
+.room-card-title{
+    background-color: coral;
+    color: teal;
+    font-family: fantasy;
+    width: 50%;
+}
+
+.room-card-botton{
+    margin: 10px;
+    float: right;
+}

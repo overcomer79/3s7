@@ -1,6 +1,3 @@
-const BaseUser = require('../models/baseUser');
+const Room = require('../models/room');
 
-const testBaseUser = new BaseUser();
-console.log(testBaseUser);
-
-testBaseUser.login();
+console.log(Room.getDeaultRoomList());
