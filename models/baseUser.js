@@ -25,14 +25,15 @@ class BaseUser {
     */
 
     static onConnect(socket) {
-        BaseUser.userList[socket.id] = new BaseUser(socket.id);
-        console.log(this);
+        //console.log(socket);
+        this.userList[socket.id] = new BaseUser(socket.id).username;
+        console.log(this.userList);
     }
 
     static onDisconnect(socket) 
-    {
-        console.log(this);
-        delete BaseUser.userList[socket.id];
+    {       
+        delete this.userList[socket.id];
+        console.log(this.userList);
     }
 }
 BaseUser.userList = {}
