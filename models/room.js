@@ -1,4 +1,5 @@
-const setting = require('../helpers/global')
+const setting = require('../helpers/global');
+const Table = require('./table');
 
 class Room {
 
@@ -6,6 +7,11 @@ class Room {
         this._id = id;
         this.tables = [];
         this.type = type;
+        var tables = new Array();
+        for (let i = 0; i < setting.RoomConfig.tableNumber; i++) {
+            tables.push(new Table(i));
+        }
+        this.tables = tables;
     }
 
     static getDeaultRoomList() {

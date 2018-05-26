@@ -5,3 +5,15 @@ mixin room(room)
         if room.tables.length < 100
             button.room-card-botton join
         
+mixin connectedUser()
+    .connected-use-card Utenti connessi: 
+        span#connected-user-info 0
+
+mixin publicChat()
+    .chat-text-area#chat-text
+        | Hello!
+    form#chat-form
+        input.chat-input#chat-input(type='text' placeholder='Invia un messaggio agli altri utenti...')  
+
+mixin simpleDiv(data)
+    .simple-div= data

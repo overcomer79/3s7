@@ -3,12 +3,13 @@ const mathHelper = require('../helpers/math');
 class BaseUser {
 
     constructor(socket) {
-        // This will generate a alphanumeric string for the username of not login user player
-        
+        // This will generate a alphanumeric string for a rundom username (not registred players)
         this.username = 'DEMON_'
             + mathHelper.alphanumeric_unique().toUpperCase()
             + new Date().toLocaleDateString().replace(/-/g, '');
-                    
+        
+        this.color = 'hsla(' + (Math.random() * 360) + ', 80%, 30%, 1)';
+
         return this;
     }
     /*
@@ -26,14 +27,15 @@ class BaseUser {
 
     static onConnect(socket) {
         //console.log(socket);
-        this.userList[socket.id] = new BaseUser(socket.id).username;
-        console.log(this.userList);
+        BaseUser.userList[socket.id] = new BaseUser(socket.id);
+        console.log("Connected Base User: " + BaseUser.userList[socket.id]);
+        console.log(BaseUser.userList);
     }
 
     static onDisconnect(socket) 
     {       
-        delete this.userList[socket.id];
-        console.log(this.userList);
+        delete BaseUser.userList[socket.id];
+        console.log(BaseUser.userList);
     }
 }
 BaseUser.userList = {}

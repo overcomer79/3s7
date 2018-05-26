@@ -3,7 +3,50 @@ extends frontend-layout
 include includes/frontend/mixins
 
 append content
-    script.
-        const socket = io();
+    +connectedUser()
+    +publicChat()
     each room in data.rooms
-        +room(room)
+        +room(room)   
+    
+    script.
+        //users info
+        const numberOfUser = document.getElementById('connected-user-info');
+        
+        //chat
+        const chatText = document.getElementById('chat-text');
+        const chatInput = document.getElementById('chat-input');
+        const chatForm = document.getElementById('chat-form');
+
+        // rooms buttons
+        const firstButton = document.getElementsByClassName('room-card-botton')[0];
+
+        const socket = io('http://localhost:3000',{secure:false});
+
+        socket.on('ServerMsg', function (data) {
+            numberOfUser.innerHTML = data.numberOfUser;
+        });
+
+        firstButton.onclick = () => {
+            socket.emit('login', "tressette");
+            //socket.query.token = "JOIN";
+        }
+
+        chatForm.onsubmit = function(e){
+            e.preventDefault();
+            if(chatInput.value[0] === '/')
+                socket.emit('evalServer',chatInput.value.slice(1));
+            else
+                socket.emit('sendMsgToServer',chatInput.value);
+            chatInput.value = '';		
+        }
+
+        socket.on('addToChat',function(data){
+            chatText.innerHTML += '<div style="color:'+ data.color + '">'
+                + '<span style="font-size:12px;">' + data.playerName + ': </span><strong>' 
+                + data.text + '</strong></div>';
+            chatText.scrollTop = chatText.scrollHeight;
+        });
+
+        socket.on('evalAnswer',function(data){
+            console.log(data);
+        });
