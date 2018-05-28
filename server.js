@@ -1,11 +1,33 @@
-const http = require('http');
+const https = require('https');
+
+const fs = require('fs');
+const path = require('path');
+
 const app = require('./app');
 
-const server = http.createServer(app);
-const io = require('socket.io')(server, {});
+const httpsOptions = {
+    cert: fs.readFileSync(path.join(__dirname,'ssl', 'server.crt')),
+    key: fs.readFileSync(path.join(__dirname,'ssl', 'server.key')),
+}
+
+const server = https.createServer(httpsOptions, app);
+
+const io = require('socket.io')(server);
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT);
+
+// Redirect from http port 80 to https
+// to work https port need to be set to the standard 443
+/*
+const http = require('http');
+const httpServer = http.createServer(function (req, res) {
+    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+    res.end();
+})
+
+httpServer.listen(80);
+*/
 
 const SOCKET_LIST = {};
 const PLAYER_LIST = {};

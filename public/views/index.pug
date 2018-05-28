@@ -20,7 +20,7 @@ append content
         // rooms buttons
         const firstButton = document.getElementsByClassName('room-card-botton')[0];
 
-        const socket = io('http://localhost:3000',{secure:false});
+        const socket = io();
 
         socket.on('ServerMsg', function (data) {
             numberOfUser.innerHTML = data.numberOfUser;
