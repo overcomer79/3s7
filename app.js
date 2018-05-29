@@ -14,7 +14,7 @@ const orderRoutes = require('./routes/orders');
 const homeRoutes = require('./routes/home');
 
 
-mongoose.connect(costants.DBConnectionStrings.LOCAL);
+mongoose.connect(costants.DBConnectionStrings.ATLAS);
 
 mongoose.Promise = global.Promise;
 
