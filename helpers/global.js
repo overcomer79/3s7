@@ -12,6 +12,10 @@ const costants = Object.freeze({
 
     RoomConfig: {
         tableNumber: 20
+    },
+
+    BaseUserConfig:{
+        usernamePrefix: "DEMON"
     }
 
 });

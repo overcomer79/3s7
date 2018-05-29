@@ -1,11 +1,13 @@
 const mathHelper = require('../helpers/math');
+const constants = require('../helpers/global');
 
 class BaseUser {
 
     constructor(socketId) {
-        // This will generate a alphanumeric string for a rundom username (not registred players)
         this._id = socketId;
-        this.username = 'DEMON_'
+
+        // This will generate a alphanumeric string for a rundom username (not registred players)
+        this.username = constants.BaseUserConfig.usernamePrefix
             + mathHelper.alphanumeric_unique().toUpperCase()
             + new Date().toLocaleDateString().replace(/-/g, '');
 
@@ -39,7 +41,6 @@ class BaseUser {
         //console.log(BaseUser.userList);
     }
 }
-var person;
 BaseUser.userList = {};
 
 module.exports = BaseUser;
