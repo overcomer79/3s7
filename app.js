@@ -8,18 +8,14 @@ const morgan = require('morgan');
 const bodyParse = require('body-parser');
 const mongoose = require('mongoose');
 
+const costants = require('./helpers/global');
 const productRoutes = require('./routes/products');
 const orderRoutes = require('./routes/orders');
 const homeRoutes = require('./routes/home');
 
-mongoose.connect(
-    'mongodb+srv://nodejsApi:'
-    //'mongodb://nodejsApi:'
-    + process.env.MONGO_ATLAS_PASSWORD
-    + '@3s7-nfqmx.mongodb.net/test');
-    
-    //+ '@3s7-shard-00-00-nfqmx.mongodb.net:27017,3s7-shard-00-01-nfqmx.mongodb.net:27017,3s7-shard-00-02-nfqmx.mongodb.net:27017/test?ssl=true&replicaSet=3s7-shard-0&authSource=admin&retryWrites=true', {});
-    // 'mongodb://localhost/3s7'); //locale
+
+mongoose.connect(costants.DBConnectionStrings.LOCAL);
+
 mongoose.Promise = global.Promise;
 
 // Load View Engine

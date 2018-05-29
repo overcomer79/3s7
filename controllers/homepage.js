@@ -21,7 +21,6 @@ exports.landing = (req, res, next) => {
             delete socketList[socket.id];
             console.log(Object.keys(socketList));
             BaseUser.onDisconnect(socket);
-
         });
 
         socket.on('sendMsgToServer', function (data) {
