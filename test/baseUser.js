@@ -12,7 +12,7 @@ describe("#BaseUser Initial conditions", () => {
         _.isObject(new BaseUser(Math.random())).should.be.true;
     });
 
-    it('Base User "id" should be a finite number (not NaN, not infinite)', () => {
+    it('Base User "id" should be a finite number (not NaN nor Infinity)', () => {
         _.isFinite(new BaseUser(Math.random())._id).should.be.true;
     });
 
@@ -31,30 +31,51 @@ describe("#BaseUser Initial conditions", () => {
         (_.isString(user.color) && user.color.length > 0).should.be.true;
     });
 
+    describe("#userlist property", () => {
+        it('On startup should be empty', () => {
+            _.isEmpty(BaseUser.userList).should.be.true;
+        });
+    });
+
 });
 
+// BaseUser Static Methods
 describe('#BaseUser', () => {
-    describe("#userlist property", () =>{
-        it('On startup BaseUser list should be empty', () => {
-            _.isEmpty(BaseUser.userList).should.be.true;
-        });  
-    });
+
     describe("#onConnect", () => {
-        it("On connect Base User list size must increment by 1", () => {
-            var initialValue = _.size(BaseUser.userList);
-            BaseUser.onConnect(Math.random());
-            var finalValue = _.size(BaseUser.userList);
-            initialValue.should.equals(--finalValue);
+        it("Base User list size must increment by 1 in a 1000 sample size", () => {
+
+            const sample = Array(1000);
+            _.fill(sample, 0);
+
+            const onConnectSapmles = _.map(sample, item => {
+                BaseUser.onConnect({ id: Math.random() });
+                return _.size(BaseUser.userList);
+            });
+            const notConnecteddUser = _.filter(onConnectSapmles, (size, index) => {
+                return size !== index + 1
+                    || size === undefined;
+            })
+            BaseUser.userList = {};
+
+            notConnecteddUser.length.should.equals(0);
         });
     });
-    describe("#onConnect", () => {
-        it("On connect Base User list size must reduce by 1", () => {
-            var id = Math.random();
-            BaseUser.onConnect(id);
-            var initialValue = _.size(BaseUser.userList);
-            BaseUser.onDisconnect(id);
-            var finalValue = _.size(BaseUser.userList);
-            initialValue.should.equals(++finalValue);
+    describe("#onDisonnect", () => {
+        it("Base User list size must decrement by 1 in a 1000 sample size", () => {
+
+            const sample = Array(1000);
+            _.fill(sample, 0);
+
+            const onConnectSapmles = _.map(sample, item => {
+                var randomId = Math.random();
+                BaseUser.onConnect({ id: randomId });
+                return randomId;
+            });
+            _.forEach(onConnectSapmles, item => BaseUser.onDisconnect({ id: item }));
+
+            _.size(BaseUser.userList).should.equals(0);
         });
     });
+
 });
