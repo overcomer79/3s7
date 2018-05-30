@@ -13,9 +13,7 @@ const productRoutes = require('./routes/products');
 const orderRoutes = require('./routes/orders');
 const homeRoutes = require('./routes/home');
 
-
-mongoose.connect(costants.DBConnectionStrings.ATLAS);
-
+mongoose.connect(costants.DBConnectionStrings.LOCAL);
 mongoose.Promise = global.Promise;
 
 // Load View Engine
@@ -41,18 +39,17 @@ app.use((req, res, next) => {
  // Middlewere for public resource
  app.use(express.static(__dirname + '/public'));
  
+ // Others Middleware
  app.use('/', homeRoutes);
  app.use('/api/products', productRoutes);
  app.use('/api/orders', orderRoutes);
 
 //Error Handling
-
 app.use((req, res, next) => {
     const error = new Error('Not found');
     error.status = 404;
     next(error);
 });
-
 app.use((error, req, res, next) => {
     res.status(error.status || 500)
     res.json({

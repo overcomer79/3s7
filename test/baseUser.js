@@ -1,6 +1,6 @@
 const constants = require('../helpers/global'),
     log = console.log,
-    expect = require('chai').expect,
+    //expect = require('chai').expect,
     should = require('chai').should(),
     _ = require('lodash');
 
@@ -61,7 +61,7 @@ describe('#BaseUser', () => {
             notConnecteddUser.length.should.equals(0);
         });
     });
-    describe("#onDisonnect", () => {
+    describe("#onDisconnect", () => {
         it("Base User list size must decrement by 1 in a 1000 sample size", () => {
 
             const sample = Array(1000);

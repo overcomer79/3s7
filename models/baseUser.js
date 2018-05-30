@@ -16,10 +16,10 @@ class BaseUser {
         return this;
     }
     /*
-
+    
     login() {
         console.log(this.username, 'just logged in');
-    }
+    }  
     signUp() {
         console.log(this.username, 'just sign up');
     }

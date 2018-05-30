@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test/",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "coverage_all" : "istanbul cover ./node_modules/mocha/bin/_mocha --include-all-sources -x test/",
+    "coverage" : "istanbul cover ./node_modules/mocha/bin/_mocha test/ -x test/",
+    "showcoverage" : "start coverage/lcov-report/index.html"
   },
   "keywords": [
     "API",
@@ -26,6 +29,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "nodemon": "^1.17.4"
   }
