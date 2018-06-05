@@ -1,5 +1,5 @@
 const BaseUser = require('./baseUser');
 
-class Player extends BaseUser{
-
+class Player extends BaseUser {
+    
 }
