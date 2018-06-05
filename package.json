@@ -6,9 +6,9 @@
   "scripts": {
     "test": "mocha test/",
     "start": "nodemon server.js",
-    "coverage_all" : "istanbul cover ./node_modules/mocha/bin/_mocha --include-all-sources -x test/",
-    "coverage" : "istanbul cover ./node_modules/mocha/bin/_mocha test/ -x test/",
-    "showcoverage" : "start coverage/lcov-report/index.html"
+    "coverage_all": "istanbul cover ./node_modules/mocha/bin/_mocha --include-all-sources -x test/",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha test/ -x test/",
+    "showcoverage": "start coverage/lcov-report/index.html"
   },
   "keywords": [
     "API",
@@ -17,12 +17,16 @@
   "author": "eurekcode",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.2",
     "lodash": "^4.17.10",
-    "mongoose": "^5.1.2",
+    "mongoose": "^5.1.4",
     "morgan": "^1.9.0",
     "npm": "^6.1.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "pug": "^2.0.3",
     "pug-cli": "^1.0.0-alpha6",
     "socket.io": "^2.1.1"
@@ -31,6 +35,6 @@
     "chai": "^4.1.2",
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
-    "nodemon": "^1.17.4"
+    "nodemon": "^1.17.5"
   }
 }
