@@ -24,7 +24,6 @@
             ],
             "styles": [
               "src/resources/css/sketchy-bootstrap.min.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -73,7 +72,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": [  
+            "styles": [
               "src/styles.css"
             ],
             "scripts": [],
