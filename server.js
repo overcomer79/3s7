@@ -12,7 +12,7 @@ const httpsOptions = {
 
 const server = https.createServer(httpsOptions, app);
 
-const io = require('socket.io')(server);
+const io = require('./socket').listen(server);
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT);

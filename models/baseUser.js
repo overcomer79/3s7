@@ -1,21 +1,21 @@
-const mathHelper = require('../helpers/math');
-const constants = require('../helpers/global');
+const mathHelper = require("../helpers/math");
+const constants = require("../helpers/global");
 
 class BaseUser {
+  constructor(socketId) {
+    this._id = socketId;
 
-    constructor(socketId) {
-        this._id = socketId;
+    // This will generate a alphanumeric string for a rundom username (not registred players)
+    this.username =
+      constants.BaseUserConfig.usernamePrefix +
+      mathHelper.alphanumeric_unique().toUpperCase() +
+      new Date().toLocaleDateString().replace(/-/g, "");
 
-        // This will generate a alphanumeric string for a rundom username (not registred players)
-        this.username = constants.BaseUserConfig.usernamePrefix
-            + mathHelper.alphanumeric_unique().toUpperCase()
-            + new Date().toLocaleDateString().replace(/-/g, '');
+    this.color = "hsla(" + Math.random() * 360 + ", 80%, 30%, 1)";
 
-        this.color = 'hsla(' + (Math.random() * 360) + ', 80%, 30%, 1)';
-
-        return this;
-    }
-    /*
+    return this;
+  }
+  /*
     
     login() {
         console.log(this.username, 'just logged in');
@@ -28,18 +28,25 @@ class BaseUser {
     }
     */
 
-    static onConnect(socket) {
-        BaseUser.userList[socket.id] = new BaseUser(socket.id);
-        /*
-        console.log("Connected Base User: " + BaseUser.userList[socket.id]);
-        console.log(BaseUser.userList);
-        */
-    }
+  static onConnect(socket, room, pack) {
+    console.log("utente connesso...");
+    BaseUser.userList[socket.id] = new BaseUser(socket.id);
+    pack.numberOfUser = room.length;
+  }
 
-    static onDisconnect(socket) {
-        delete BaseUser.userList[socket.id];
-        //console.log(BaseUser.userList);
-    }
+  static onDisconnect(socket, room, pack) {
+    console.log("utente ha abbandonato la pagina...");
+    delete BaseUser.userList[socket.id];
+    pack.numberOfUser = room.length;
+  }
+
+  sendChatMessage(io, room, data) {
+    io.in(room).emit("addToChat", {
+      playerName: this.username,
+      color: this.color,
+      text: data
+    });
+  }
 }
 BaseUser.userList = {};
 

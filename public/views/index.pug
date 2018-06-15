@@ -23,6 +23,7 @@ append content
         const socket = io();
 
         socket.on('ServerMsg', function (data) {
+            //console.log(data);
             numberOfUser.innerHTML = data.numberOfUser;
         });
 
