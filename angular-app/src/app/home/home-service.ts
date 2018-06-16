@@ -17,7 +17,6 @@ export class HomeService {
         });
 
         return observable;
-
     }
 
 }

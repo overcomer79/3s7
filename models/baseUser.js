@@ -10,7 +10,7 @@ class BaseUser {
       constants.BaseUserConfig.usernamePrefix +
       mathHelper.alphanumeric_unique().toUpperCase() +
       new Date().toLocaleDateString().replace(/-/g, "");
-
+      
     this.color = "hsla(" + Math.random() * 360 + ", 80%, 30%, 1)";
 
     return this;
@@ -29,18 +29,20 @@ class BaseUser {
     */
 
   static onConnect(socket, room, pack) {
-    console.log("utente connesso...");
-    BaseUser.userList[socket.id] = new BaseUser(socket.id);
+    const newUser = new BaseUser(socket.id);
+    BaseUser.userList[socket.id] = newUser;
+    console.log("utente ",newUser.username, " si è connesso...");
     pack.numberOfUser = room.length;
   }
 
   static onDisconnect(socket, room, pack) {
-    console.log("utente ha abbandonato la pagina...");
+    console.log("utente ",BaseUser.userList[socket.id].username," ha abbandonato la pagina...");
     delete BaseUser.userList[socket.id];
     pack.numberOfUser = room.length;
   }
 
   sendChatMessage(io, room, data) {
+    if (data.trim() === '') return;
     io.in(room).emit("addToChat", {
       playerName: this.username,
       color: this.color,
