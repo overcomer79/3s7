@@ -1,17 +1,19 @@
-const https = require('https');
+//const https = require('https');
+const http = require('http');
 
 const fs = require('fs');
 const path = require('path');
 
 const app = require('./app');
-
+/*
 const httpsOptions = {
     cert: fs.readFileSync(path.join(__dirname,'ssl', 'server.crt')),
     key: fs.readFileSync(path.join(__dirname,'ssl', 'server.key')),
 }
 
 const server = https.createServer(httpsOptions, app);
-
+*/
+const server = http.createServer(app);
 const io = require('./socket').listen(server);
 
 const PORT = process.env.PORT || 3000;
@@ -30,7 +32,6 @@ httpServer.listen(80);
 */
 
 const SOCKET_LIST = {};
-const PLAYER_LIST = {};
 
 module.exports.server = server;
 module.exports.SOCKET_LIST = SOCKET_LIST;

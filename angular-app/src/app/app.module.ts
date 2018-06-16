@@ -12,6 +12,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
+import { UtentiConnessiBadgeComponent } from './home/utenti-connessi-badge/utenti-connessi-badge.component';
+import { ChatComponent } from './home/chat/chat.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,7 +32,9 @@ const appRoutes: Routes = [
     DashboardComponent,
     LoginComponent,
     ProfileComponent,
-    RegisterComponent
+    RegisterComponent,
+    UtentiConnessiBadgeComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
