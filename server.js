@@ -1,19 +1,17 @@
-//const https = require('https');
-const http = require('http');
+const https = require('https');
 
 const fs = require('fs');
 const path = require('path');
 
 const app = require('./app');
-/*
+
 const httpsOptions = {
     cert: fs.readFileSync(path.join(__dirname,'ssl', 'server.crt')),
     key: fs.readFileSync(path.join(__dirname,'ssl', 'server.key')),
 }
 
 const server = https.createServer(httpsOptions, app);
-*/
-const server = http.createServer(app);
+
 const io = require('./socket').listen(server);
 
 const PORT = process.env.PORT || 3000;

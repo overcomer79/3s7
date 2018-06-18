@@ -10,10 +10,9 @@ module.exports.listen = http => {
   socketIO = io.listen(http);
 
   socketIO.on("connection", socket => {
-      
     socket.join(mainRoom);
     const room = socketIO.nsps["/"].adapter.rooms[mainRoom];
-    BaseUser.onConnect(socket, room, pack);
+    BaseUser.onConnect(socket, mainRoom, room, pack);
 
     socket.on("sendMsgToServer", data => {
       BaseUser.userList[socket.id].sendChatMessage(socketIO, mainRoom, data);

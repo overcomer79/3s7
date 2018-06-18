@@ -1,3 +1,7 @@
-:host{
-    float: right;
+:host {
+  float: right;
+}
+
+small {
+  margin-right: 1rem;
 }
