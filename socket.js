@@ -13,9 +13,19 @@ module.exports.listen = http => {
     socket.join(mainRoom);
     const room = socketIO.nsps["/"].adapter.rooms[mainRoom];
     BaseUser.onConnect(socket, mainRoom, room, pack);
-
+    /*
     socket.on("sendMsgToServer", data => {
       BaseUser.userList[socket.id].sendChatMessage(socketIO, mainRoom, data);
+    });
+    */
+
+    socket.on("message", function(data) {
+      BaseUser.userList[socket.id].sendChatMessage(
+        socketIO,
+        data.room,
+        data.message
+      );
+      //io.in(data.room).emit('new message', {user:data.user, message:data.message});
     });
 
     socket.on("evalServer", data => {
@@ -27,7 +37,7 @@ module.exports.listen = http => {
 
     socket.on("disconnect", () => {
       socket.leave(mainRoom);
-      BaseUser.onDisconnect(socket, room, pack);
+      BaseUser.onDisconnect(socket, mainRoom, room, pack);
     });
   });
 

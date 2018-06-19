@@ -7,16 +7,25 @@
     </div>
     <div class="title">Chat</div>
   </div>
-  <ul class="messages appeared">
-      <li *ngFor="let message of messageArray">
-          {{message.user}} {{message.message}}
-      </li>
+  <ul class="messages appeared" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+    <li *ngFor="let message of messageArray" class="message" [ngClass]="message.type">
+      <div *ngIf="message.type === 'info'">
+          <small class="text" [style.color]="message.color">{{message.user}} {{message.message}}</small>
+      </div>
+      <div *ngIf="message.type === 'left' || message.type === 'right'">
+        <div class="avatar"></div>
+        <div class="text_wrapper">
+          <div><small class="text-muted"> {{message.date}} </small></div>
+          <span class="text" [style.color]="message.color" >{{message.user}}:</span> {{message.message}}
+        </div>
+      </div>
+    </li>
   </ul>
   <div class="bottom_wrapper clearfix">
     <div class="message_input_wrapper">
-      <input class="message_input" placeholder="Type your message here..." />
+      <input [(ngModel)]="messageText" (Keyup.enter)="sendMessage()" class="message_input" placeholder="Type your message here..." />
     </div>
-    <div class="send_message">
+    <div (click)="sendMessage()" class="send_message" >
       <div class="icon"></div>
       <div class="text">Send</div>
     </div>

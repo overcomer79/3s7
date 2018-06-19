@@ -15,48 +15,40 @@ class BaseUser {
 
     return this;
   }
-  /*
-    
-    login() {
-        console.log(this.username, 'just logged in');
-    }  
-    signUp() {
-        console.log(this.username, 'just sign up');
-    }
-    HostLogin() {
-        console.log(this.username, 'just host-logged in');
-    }
-    */
 
   static onConnect(socket, roomName, room, pack) {
     const newUser = new BaseUser(socket.id);
     BaseUser.userList[socket.id] = newUser;
     console.log("utente ", newUser.username, " si è connesso...");
     pack.numberOfUser = room.length;
-    socket
-      .emit("connected user", { user: newUser });
-    socket
-      .broadcast.to(roomName)
-      .emit('new user joined', {user: newUser.username, message:'has joined this room.'});
-  
-    }
+    socket.emit("connected user", { user: newUser });
+    socket.broadcast.to(roomName).emit("new user joined", {
+      user: newUser.username,
+      message: "è entrato nella stanza..."
+    });
+  }
 
-  static onDisconnect(socket, room, pack) {
+  static onDisconnect(socket, roomName, room, pack) {
     console.log(
       "utente ",
       BaseUser.userList[socket.id].username,
       " ha abbandonato la pagina..."
     );
+    socket.broadcast.to(roomName).emit("left room", {
+      user: BaseUser.userList[socket.id].username,
+      message: "ha abbandonato la stanza..."
+    });
     delete BaseUser.userList[socket.id];
     pack.numberOfUser = room.length;
   }
 
   sendChatMessage(io, room, data) {
-    if (data.trim() === "") return;
+    if (!data || data.trim() === "") return;
     io.in(room).emit("addToChat", {
-      playerName: this.username,
+      user: this.username,
       color: this.color,
-      text: data
+      message: data,
+      date: new Date()
     });
   }
 }
