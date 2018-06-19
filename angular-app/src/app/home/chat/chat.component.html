@@ -15,19 +15,19 @@
       <div *ngIf="message.type === 'left' || message.type === 'right'">
         <div class="avatar"></div>
         <div class="text_wrapper">
-          <div><small class="text-muted"> {{message.date}} </small></div>
-          <span class="text" [style.color]="message.color" >{{message.user}}:</span> {{message.message}}
+          <div class="text-muted date"> {{message.date | date:"HH:mm:ss  dd/MM/yyyy"}} </div>
+          <span class="text" [style.color]="message.color" >{{message.user}}:</span> <span class="text"> {{message.message}} </span>
         </div>
       </div>
     </li>
   </ul>
   <div class="bottom_wrapper clearfix">
     <div class="message_input_wrapper">
-      <input [(ngModel)]="messageText" (Keyup.enter)="sendMessage()" class="message_input" placeholder="Type your message here..." />
+      <input [(ngModel)]="messageText" (Keyup.enter)="sendMessage()" class="message_input" placeholder="Scrivi il tuo messaggio qui..." />
     </div>
     <div (click)="sendMessage()" class="send_message" >
       <div class="icon"></div>
-      <div class="text">Send</div>
+      <div class="text">Invia</div>
     </div>
   </div>
 </div>
