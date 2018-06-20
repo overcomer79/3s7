@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { HomeService } from "../../home/home-service";
+// import { HomeService } from "../../home/home-service";
+import { ChatService } from "./chat.service";
 
 @Component({
   selector: "app-chat",
@@ -8,6 +9,7 @@ import { HomeService } from "../../home/home-service";
   providers: []
 })
 export class ChatComponent implements OnInit {
+  room: "app";
   user: String;
   messageText: String;
   messageArray: Array<{
@@ -18,10 +20,10 @@ export class ChatComponent implements OnInit {
     type: string;
   }> = [];
 
-  constructor(private _homeService: HomeService) {}
+  constructor(private _chatService: ChatService) {}
 
   ngOnInit() {
-    this._homeService.newUserJoined().subscribe(data => {
+    this._chatService.roomJoins.subscribe(data => {
       this.messageArray.push({
         user: data.user,
         color: "#a3d063",
@@ -30,17 +32,17 @@ export class ChatComponent implements OnInit {
         type: "info"
       });
     });
-
-    this._homeService.userLeftRoom().subscribe(data => {
+    this._chatService.roomLeaves.subscribe(data => {
       this.messageArray.push({
         user: data.user,
         color: "#f5886e",
         message: data.message,
         date: new Date(),
-        type: 'info'
+        type: "info"
       });
     });
 
+    /*
     this._homeService.newMessageReceived().subscribe(data => {
       this.messageArray.push({
         user: data.user,
@@ -54,7 +56,10 @@ export class ChatComponent implements OnInit {
     this._homeService.getUserName().subscribe(data => {
       this.user = data;
     });
+    */
   }
+
+  /*
   sendMessage() {
     this._homeService.sendMessage({
       room: "app",
@@ -62,5 +67,12 @@ export class ChatComponent implements OnInit {
     });
     this.messageText = "";
   }
-
+  */
+  sendMessage() {
+    this._chatService.sendMsg({
+      room: this.room,
+      message: this.messageText
+    });
+    this.messageText = "";
+  }
 }

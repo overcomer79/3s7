@@ -20,7 +20,7 @@ class BaseUser {
     const newUser = new BaseUser(socket.id);
     BaseUser.userList[socket.id] = newUser;
     console.log("utente ", newUser.username, " si è connesso...");
-    pack.numberOfUser = room.length;
+    pack.connectedUsersInfo.numberOfUser = room.length;
     socket.emit("connected user", { user: newUser });
     socket.broadcast.to(roomName).emit("new user joined", {
       user: newUser.username,
@@ -39,7 +39,7 @@ class BaseUser {
       message: "ha abbandonato la stanza..."
     });
     delete BaseUser.userList[socket.id];
-    pack.numberOfUser = room.length;
+    pack.connectedUsersInfo.numberOfUser = room.length;
   }
 
   sendChatMessage(io, room, data) {

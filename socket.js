@@ -3,7 +3,11 @@ const BaseUser = require("./models/baseUser");
 
 const DEBUG = true;
 
-const pack = {};
+const pack = {
+  connectedUsersInfo: {
+    numberOfUser: 0
+  }
+};
 const mainRoom = "app";
 
 module.exports.listen = http => {
@@ -13,11 +17,6 @@ module.exports.listen = http => {
     socket.join(mainRoom);
     const room = socketIO.nsps["/"].adapter.rooms[mainRoom];
     BaseUser.onConnect(socket, mainRoom, room, pack);
-    /*
-    socket.on("sendMsgToServer", data => {
-      BaseUser.userList[socket.id].sendChatMessage(socketIO, mainRoom, data);
-    });
-    */
 
     socket.on("message", function(data) {
       BaseUser.userList[socket.id].sendChatMessage(
@@ -25,7 +24,6 @@ module.exports.listen = http => {
         data.room,
         data.message
       );
-      //io.in(data.room).emit('new message', {user:data.user, message:data.message});
     });
 
     socket.on("evalServer", data => {

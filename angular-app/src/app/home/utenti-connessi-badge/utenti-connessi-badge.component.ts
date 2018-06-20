@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { HomeService } from "../home-service";
+import { UtentiConnessiBadgeService } from "./utenti-connessi-badge.service";
 
 @Component({
   selector: "app-utenti-connessi-badge",
@@ -8,19 +8,18 @@ import { HomeService } from "../home-service";
   providers: []
 })
 export class UtentiConnessiBadgeComponent implements OnInit {
-  utentiConnessi = 0;
-  myUserName: String = "";
+  utentiConnessi: number;
+  myUserName: String;
 
-  constructor(private _homeService: HomeService) {}
+  constructor(private _utentiConnessiSrv: UtentiConnessiBadgeService) {}
 
   ngOnInit() {
-    this._homeService
-      .newUserConnected()
-      .subscribe(data => (this.utentiConnessi = data));
+    this._utentiConnessiSrv.usersInfo.subscribe(data => {
+      this.utentiConnessi = data.numberOfUser;
+    });
 
-    this._homeService
-      .getUserName()
-      .subscribe(data => (this.myUserName = data));
-
+    this._utentiConnessiSrv.connectedUser.subscribe(data => {
+      this.myUserName = data;
+    });
   }
 }
