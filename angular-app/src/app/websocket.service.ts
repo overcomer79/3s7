@@ -25,7 +25,7 @@ export class WebsocketService {
 
   connectedUser(): Observable<any> {
     const observable = new Observable<String>(observer => {
-      this.socket.on("connected user", (data) => {
+      this.socket.on("connected user", data => {
         observer.next(data.user.username);
       });
       return () => {
@@ -59,10 +59,9 @@ export class WebsocketService {
     return observable;
   }
 
-  chat(): Subject<MessageEvent> {
-    const observable = new Observable(obs => {
-      this.socket.on("message", data => {
-        console.log("Received message from Websocket Server");
+  evalLog(): Subject<MessageEvent> {
+    const observable = new Observable<any>(obs => {
+      this.socket.on("evalAnswer", data => {
         obs.next(data);
       });
       return () => {
@@ -72,7 +71,31 @@ export class WebsocketService {
 
     const observer = {
       next: (data: Object) => {
-        this.socket.emit("message", JSON.stringify(data));
+        this.socket.emit("evalServer", data);
+      }
+    };
+    return Subject.create(observer, observable);
+
+  }
+
+  chat(): Subject<MessageEvent> {
+   const observable = new Observable<{
+      user: String;
+      color: String;
+      message: String;
+      date: Date;
+    }>(obs => {
+      this.socket.on("addToChat", data => {
+        obs.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+
+    const observer = {
+      next: (data: Object) => {
+        this.socket.emit("message", data);
       }
     };
     return Subject.create(observer, observable);

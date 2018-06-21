@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-// import { HomeService } from "../../home/home-service";
 import { ChatService } from "./chat.service";
 
 @Component({
@@ -9,6 +8,7 @@ import { ChatService } from "./chat.service";
   providers: []
 })
 export class ChatComponent implements OnInit {
+
   room: "app";
   user: String;
   messageText: String;
@@ -41,9 +41,7 @@ export class ChatComponent implements OnInit {
         type: "info"
       });
     });
-
-    /*
-    this._homeService.newMessageReceived().subscribe(data => {
+    this._chatService.messages.subscribe(data => {
       this.messageArray.push({
         user: data.user,
         color: data.color,
@@ -53,24 +51,18 @@ export class ChatComponent implements OnInit {
       });
     });
 
-    this._homeService.getUserName().subscribe(data => {
+    this._chatService.connectedUser.subscribe(data => {
       this.user = data;
     });
-    */
+
+    this._chatService.evalMessages.subscribe(data => {
+      console.log(data);
+    });
   }
 
-  /*
-  sendMessage() {
-    this._homeService.sendMessage({
-      room: "app",
-      message: this.messageText
-    });
-    this.messageText = "";
-  }
-  */
   sendMessage() {
     this._chatService.sendMsg({
-      room: this.room,
+      room: "app",
       message: this.messageText
     });
     this.messageText = "";

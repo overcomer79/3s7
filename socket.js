@@ -29,7 +29,11 @@ module.exports.listen = http => {
     socket.on("evalServer", data => {
       console.log("----- FROM CLIENT: TEXT TO EVAL -------");
       if (!DEBUG) return;
-      var res = eval(data);
+      try {
+        var res = eval(data);
+      } catch(err) {
+        res = { message: "nothing to eval", error: err };
+      }
       socket.emit("evalAnswer", res);
     });
 

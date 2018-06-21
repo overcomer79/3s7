@@ -8,8 +8,8 @@ import { UtentiConnessiBadgeService } from "./utenti-connessi-badge.service";
   providers: []
 })
 export class UtentiConnessiBadgeComponent implements OnInit {
-  utentiConnessi: number;
-  myUserName: String;
+  utentiConnessi = 0;
+  myUserName = '';
 
   constructor(private _utentiConnessiSrv: UtentiConnessiBadgeService) {}
 

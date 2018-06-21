@@ -9,23 +9,6 @@ import { Observable } from "rxjs";
 export class HomeService {
   private socket = io("https://172.23.1.164:3000", { secure: true });
 
-  /*
-  newUserJoined() {
-    const observable = new Observable<{ user: String; message: String }>(
-      observer => {
-        this.socket.on("new user joined", data => {
-          observer.next(data);
-        });
-        return () => {
-          this.socket.disconnect();
-        };
-      }
-    );
-
-    return observable;
-  }
-  */
-
   sendMessage(data) {
     this.socket.emit("message", data);
   }
