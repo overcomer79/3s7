@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { WebsocketService } from "../../websocket.service";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
+import { LogMessage } from "../../../../../shared/models/socket_messages/logMessage";
 
 @Injectable({
   providedIn: "root"
@@ -9,8 +10,8 @@ import { Subject } from "rxjs/Subject";
 export class ChatService {
   messages: Subject<any>;
   evalMessages: Subject<any>;
-  roomJoins: Observable<any>;
-  roomLeaves: Observable<any>;
+  roomJoins: Observable<LogMessage>;
+  roomLeaves: Observable<LogMessage>;
   connectedUser: Observable<any>;
 
   // Our constructor calls our wsService connect method
@@ -27,13 +28,13 @@ export class ChatService {
       }
     );
 
-    this.roomJoins = <Observable<any>>_wsService.userJoinRoom().map(
+    this.roomJoins = <Observable<LogMessage>>_wsService.userJoinRoom().map(
       (response: any): any => {
         return response;
       }
     );
 
-    this.roomLeaves = <Observable<any>>_wsService.userLeftRoom().map(
+    this.roomLeaves = <Observable<LogMessage>>_wsService.userLeftRoom().map(
       (response: any): any => {
         return response;
       }
