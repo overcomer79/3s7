@@ -6,8 +6,8 @@ import app from "./app";
 import * as io from './socket';
 
 const httpsOptions: ServerOptions = {
-  cert: fs.readFileSync(path.join(__dirname, "../ssl", "server.crt")),
-  key: fs.readFileSync(path.join(__dirname, "../ssl", "server.key"))
+  cert: fs.readFileSync(path.join(__dirname, "../../ssl", "server.crt")),
+  key: fs.readFileSync(path.join(__dirname, "../../ssl", "server.key"))
 };
 
 const server: https.Server = https.createServer(httpsOptions, app);

@@ -1,6 +1,6 @@
 import * as io from "socket.io";
 import { Server } from "https";
-import BaseUser from "../shared/models/baseUser";
+import { BaseUser } from "../shared/models/baseUser";
 
 const DEBUG = true;
 const mainRoom = "app";

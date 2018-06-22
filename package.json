@@ -2,10 +2,10 @@
   "name": "nodejsapi",
   "version": "1.0.0",
   "description": "API RESTful project",
-  "main": "index.js",
+  "main": "",
   "scripts": {
     "test": "mocha test/",
-    "start": "nodemon dist/server.js",
+    "start": "nodemon node dist/src/server.js",
     "coverage_all": "istanbul cover ./node_modules/mocha/bin/_mocha --include-all-sources -x test/",
     "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha test/ -x test/",
     "showcoverage": "start coverage/lcov-report/index.html"
