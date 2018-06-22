@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ChatService } from "./chat.service";
+import { LogMessage } from "../../../../../shared/models/socket_messages/logMessage";
 
 @Component({
   selector: "app-chat",
@@ -8,7 +9,6 @@ import { ChatService } from "./chat.service";
   providers: []
 })
 export class ChatComponent implements OnInit {
-
   room: "app";
   user: String;
   messageText: String;
@@ -23,18 +23,18 @@ export class ChatComponent implements OnInit {
   constructor(private _chatService: ChatService) {}
 
   ngOnInit() {
-    this._chatService.roomJoins.subscribe(data => {
+    this._chatService.roomJoins.subscribe((data: LogMessage) => {
       this.messageArray.push({
-        user: data.user,
+        user: data.user.username,
         color: "#a3d063",
         message: data.message,
         date: new Date(),
         type: "info"
       });
     });
-    this._chatService.roomLeaves.subscribe(data => {
+    this._chatService.roomLeaves.subscribe((data: LogMessage) => {
       this.messageArray.push({
-        user: data.user,
+        user: data.user.username,
         color: "#f5886e",
         message: data.message,
         date: new Date(),

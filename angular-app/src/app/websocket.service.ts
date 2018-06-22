@@ -4,6 +4,9 @@ import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 import { environment } from "../environments/environment";
 import "rxjs/add/operator/map";
+import { MessagePack } from '../../../shared/models/socket_messages/messagePack';
+import { ConnectedUsersInfo } from "../../../shared/models/connectedUsersInfo";
+import { LogMessage } from "../../../shared/models/socket_messages/logMessage";
 
 @Injectable({
   providedIn: "root"
@@ -11,10 +14,10 @@ import "rxjs/add/operator/map";
 export class WebsocketService {
   private socket = io(environment.ws_url, { secure: true });
 
-  connectedUsersInfo(): Observable<any> {
-    const observable = new Observable<any>(observer => {
-      this.socket.on("ServerMsg", data => {
-        observer.next(data.connectedUsersInfo);
+  connectedUsersInfo(): Observable<ConnectedUsersInfo> {
+    const observable = new Observable<ConnectedUsersInfo>(observer => {
+      this.socket.on("ServerMsg", (data: MessagePack) => {
+        observer.next(data.usersInfo);
       });
       return () => {
         this.socket.disconnect();
@@ -35,9 +38,9 @@ export class WebsocketService {
     return observable;
   }
 
-  userJoinRoom(): Observable<any> {
-    const observable = new Observable<any>(observer => {
-      this.socket.on("new user joined", data => {
+  userJoinRoom(): Observable<LogMessage> {
+    const observable = new Observable<LogMessage>(observer => {
+      this.socket.on("new user joined", (data: LogMessage) => {
         observer.next(data);
       });
       return () => {
@@ -47,9 +50,9 @@ export class WebsocketService {
     return observable;
   }
 
-  userLeftRoom(): Observable<any> {
-    const observable = new Observable<any>(observer => {
-      this.socket.on("left room", data => {
+  userLeftRoom(): Observable<LogMessage> {
+    const observable = new Observable<LogMessage>(observer => {
+      this.socket.on("left room", (data: LogMessage) => {
         observer.next(data);
       });
       return () => {

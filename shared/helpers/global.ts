@@ -1,9 +1,11 @@
+import { LogMessage } from "../models/socket_messages/logMessage";
+
 const costants = Object.freeze({
   DBConnectionStrings: Object.freeze({
     LOCAL: "mongodb://localhost/3s7",
     ATLAS:
       "mongodb+srv://nodejsApi:" +
-      process.env.MONGO_ATLAS_PASSWORD +
+      //process.env.MONGO_ATLAS_PASSWORD +
       "@3s7-nfqmx.mongodb.net/test"
   }),
 
@@ -18,7 +20,12 @@ const costants = Object.freeze({
 
   BaseUserConfig: {
     usernamePrefix: "DEMON"
-  }
+  },
+
+  LogMessages: Object.freeze({
+    ROOM_JOINED: "è entrato nella stanza...",
+    ROOM_LEFT: "ha abbandonato la stanza..."
+  }),
 });
 
 export { costants };
