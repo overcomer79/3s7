@@ -3,8 +3,8 @@ import { alphanumericUnique } from "../helpers/math";
 
 class Visitor {
   protected _id: string;
-  protected username: string;
-  protected color: string;
+  public username: string;
+  public color: string;
 
   constructor(id: string) {
     this._id = id;

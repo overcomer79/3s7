@@ -1,25 +1,22 @@
 import * as io from "socket.io";
 import { Server } from "https";
 import { ConnectedVisitor } from "./models/connectedVisitors";
+import { MessagePack } from "../shared/models/socket_messages/messagePack";
 
-const DEBUG = true;
-const mainRoom = "app";
+const DEBUG: boolean = true;
+const mainRoom: string = "app";
 
-const pack = {
-  connectedUsersInfo: {
-    numberOfUser: 0
-  }
-};
+const pack: MessagePack = new MessagePack();
 
 let listen = (server: Server) => {
-  const socketIO = io.listen(server);
+  const socketIO: SocketIO.Server = io.listen(server);
 
-  socketIO.on("connection", socket => {
+  socketIO.on("connection", (socket: SocketIO.Socket) => {
     socket.join(mainRoom);
-    const room = socketIO.nsps["/"].adapter.rooms[mainRoom];
+    const room= socketIO.nsps["/"].adapter.rooms[mainRoom];
     ConnectedVisitor.onConnect(socket, mainRoom, room, pack);
 
-    socket.on("message", function(data) {
+    socket.on("message", data => {
       ConnectedVisitor.connectedVisitorsList[socket.id].sendChatMessage(
         socketIO,
         data.room,
@@ -31,7 +28,7 @@ let listen = (server: Server) => {
       console.log("----- FROM CLIENT: TEXT TO EVAL -------");
       if (!DEBUG) return;
       try {
-        var res = eval(data);
+        var res: any = eval(data);
       } catch (err) {
         res = { message: "nothing to eval", error: err };
       }

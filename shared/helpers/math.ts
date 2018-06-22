@@ -2,7 +2,7 @@ let alphanumericUnique = () => {
   return Math.random()
     .toString(36)
     .split("")
-    .filter(function(value, index, self) {
+    .filter((value, index, self) => {
       return self.indexOf(value) === index;
     })
     .join("")
