@@ -7,6 +7,6 @@ let alphanumericUnique = () => {
     })
     .join("")
     .substr(2, 8);
-}
+};
 
 export { alphanumericUnique };

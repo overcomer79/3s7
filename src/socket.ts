@@ -1,6 +1,6 @@
 import * as io from "socket.io";
 import { Server } from "https";
-import { BaseUser } from "../shared/models/baseUser";
+import { ConnectedVisitor } from "./models/connectedVisitors";
 
 const DEBUG = true;
 const mainRoom = "app";
@@ -17,10 +17,10 @@ let listen = (server: Server) => {
   socketIO.on("connection", socket => {
     socket.join(mainRoom);
     const room = socketIO.nsps["/"].adapter.rooms[mainRoom];
-    BaseUser.onConnect(socket, mainRoom, room, pack);
+    ConnectedVisitor.onConnect(socket, mainRoom, room, pack);
 
     socket.on("message", function(data) {
-      BaseUser.userList[socket.id].sendChatMessage(
+      ConnectedVisitor.connectedVisitorsList[socket.id].sendChatMessage(
         socketIO,
         data.room,
         data.message
@@ -40,7 +40,7 @@ let listen = (server: Server) => {
 
     socket.on("disconnect", () => {
       socket.leave(mainRoom);
-      BaseUser.onDisconnect(socket, mainRoom, room, pack);
+      ConnectedVisitor.onDisconnect(socket, mainRoom, room, pack);
     });
   });
 

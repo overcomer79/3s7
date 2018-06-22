@@ -1,23 +1,15 @@
-class BaseUser {
-  private _id: string;
-  private username: string;
-  private color: string;
+import { Visitor } from "../../shared/models/visitor";
 
-  public static userList = {};
-
+class ConnectedVisitor extends Visitor {
+  static connectedVisitorsList: Array<ConnectedVisitor> = [];
   constructor(socketId: string) {
-    this._id = socketId;
-
-    this.username = "DEMON";
-
-    this.color = "hsla(" + Math.random() * 360 + ", 80%, 30%, 1)";
-
+    super(socketId);
     return this;
   }
 
   static onConnect(socket, roomName, room, pack) {
-    const newUser = new BaseUser(socket.id);
-    BaseUser.userList[socket.id] = newUser;
+    const newUser = new ConnectedVisitor(socket.id);
+    ConnectedVisitor.connectedVisitorsList[socket.id] = newUser;
     console.log("utente ", newUser.username, " si è connesso...");
     pack.connectedUsersInfo.numberOfUser = room.length;
     socket.emit("connected user", { user: newUser });
@@ -30,14 +22,14 @@ class BaseUser {
   static onDisconnect(socket, roomName, room, pack) {
     console.log(
       "utente ",
-      BaseUser.userList[socket.id].username,
+      ConnectedVisitor.connectedVisitorsList[socket.id].username,
       " ha abbandonato la pagina..."
     );
     socket.broadcast.to(roomName).emit("left room", {
-      user: BaseUser.userList[socket.id].username,
+      user: ConnectedVisitor.connectedVisitorsList[socket.id].username,
       message: "ha abbandonato la stanza..."
     });
-    delete BaseUser.userList[socket.id];
+    delete ConnectedVisitor.connectedVisitorsList[socket.id];
     pack.connectedUsersInfo.numberOfUser = room.length;
   }
 
@@ -52,4 +44,4 @@ class BaseUser {
   }
 }
 
-export {BaseUser}
+export { ConnectedVisitor };
