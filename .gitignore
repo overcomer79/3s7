@@ -3,3 +3,4 @@ coverage/
 .vscode/
 team-extension.log
 dist/
+config/keys.js
