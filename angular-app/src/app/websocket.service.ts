@@ -53,6 +53,7 @@ export class WebsocketService {
   userLeftRoom(): Observable<LogMessage> {
     const observable = new Observable<LogMessage>(observer => {
       this.socket.on("left room", (data: LogMessage) => {
+        console.log(data);
         observer.next(data);
       });
       return () => {
