@@ -19,7 +19,7 @@ class ConnectedVisitor extends Visitor {
   ) {
     const visitor: ConnectedVisitor = new ConnectedVisitor(socket.id);
     ConnectedVisitor.connectedVisitorsList[socket.id] = visitor;
-    console.log("utente ", visitor.username, " si è connesso...");
+    console.log("utente", visitor.username, "si è connesso...");
     pack.usersInfo.numberOfUser = room.length;
     socket.emit("connected user", { user: visitor });
     socket.broadcast
@@ -49,7 +49,7 @@ class ConnectedVisitor extends Visitor {
       .emit(
         "left room",
         new LogMessage(
-          ConnectedVisitor.connectedVisitorsList[socket.id].username,
+          ConnectedVisitor.connectedVisitorsList[socket.id],
           Global.costants.LogMessages.ROOM_LEFT
         )
       );
