@@ -1,5 +1,4 @@
 const express = require("express");
-const app = express();
 const router = express.Router();
 
 const path = require("path");
@@ -8,7 +7,6 @@ const morgan = require("morgan");
 const bodyParse = require("body-parser");
 const mongoose = require("mongoose");
 
-const costants = require("./helpers/global");
 const passportSetup = require("./config/passport");
 
 const productRoutes = require("./routes/products");
@@ -16,13 +14,18 @@ const orderRoutes = require("./routes/orders");
 const homeRoutes = require("./routes/home");
 const oauthRoutes = require("./routes/oauth");
 
+const costants = require("./helpers/global");
+
+const app = express();
+
+mongoose.Promise = global.Promise;
 mongoose.connect(
   costants.DBConnectionStrings.LOCAL,
   () => {
     console.log("connected to mongoDB");
   }
 );
-mongoose.Promise = global.Promise;
+
 
 // Load View Engine
 app.set("views", path.join(__dirname, "public/views"));
@@ -55,6 +58,7 @@ app.use("/oauth", oauthRoutes);
 app.use("/", homeRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
+
 
 //Error Handling
 app.use((req, res, next) => {
