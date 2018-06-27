@@ -1,28 +1,9 @@
-const express = require("express");
 const router = require("express-promise-router")();
 const oAuthController = require("../controllers/oauth");
 const passportConfig = require("../config/passport");
 
 const { validateBody, schemas } = require("../helpers/routeHelpers");
 const passport = require("passport");
-
-/*
-router.get(
-  "/google",
-  passport.authenticate("google", {
-    scope: ["profile"]
-  })
-);
-
-// callback route for google to redirect to
-router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
-  res.send("You reached the callback URI");
-});
-
-router.post("/signup", oAuthController.signUp);
-router.post("/signin", oAuthController.signIn);
-router.get('/secret', oAuthController.secret);
-*/
 
 router
   .route("/signUp")
@@ -33,6 +14,20 @@ router
   .post(
     passport.authenticate("local", { session: false }),
     oAuthController.signIn
+  );
+
+router
+  .route("/google")
+  .post(
+    passport.authenticate("google", { session: false }),
+    oAuthController.googleOAuth
+  );
+
+router
+  .route("/facebook")
+  .post(
+    passport.authenticate("facebook", { session: false }),
+    oAuthController.facebbokOAuth
   );
 
 router
