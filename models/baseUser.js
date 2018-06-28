@@ -39,7 +39,7 @@ class BaseUser {
       message: "ha abbandonato la stanza..."
     });
     delete BaseUser.userList[socket.id];
-    pack.connectedUsersInfo.numberOfUser = room.length;
+    pack.usersInfo.numberOfUser = room.length;
   }
 
   sendChatMessage(io, room, data) {
