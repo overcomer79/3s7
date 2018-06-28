@@ -20,10 +20,10 @@ class BaseUser {
     const newUser = new BaseUser(socket.id);
     BaseUser.userList[socket.id] = newUser;
     console.log("utente ", newUser.username, " si è connesso...");
-    pack.connectedUsersInfo.numberOfUser = room.length;
+    pack.usersInfo.numberOfUser = room.length;
     socket.emit("connected user", { user: newUser });
     socket.broadcast.to(roomName).emit("new user joined", {
-      user: newUser.username,
+      user: newUser,
       message: "è entrato nella stanza..."
     });
   }
