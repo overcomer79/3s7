@@ -8,12 +8,12 @@ const mainRoom: string = "app";
 
 const pack: MessagePack = new MessagePack();
 
-let listen = (server: Server) => {
+let listen: any = (server: Server) => {
   const socketIO: SocketIO.Server = io.listen(server);
 
   socketIO.on("connection", (socket: SocketIO.Socket) => {
     socket.join(mainRoom);
-    const room= socketIO.nsps["/"].adapter.rooms[mainRoom];
+    const room: any = socketIO.nsps["/"].adapter.rooms[mainRoom];
     ConnectedVisitor.onConnect(socket, mainRoom, room, pack);
 
     socket.on("message", data => {
@@ -24,9 +24,11 @@ let listen = (server: Server) => {
       );
     });
 
-    socket.on("evalServer", data => {
+    socket.on("evalServer", (data: string) => {
       console.log("----- FROM CLIENT: TEXT TO EVAL -------");
-      if (!DEBUG) return;
+      if (!DEBUG) {
+        return;
+      }
       try {
         var res: any = eval(data);
       } catch (err) {

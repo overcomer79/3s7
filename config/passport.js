@@ -43,10 +43,11 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
+        /*
         console.log("access token:", accessToken);
         console.log("refresh token:", refreshToken);
         console.log("profile", profile);
-
+*/
         //check if this current user exists in our DB
         const existingUser = await User.findOne({ "google.id": profile.id });
         if (existingUser) {
@@ -83,10 +84,11 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
+        /*
         console.log("access token:", accessToken);
         console.log("refresh token:", refreshToken);
         console.log("profile", profile);
-
+        */
         //check if this current user exists in our DB
         const existingUser = await User.findOne({ "facebook.id": profile.id });
         if (existingUser) {

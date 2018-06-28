@@ -1,6 +1,5 @@
 <div class="container">
 
-
   <div class="omb_login">
     <h3 class="omb_authTitle">Login or
       <a href="#">Sign up</a>
@@ -40,7 +39,7 @@
             <span class="input-group-addon">
               <i class="fa fa-user"></i>
             </span>
-            <input type="text" class="form-control" name="username" placeholder="email address">
+            <input type="text" [(ngModel)]="loginUserData.email" class="form-control" name="email" placeholder="email address">
           </div>
           <span class="help-block"></span>
 
@@ -48,11 +47,11 @@
             <span class="input-group-addon">
               <i class="fa fa-lock"></i>
             </span>
-            <input type="password" class="form-control" name="password" placeholder="Password">
+            <input type="password" [(ngModel)]="loginUserData.password" class="form-control" name="password" placeholder="Password">
           </div>
           <span class="help-block">Password error</span>
 
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+          <button (click)="loginUser()" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
         </form>
       </div>
     </div>

@@ -3,7 +3,7 @@ import { ServerOptions } from "https";
 import * as fs from "fs";
 import * as path from "path";
 import app from "./app";
-import * as io from './socket';
+import * as io from "./socket";
 
 const httpsOptions: ServerOptions = {
   cert: fs.readFileSync(path.join(__dirname, "../../ssl", "server.crt")),
