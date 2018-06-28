@@ -1,8 +1,10 @@
+const keys = require('../config/keys');
+
 const costants = Object.freeze({
 
     DBConnectionStrings: Object.freeze({
         LOCAL: 'mongodb://localhost/3s7',
-        ATLAS: 'mongodb+srv://nodejsApi:' + process.env.MONGO_ATLAS_PASSWORD + '@3s7-nfqmx.mongodb.net/test',
+        ATLAS: keys.mongoDB.atlas_conn_string,
     }),
 
     GameType: Object.freeze({

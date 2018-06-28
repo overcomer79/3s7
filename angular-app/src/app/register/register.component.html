@@ -1,7 +1,7 @@
 <div class="signup-form">
   <form>
     <h2>Registrati</h2>
-    <p class="hint-text">Crea subito il tuo account. E' GRATIS ti costerà solo un minuto.</p>
+    <p class="hint-text">Crea subito il tuo account. E' GRATIS!!! Ti costerà solo un minuto.</p>
     <div class="form-group">
       <div class="row">
         <div class="col-xs-6">
@@ -16,10 +16,10 @@
       <input type="text" class="form-control" name="username" placeholder="Username" required="required">
     </div>
     <div class="form-group">
-      <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+      <input type="email" [(ngModel)]="registerUserData.email" class="form-control" name="email" placeholder="Email" required="required">
     </div>
     <div class="form-group">
-      <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+      <input type="password" [(ngModel)]="registerUserData.password" class="form-control" name="password" placeholder="Password" required="required">
     </div>
     <div class="form-group">
       <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
@@ -32,7 +32,7 @@
       </label>
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
+      <button (click)="registerUser();" type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
     </div>
   </form>
   <div class="text-center">Hai già un account?

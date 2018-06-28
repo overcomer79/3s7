@@ -1,7 +1,7 @@
 import * as express from "express";
 import * as morgan from "morgan";
 import * as bodyParse from "body-parser";
-//import * as path from "path";
+// import * as path from "path";
 
 class App {
   public express: express.Application;
@@ -11,8 +11,8 @@ class App {
     this.setLogMiddleware();
     this.setBodyParserMiddlewares();
     this.handleCORSErrors();
-    //this.setRouteMiddleweres();
-    //this.prepareStatic();
+    // this.setRouteMiddleweres();
+    // this.prepareStatic();
     this.setErrorHandlingMiddlewares();
   }
 
@@ -46,17 +46,16 @@ class App {
 
   private setErrorHandlingMiddlewares(): void {
     this.express.use((req, res, next) => {
-        const error: Error = new Error('Not found');
-        error.name = "404: Not found";
-        next(error);
+      const error: Error = new Error("Not found");
+      error.name = "404: Not found";
+      next(error);
     });
     this.express.use((error, req, res, next) => {
-        res.status(error.name ===  "404: Not found" || 500)
-        res.json({
-            error: error.message
-        });
+      res.status(error.name === "404: Not found" || 500);
+      res.json({
+        error: error.message
+      });
     });
-    
   }
 
   /*
@@ -71,6 +70,7 @@ class App {
   private prepareStatic(): void {
     this.express.use(express.static(path.join(__dirname + '/')));
   }
+
   */
 }
 

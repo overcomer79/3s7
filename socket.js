@@ -4,8 +4,7 @@ const BaseUser = require("./models/baseUser");
 const DEBUG = true;
 
 const pack = {
-  connectedUsersInfo: {
-    numberOfUser: 0
+  usersInfo: {
   }
 };
 const mainRoom = "app";

@@ -29,7 +29,4 @@ const httpServer = http.createServer(function (req, res) {
 httpServer.listen(80);
 */
 
-const SOCKET_LIST = {};
-
 module.exports.server = server;
-module.exports.SOCKET_LIST = SOCKET_LIST;
