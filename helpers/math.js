@@ -1,4 +1,4 @@
-let alphanumericUnique = () => {
+exports.alphanumeric_unique = function() {
   return Math.random()
     .toString(36)
     .split("")
@@ -7,6 +7,4 @@ let alphanumericUnique = () => {
     })
     .join("")
     .substr(2, 8);
-}
-
-export { alphanumericUnique };
+};

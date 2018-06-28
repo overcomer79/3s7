@@ -26,10 +26,7 @@ class ConnectedVisitor extends Visitor {
       .to(roomName)
       .emit(
         "new user joined",
-        new LogMessage(
-          visitor,
-          Global.costants.LogMessages.ROOM_JOINED
-        )
+        new LogMessage(visitor, Global.costants.LogMessages.ROOM_JOINED)
       );
   }
 
