@@ -4,3 +4,5 @@ coverage/
 team-extension.log
 dist/
 config/keys.js
+shared/config/keys.ts
+angular-app/ssl
