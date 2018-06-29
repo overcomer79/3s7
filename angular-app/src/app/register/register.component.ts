@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { AuthService } from "../auth.service";
+import { LocalAuthService } from "../auth.service";
 import { Router } from "@angular/router";
 
 @Component({
@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
   email: String;
   password: String;
   */
-  constructor(private _auth: AuthService, private _router: Router) {}
+  constructor(private _auth: LocalAuthService, private _router: Router) {}
 
   ngOnInit() {}
 
