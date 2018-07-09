@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class HomeService {
-  private socket = io("https://172.23.1.164:3000", { secure: true });
+  private socket = io("https://localhost:3000", { secure: true });
 
   sendMessage(data) {
     this.socket.emit("message", data);

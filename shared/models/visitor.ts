@@ -1,6 +1,13 @@
 import * as Global from "../helpers/global";
 import { alphanumericUnique } from "../helpers/math";
 
+/**
+ * Base User to the app.
+ * It has
+ *  - Internal ID
+ *  - Username
+ *  - Random Color
+ */
 class Visitor {
   protected _id: string;
   public username: string;

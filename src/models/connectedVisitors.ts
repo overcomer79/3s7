@@ -37,9 +37,9 @@ class ConnectedVisitor extends Visitor {
     pack: MessagePack
   ) {
     console.log(
-      "utente ",
+      "utente",
       ConnectedVisitor.connectedVisitorsList[socket.id].username,
-      " ha abbandonato la pagina..."
+      "ha abbandonato la pagina..."
     );
     socket.broadcast
       .to(roomName)
