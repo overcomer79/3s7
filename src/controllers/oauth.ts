@@ -1,6 +1,7 @@
 import * as JWT from "jsonwebtoken";
 import * as conf from "../../shared/config/keys";
-import User from "../models/user";
+import User, { IUser } from "../models/user";
+import { NextFunction } from "../../node_modules/@types/express";
 
 const signToken = user => {
   return JWT.sign(
@@ -14,24 +15,24 @@ const signToken = user => {
   );
 };
 
-export const signIn = async (req, res, next) => {
+export const signIn = async (req, res, next: NextFunction) => {
   // Generate token for existing user
   const token = signToken(req.user);
   res.status(200).json({ token });
   console.log("Successful login!");
 };
 
-export const signUp = async (req, res, next) => {
+export const signUp = async (req, res, next: NextFunction) => {
   const { email, password } = req.value.body;
 
   // Check if there is a user with the same email
-  const foundUser = await User.findOne({ "local.email": email });
+  const foundUser: IUser = await User.findOne({ "local.email": email });
   if (foundUser) {
     return res.status(403).send({ error: "Email is already in use" });
   }
 
   // create a new user
-  const newUser = new User({
+  const newUser: IUser = new User({
     method: "local",
     local: {
       email: email,
@@ -41,19 +42,19 @@ export const signUp = async (req, res, next) => {
   await newUser.save();
 
   //response with token
-  const token = signToken(newUser);
+  const token: string = signToken(newUser);
   res.status(200).json({ token });
 };
 
 export const googleOAuth = async (req, res, next) => {
   //Generate token
-  const token = signToken(req.user);
+  const token: string = signToken(req.user);
   res.status(200).json({ token });
 };
 
 export const facebookOAuth = async (req, res, next) => {
   //Generate token
-  const token = signToken(req.user);
+  const token: string = signToken(req.user);
   res.status(200).json({ token });
 };
 

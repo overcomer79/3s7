@@ -2,6 +2,7 @@ import { Schema, Model, model } from "mongoose";
 import * as bcrypt from "bcryptjs";
 import { IUserDocument } from "../interfaces/IUserDocument";
 import { ConnectedVisitor } from "./connectedVisitors";
+import { NextFunction } from "../../node_modules/@types/express-serve-static-core";
 
 export interface IUser extends IUserDocument, ConnectedVisitor {
   isValidPassword(password: string): Promise<boolean>;
@@ -47,15 +48,15 @@ export const userSchema: Schema = new Schema({
   }
 });
 
-userSchema.pre("save", async function(this: any, next) {
+userSchema.pre("save", async function(this: any, next: NextFunction) {
   try {
     if (this.method !== "local") {
       next();
     }
     // Generate a salt
-    const salt = await bcrypt.genSalt(10);
+    const salt: string = await bcrypt.genSalt(10);
     // Generate a password hash (salt + hash)
-    const passwordHash = await bcrypt.hash(this.local.password, salt);
+    const passwordHash: string = await bcrypt.hash(this.local.password, salt);
     // Re-assign hashed version over original, plain text password
     this.local.password = passwordHash;
     next();

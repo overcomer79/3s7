@@ -1,8 +1,9 @@
 import * as joi from "joi";
+import { Response, NextFunction } from "../../node_modules/@types/express";
 
 export const validateBody = schema => {
-  return (req, res, next) => {
-    const result = joi.validate(req.body, schema);
+  return (req: any, res: Response, next: NextFunction) => {
+    const result: joi.ValidationResult<any> = joi.validate(req.body, schema);
     if (result.error) {
       return res.status(400).json(result.error);
     }
