@@ -1,10 +1,10 @@
-const constants = require("../helpers/global"),
+const constants = require("../JS/helpers/global"),
   log = console.log,
   //expect = require('chai').expect,
   should = require("chai").should(),
   _ = require("lodash");
 
-const BaseUser = require("../models/baseUser");
+const BaseUser = require("../JS/models/baseUser");
 
 describe("#BaseUser Initial conditions", () => {
   it("Base User should be an object", () => {
