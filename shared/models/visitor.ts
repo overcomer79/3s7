@@ -9,12 +9,12 @@ import { alphanumericUnique } from "../helpers/math";
  *  - Random Color
  */
 class Visitor {
-  protected _id: string;
+  protected socketId: string;
   public username: string;
   public color: string;
 
   constructor(id: string) {
-    this._id = id;
+    this.socketId = id;
     this.username =
       Global.costants.BaseUserConfig.usernamePrefix +
       alphanumericUnique().toUpperCase() +

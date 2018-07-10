@@ -1,4 +1,7 @@
 import * as express from "express";
+
+import oauthRoutes from './routes/oauth';
+
 import * as morgan from "morgan";
 import * as bodyParse from "body-parser";
 import * as cors from "cors";
@@ -13,10 +16,13 @@ class App {
     this.express = express();
 
     this.connectToMongoDb();
-    
+
     this.setLogMiddleware();
     this.setBodyParserMiddlewares();
     this.handleCORSErrors();
+
+    this.express.use("/oauth", oauthRoutes);
+
     //this.setRouteMiddleweres();
     //this.prepareStatic();
     this.setErrorHandlingMiddlewares();
