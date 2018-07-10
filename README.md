@@ -11,4 +11,4 @@
 #
 # CLIENT SIDE
 # > npm install
-# > ng serve --host 0.0.0.0 -o
+# > ng serve --host 0.0.0.0 --ssl -o

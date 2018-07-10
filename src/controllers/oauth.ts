@@ -45,4 +45,14 @@ export const signUp = async (req, res, next) => {
   res.status(200).json({ token });
 };
 
-//export default { signIn };
+export const googleOAuth = async (req, res, next) => {
+  //Generate token
+  const token = signToken(req.user);
+  res.status(200).json({ token });
+};
+
+export const facebookOAuth = async (req, res, next) => {
+  //Generate token
+  const token = signToken(req.user);
+  res.status(200).json({ token });
+};

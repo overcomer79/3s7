@@ -1,6 +1,12 @@
 import Router from "express-promise-router";
 import * as passport from "passport";
-import { signIn, signUp } from "../controllers/oauth";
+import {
+  signIn,
+  signUp,
+  googleOAuth,
+  facebookOAuth
+} from "../controllers/oauth";
+
 import { validateBody, schemas } from "../helpers/routeHelpers";
 
 /**
@@ -15,21 +21,16 @@ router.route("/signUp").post(validateBody(schemas.oauthSchema), signUp);
 router
   .route("/signIn")
   .post(passport.authenticate("local", { session: false }), signIn);
-  
-/*
+
 router
   .route("/google")
-  .post(
-    //passport.authenticate("google", { session: false }),
-    //oAuthController.googleOAuth
-  );
+  .post(passport.authenticate("google", { session: false }), googleOAuth);
 
 router
   .route("/facebook")
-  .post(
-    //passport.authenticate("facebook", { session: false }),
-    //oAuthController.facebbokOAuth
-  );
+  .post(passport.authenticate("facebook", { session: false }), facebookOAuth);
+
+/*
 
 router
   .route("/secret")
