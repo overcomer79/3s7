@@ -1,21 +1,57 @@
 import * as express from "express";
+
+import oauthRoutes from './routes/oauth';
+
 import * as morgan from "morgan";
 import * as bodyParse from "body-parser";
-// import * as path from "path";
+import * as cors from "cors";
+import * as mongoose from "mongoose";
+//import * as path from "path";
+import * as conf from "../shared/config/keys";
 
 class App {
   public express: express.Application;
 
   constructor() {
     this.express = express();
+
+    this.connectToMongoDb();
+
     this.setLogMiddleware();
     this.setBodyParserMiddlewares();
     this.handleCORSErrors();
-    // this.setRouteMiddleweres();
-    // this.prepareStatic();
+
+    this.express.use("/oauth", oauthRoutes);
+
+    //this.setRouteMiddleweres();
+    //this.prepareStatic();
     this.setErrorHandlingMiddlewares();
   }
 
+  private connectToMongoDb(): void {
+    (<any>mongoose).Promise = global.Promise;
+    mongoose.connect(
+      conf.keys.mongoDB.local,
+      err => {
+        if (err) {
+          console.log("Unable to connect to Mongo DB:", err);
+          return;
+        }
+        console.log("Connected to Mongo DB....");
+      }
+    );
+  }
+
+  private setLogMiddleware(): void {
+    this.express.use(morgan("dev"));
+  }
+
+  private setBodyParserMiddlewares(): void {
+    this.express.use(bodyParse.urlencoded({ extended: false }));
+    this.express.use(bodyParse.json());
+  }
+
+  /*
   private handleCORSErrors(): any {
     this.express.use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
@@ -34,24 +70,25 @@ class App {
       next();
     });
   }
+  */
 
-  private setLogMiddleware(): void {
-    this.express.use(morgan("dev"));
-  }
-
-  private setBodyParserMiddlewares(): void {
-    this.express.use(bodyParse.urlencoded({ extended: false }));
-    this.express.use(bodyParse.json());
+  private handleCORSErrors(): any {
+    const corsOptions: cors.CorsOptions = {
+      //origin: 'http://example.com',
+      optionsSuccessStatus: 200
+    };
+    this.express.use(cors(corsOptions));
   }
 
   private setErrorHandlingMiddlewares(): void {
     this.express.use((req, res, next) => {
       const error: Error = new Error("Not found");
-      error.name = "404: Not found";
+      error.name = "404";
       next(error);
     });
     this.express.use((error, req, res, next) => {
-      res.status(error.name === "404: Not found" || 500);
+      const status: number = (error.name = "404" ? 404 : 500);
+      res.status(status);
       res.json({
         error: error.message
       });
@@ -70,7 +107,6 @@ class App {
   private prepareStatic(): void {
     this.express.use(express.static(path.join(__dirname + '/')));
   }
-
   */
 }
 

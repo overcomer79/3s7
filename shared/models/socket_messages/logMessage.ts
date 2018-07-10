@@ -1,6 +1,8 @@
 import { Visitor } from "../visitor";
 
-// Message for logging info about visitor user
+/**
+ *  Message for logging info about visitor user
+ */
 export class LogMessage {
   public user: Visitor;
   public message: string;

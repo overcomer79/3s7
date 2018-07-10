@@ -26,7 +26,6 @@ mongoose.connect(
   }
 );
 
-
 // Load View Engine
 app.set("views", path.join(__dirname, "public/views"));
 app.set("view engine", "pug");

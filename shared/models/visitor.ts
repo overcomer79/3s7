@@ -1,13 +1,20 @@
 import * as Global from "../helpers/global";
 import { alphanumericUnique } from "../helpers/math";
 
+/**
+ * Base User to the app.
+ * It has
+ *  - Internal ID
+ *  - Username
+ *  - Random Color
+ */
 class Visitor {
-  protected _id: string;
+  protected socketId: string;
   public username: string;
   public color: string;
 
   constructor(id: string) {
-    this._id = id;
+    this.socketId = id;
     this.username =
       Global.costants.BaseUserConfig.usernamePrefix +
       alphanumericUnique().toUpperCase() +

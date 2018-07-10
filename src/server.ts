@@ -14,4 +14,11 @@ const server: https.Server = https.createServer(httpsOptions, app);
 io.listen(server);
 
 const PORT: any = process.env.PORT || 3000;
-server.listen(PORT);
+
+server.listen(PORT, err => {
+  if (err) {
+    console.log("Unable to start the server:", err);
+    return;
+  }
+  console.log("Server listening on port", PORT, "...");
+});
