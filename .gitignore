@@ -3,6 +3,7 @@ coverage/
 .vscode/
 team-extension.log
 dist/
-config/keys.js
+JS/config/keys.js
 shared/config/keys.ts
-angular-app/ssl
+angular-app/ssl/
+ssl/

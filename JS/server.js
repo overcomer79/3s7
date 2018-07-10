@@ -6,8 +6,8 @@ const path = require('path');
 const app = require('./app');
 
 const httpsOptions = {
-    cert: fs.readFileSync(path.join(__dirname,'ssl', 'server.crt')),
-    key: fs.readFileSync(path.join(__dirname,'ssl', 'server.key')),
+    cert: fs.readFileSync(path.join(__dirname,"../ssl", 'server.crt')),
+    key: fs.readFileSync(path.join(__dirname,"../ssl", 'server.key')),
 }
 
 const server = https.createServer(httpsOptions, app);
