@@ -2,10 +2,36 @@ import * as passport from "passport";
 import * as LocalStrategy from "passport-local";
 import * as GooglePlusTokenStrategy from "passport-google-plus-token";
 import * as FacebookTokenStrategy from "passport-facebook-token";
+import { ExtractJwt, Strategy } from "passport-jwt";
+
 
 import User from "../models/user";
 
 import * as conf from "../../shared/config/keys";
+
+// JSON WEB TOKEN STRATEGY
+passport.use(
+  new Strategy(
+    {
+      jwtFromRequest: ExtractJwt.fromHeader("authorization"),
+      secretOrKey: conf.keys.jwt.secret
+    },
+    async (payload, done) => {
+      try {
+        // Find the user specified in token
+        const user = await User.findById(payload.sub);
+        // if user doesn't exists, handle it
+        if (!user) {
+          return done(null, false);
+        }
+        // Otherwise, return the user
+        done(null, user);
+      } catch (err) {
+        done(err, false);
+      }
+    }
+  )
+);
 
 // LOCAL STRATEGY
 passport.use(

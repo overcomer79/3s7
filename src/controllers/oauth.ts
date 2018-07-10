@@ -56,3 +56,8 @@ export const facebookOAuth = async (req, res, next) => {
   const token = signToken(req.user);
   res.status(200).json({ token });
 };
+
+export const secret = async (req, res, next) => {
+  console.log("I managed to get here!");
+  res.json({ secret: "resource" });
+};

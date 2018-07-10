@@ -4,7 +4,8 @@ import {
   signIn,
   signUp,
   googleOAuth,
-  facebookOAuth
+  facebookOAuth,
+  secret
 } from "../controllers/oauth";
 
 import { validateBody, schemas } from "../helpers/routeHelpers";
@@ -30,14 +31,8 @@ router
   .route("/facebook")
   .post(passport.authenticate("facebook", { session: false }), facebookOAuth);
 
-/*
-
 router
   .route("/secret")
-  .get(
-    //passport.authenticate("jwt", { session: false }),
-    //oAuthController.secret
-  );
-  */
+  .get(passport.authenticate("jwt", { session: false }), secret);
 
 export default router;

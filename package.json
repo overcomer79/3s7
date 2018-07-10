@@ -25,6 +25,7 @@
     "@types/mongoose": "^5.2.0",
     "@types/passport": "^0.4.5",
     "@types/passport-facebook-token": "^0.4.33",
+    "@types/passport-jwt": "^3.0.1",
     "@types/passport-local": "^1.0.33",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
