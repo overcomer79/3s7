@@ -22,8 +22,9 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-              "src/resources/css/sketchy-bootstrap.min.css",
+            "styles": [              
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/css/3s7.css",
               "node_modules/font-awesome/css/font-awesome.css",
               "src/styles.css"
             ],
