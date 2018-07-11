@@ -5,7 +5,7 @@ import { HttpClient } from "@angular/common/http";
   providedIn: "root"
 })
 export class PrivateService {
-  private _privateAreaUrl = "https://172.23.1.164:3000/oauth/secret";
+  private _privateAreaUrl = "https://localhost:3000/oauth/secret";
 
   constructor(private http: HttpClient) {}
 

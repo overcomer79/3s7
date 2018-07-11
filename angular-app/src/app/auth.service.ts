@@ -6,10 +6,10 @@ import { Router } from "@angular/router";
   providedIn: "root"
 })
 export class LocalAuthService {
-  private _registerUrl = "https://172.23.1.164:3000/oauth/signup";
-  private _loginUrl = "https://172.23.1.164:3000/oauth/signin";
-  private _googleUrl = "https://172.23.1.164:3000/oauth/google";
-  private _fbUrl = "https://172.23.1.164:3000/oauth/facebook";
+  private _registerUrl = "https://localhost:3000/oauth/signup";
+  private _loginUrl = "https://localhost:3000/oauth/signin";
+  private _googleUrl = "https://localhost:3000/oauth/google";
+  private _fbUrl = "https://localhost:3000/oauth/facebook";
 
   constructor(private http: HttpClient, private _router: Router) {}
 
