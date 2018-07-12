@@ -17,6 +17,7 @@ import { PrivateModule } from "./modules/private/private.module";
 import { UtentiConnessiBadgeComponent } from "./components/utenti-connessi-badge/utenti-connessi-badge.component";
 import { AdminModule } from "./modules/admin/admin.module";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { GamesModule } from "./modules/games/games.module";
 
 /*
 const fbLoginOptions: LoginOpt = {
@@ -66,6 +67,7 @@ export function provideConfig() {
     PublicModule,
     PrivateModule,
     AdminModule,
+    GamesModule,
     NgbModule.forRoot()
   ],
   providers: [
