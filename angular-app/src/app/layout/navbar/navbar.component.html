@@ -1,0 +1,52 @@
+<div class="navbar navbar-expand-lg fixed-top navbar-light bg-white-50">
+  <div class="container">
+    <a [routerLink]="['/']" class="navbar-brand">
+      <img src="assets/images/logo.png" />
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <span class="navbar-text">
+        <app-utenti-connessi-badge></app-utenti-connessi-badge>
+      </span>
+      <ul class="navbar-nav">
+      </ul>
+
+      <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item" *ngIf="!_authService.loggedIn()" [routerLinkActive]="['active']">
+          <a class="btn btn-outline-secondary" [routerLink]="['/login']">
+            <span class="badge bg-c-77C883">
+              <fa name="lock"></fa>
+            </span>
+            Login
+          </a>
+        </li>
+        <li class="nav-item ml-2" *ngIf="!_authService.loggedIn()" [routerLinkActive]="['active']">
+          <a class="btn btn-outline-secondary" [routerLink]="['/register']">
+            <span class="badge bg-c-77CBE5">
+              <fa name="user-plus"></fa>
+            </span>
+            Register
+          </a>
+        </li>
+        <li *ngIf="_authService.loggedIn()" ngbDropdown>
+          <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>
+            <span class="badge bg-c-F7DB87">
+              <fa name="user"></fa>
+            </span>
+            Utente
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+            <a class="dropdown-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['/profile']">Profilo</a>
+            <a class="dropdown-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['/admin/developer']">Dev</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" (click)="_authService.logoutUser()">Esci</a>
+          </div>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>
