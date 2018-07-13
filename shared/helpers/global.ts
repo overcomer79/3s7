@@ -2,7 +2,8 @@ import { LogMessage } from "../models/socket_messages/logMessage";
 
 export enum GameType {
   TRESSETTE,
-  BRISCOLA
+  BRISCOLA,
+  TRIS
 }
 
 const costants = Object.freeze({

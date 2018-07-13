@@ -1,41 +1,30 @@
-<div class="chat_window">
-  <div class="top_menu">
-    <div class="buttons">
-      <div class="button close"></div>
-      <div class="button minimize"></div>
-      <div class="button maximize"></div>
-    </div>
-    <div class="title">Chat</div>
+<div class="card mb-3 b-c-w">
+  <div class="sticky sticky-md sticky-top-right bg-c-EAEAEA">
+    <img src="assets/images/icons/chat.png" />
   </div>
-  <ul class="messages appeared" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-    <li *ngFor="let message of messageArray" class="message" [ngClass]="message.type">
-      <div *ngIf="message.type === 'info'">
+  <div class="chat-content">
+    <ul class="messages appeared" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+      <li *ngFor="let message of messageArray" class="message" [ngClass]="message.type">
+        <div *ngIf="message.type === 'info'">
           <small class="text" [style.color]="message.color">{{message.user}} {{message.message}}</small>
-      </div>
-      <div *ngIf="message.type === 'left' || message.type === 'right'">
-        <div class="avatar"></div>
-        <div class="text_wrapper">
-          <div class="text-muted date"> {{message.date | date:"HH:mm:ss  dd/MM/yyyy"}} </div>
-          <span class="text" [style.color]="message.color" >{{message.user}}:</span> <span class="text"> {{message.message}} </span>
         </div>
+        <div *ngIf="message.type === 'left' || message.type === 'right'">
+          <div class="avatar"></div>
+          <div class="text_wrapper">
+            <div class="text-muted date"> {{message.date | date:"HH:mm:ss dd/MM/yyyy"}} </div>
+            <span class="text" [style.color]="message.color">{{message.user}}:</span>
+            <span class="text"> {{message.message}} </span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="card-footer text-muted">
+    <div class="input-group mb-3">
+      <input [(ngModel)]="messageText" (Keyup.enter)="sendMessage()" type="text" class="form-control" placeholder="Scrivi il tuo messaggio qui...">
+      <div class="input-group-append">
+        <button class="btn btn-success" type="button" (click)="sendMessage()">Invia</button>
       </div>
-    </li>
-  </ul>
-  <div class="bottom_wrapper clearfix">
-    <div class="message_input_wrapper">
-      <input [(ngModel)]="messageText" (Keyup.enter)="sendMessage()" class="message_input" placeholder="Scrivi il tuo messaggio qui..." />
-    </div>
-    <div (click)="sendMessage()" class="send_message" >
-      <div class="icon"></div>
-      <div class="text">Invia</div>
     </div>
   </div>
-</div>
-<div class="message_template">
-  <li class="message">
-    <div class="avatar"></div>
-    <div class="text_wrapper">
-      <div class="text"></div>
-    </div>
-  </li>
 </div>

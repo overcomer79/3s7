@@ -1,0 +1,31 @@
+<div class="card b-10 b-c-w b-r-50 card-margin-sticky-lg-left">
+  <div class="sticky sticky-lg sticky-left {{room.bgIconColor}}">
+    <img src="assets/images/icons/{{room.icon}}" />
+  </div>
+  <div class="card-body pt-1 text-center">
+    <h2>{{room.title}}</h2>
+
+    <div>
+      <span class="badge badge-secondary m-2">
+        <span class="badge bg-c-77C883">
+          <fa name="user"></fa>
+        </span>
+        Utenti {{room.userNumber}}
+      </span>
+      <span class="badge badge-secondary m-2">
+        <span class="badge bg-c-A5A4C3">
+          <fa name="table"></fa>
+        </span>
+        Tavoli {{room.tableNumber}}
+      </span>
+    </div>
+    <div class="m-2">
+        <a class="btn btn-outline-primary" [routerLink]="['/login']">
+          <span class="badge bg-primary">
+            <fa name="sign-in"></fa>
+          </span>
+          Accedi
+        </a>
+    </div>
+  </div>
+</div>

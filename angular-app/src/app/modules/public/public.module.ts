@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ChatComponent } from '../../components/chat/chat.component';
+import { CardGameComponent } from '../../components/card-game/card-game.component';
 
 const publicRouting: ModuleWithProviders = RouterModule.forChild([
     { path: '', component: HomeComponent /*canActivate: [RoleGuardService], data : { expectedRole: ['family','admin'] }*/ },
@@ -25,7 +26,8 @@ const publicRouting: ModuleWithProviders = RouterModule.forChild([
         HomeComponent,
         LoginComponent,
         ChatComponent,
-        RegisterComponent
+        RegisterComponent,
+        CardGameComponent
     ]
 })
 export class PublicModule {}
