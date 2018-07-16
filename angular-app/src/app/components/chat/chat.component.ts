@@ -47,7 +47,7 @@ export class ChatComponent implements OnInit {
         color: data.color,
         message: data.message,
         date: data.date,
-        type: data.user === this.user ? "left" : "right"
+        type: data.user === this.user ? "right" : "left"
       });
     });
 

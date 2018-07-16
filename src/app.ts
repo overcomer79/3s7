@@ -1,6 +1,7 @@
 import * as express from "express";
 
 import oauthRoutes from './routes/oauth';
+import userRoutes from "./routes/user";
 
 import * as morgan from "morgan";
 import * as bodyParse from "body-parser";
@@ -22,6 +23,7 @@ class App {
     this.handleCORSErrors();
 
     this.express.use("/oauth", oauthRoutes);
+    this.express.use("/user", userRoutes);
 
     //this.setRouteMiddleweres();
     //this.prepareStatic();

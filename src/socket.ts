@@ -47,7 +47,7 @@ let listen: any = (server: Server) => {
     Object.keys(socketIO.sockets.adapter.rooms).forEach(element => {
       socketIO.in(element).emit("ServerMsg", pack);
     });
-  });
+  }, 100);
 
   return socketIO;
 };
