@@ -306,6 +306,16 @@ a.bg-danger:hover, a.bg-danger:focus, button.bg-danger:hover, button.bg-danger:f
 .text-success { color: #99D8BE !important;}
 .text-info { color: #74ABC7 !important;}
 
+.text-c-DFDFDF{ color: #dfdfdf !important;}
+.text-c-999999{ color: #999999 !important;}
+
+/*Font Size*/
+.fs-0_5{font-size: 0.5em;}
+.fs-0_6{font-size: 0.6em;}
+.fs-0_7{font-size: 0.7em;}
+.fs-0_8{font-size: 0.8em;}
+.fs-0_9{font-size: 0.9em;}
+
 /*sticky*/
 .sticky{ border-radius: 100%; text-align: center; }
 .card .sticky{position: absolute;}
@@ -326,4 +336,5 @@ a.bg-danger:hover, a.bg-danger:focus, button.bg-danger:hover, button.bg-danger:f
 .card .sticky-md.sticky-right{top: 0px; right: -35px;}
 .card .sticky-md.sticky-top-right{top: -35px; right: -35px;}
 
-.sticky-sm{}
+.sticky-sm{ width: 50px; height: 50px; font-size: 1.5em; border: 10px solid #ffffff; line-height: 1.25em; }
+.sticky-sm img{ max-width: 30px; max-height: 30px;}
