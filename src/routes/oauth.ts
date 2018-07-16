@@ -33,6 +33,6 @@ router
 
 router
   .route("/secret")
-  .get(passport.authenticate("jwt", { session: false }), secret);
+  .get(/*passport.authenticate("jwt", { session: false }),*/ secret);
 
 export default router;
