@@ -9,4 +9,8 @@ let alphanumericUnique = () => {
     .substr(2, 8);
 };
 
-export { alphanumericUnique };
+let randomIntFromInterval = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+export { alphanumericUnique, randomIntFromInterval };
