@@ -33,7 +33,11 @@ class App {
   private connectToMongoDb(): void {
     (<any>mongoose).Promise = global.Promise;
     mongoose.connect(
-      conf.keys.mongoDB.local,
+      /**
+       * "atlas_coonn_string":  connects to the cloud atlas Mongo DB
+       * "local":               connects to local Mongo DB istance
+       */
+      conf.keys.mongoDB.atlas_conn_string,
       err => {
         if (err) {
           console.log("Unable to connect to Mongo DB:", err);
