@@ -1,6 +1,7 @@
 import * as express from "express";
 
 import oauthRoutes from './routes/oauth';
+import userRoutes from "./routes/user";
 
 import * as morgan from "morgan";
 import * as bodyParse from "body-parser";
@@ -20,10 +21,7 @@ class App {
     this.setLogMiddleware();
     this.setBodyParserMiddlewares();
     this.handleCORSErrors();
-
-    this.express.use("/oauth", oauthRoutes);
-
-    //this.setRouteMiddleweres();
+    this.setRouteMiddleweres();
     //this.prepareStatic();
     this.setErrorHandlingMiddlewares();
   }
@@ -31,7 +29,11 @@ class App {
   private connectToMongoDb(): void {
     (<any>mongoose).Promise = global.Promise;
     mongoose.connect(
-      conf.keys.mongoDB.local,
+      /**
+       * "atlas_coonn_string":  connects to the cloud atlas Mongo DB
+       * "local":               connects to local Mongo DB istance
+       */
+      conf.keys.mongoDB.atlas_conn_string,
       err => {
         if (err) {
           console.log("Unable to connect to Mongo DB:", err);
@@ -74,13 +76,18 @@ class App {
 
   private handleCORSErrors(): any {
     const corsOptions: cors.CorsOptions = {
-      //origin: 'http://example.com',
+      // Set origin into production
+      // origin: 'http://example.com',
       optionsSuccessStatus: 200
     };
     this.express.use(cors(corsOptions));
   }
 
   private setErrorHandlingMiddlewares(): void {
+    /***
+     * 500 or 404 Server error shold be returnded to the client
+     * in json format in the response object
+     */
     this.express.use((req, res, next) => {
       const error: Error = new Error("Not found");
       error.name = "404";
@@ -95,14 +102,19 @@ class App {
     });
   }
 
-  /*
+  
   private setRouteMiddleweres(): void {
+
+    this.express.use("/oauth", oauthRoutes);
+    this.express.use("/user", userRoutes);
+
+    /*
     this.express.use('/', homeRoutes);
     this.express.use('/api/products', productRoutes);
     this.express.use('/api/orders', orderRoutes);
+    */
   }
-  */
-
+  
   /*
   private prepareStatic(): void {
     this.express.use(express.static(path.join(__dirname + '/')));

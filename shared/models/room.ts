@@ -9,8 +9,14 @@ export class Room implements IRoomDynamicData {
 
   constructor(type: global.GameType) {
     this.gameType = type;
-    this.userNumber = 1;
-    this.tableNumber = 1;
+    /***
+     * No user connected or table created yet
+     */
+    this.userNumber = 0;
+    this.tableNumber = 0;
+    /***
+     * Default Room is Enabled
+     */
     this.isEnabled = true;
   }
 

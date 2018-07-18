@@ -1,0 +1,89 @@
+<div class="row">
+  <div class="col-12">
+    <a class="btn btn-outline-primary" [routerLink]="['/']">
+      <span class="badge bg-primary">
+        <fa name="home" class="text-white"></fa>
+      </span>
+      Tutti
+    </a>
+    <a class="btn btn-outline-primary ml-2" [routerLink]="['rooms', room.gameType]">
+      <span class="badge bg-primary">
+        <img src="assets/images/icons/{{room.icon}}" />
+      </span>
+      {{room.title}}
+    </a>
+    <span class="ml-2">Tavoli</span>
+  </div>
+</div>
+
+<div class="row mt-4">
+
+  <!-- Crea Tavolo -->
+  <div class="col-lg-3">
+    <div class="jumbotron text-center">
+      <div>
+        <small class="text-muted">Crea un nuovo tavolo</small>
+      </div>
+      <div>
+        <a class="btn btn-outline-secondary">
+          <fa name="plus"></fa>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3">
+    <div class="card card-margin-sticky-lg-left b-10 b-c-w">
+      <div class="sticky sticky-lg sticky-left {{room.bgIconColor}}">
+        <img src="assets/images/icons/{{room.icon}}" />
+      </div>
+      <div class="card-body pb-0">
+        <div>Tavolo 1</div>
+        <div class="text-muted">
+          <small>Creato il 17/07/2018 16:00</small>
+        </div>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Giocatore 1</li>
+        <li class="list-group-item">Giocatore 2</li>
+      </ul>
+      <div class="card-body pt-0">
+        <div class="row">
+          <div class="col-6">
+            <a class="btn btn-primary btn-block btn-sm">Osserva</a>
+          </div>
+          <div class="col-6">
+            <a class="btn btn-primary btn-block btn-sm disabled">Gioca</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="card card-margin-sticky-lg-left b-10 b-c-w">
+      <div class="sticky sticky-lg sticky-left {{room.bgIconColor}}">
+        <img src="assets/images/icons/{{room.icon}}" />
+      </div>
+      <div class="card-body pb-0">
+        <div>Tavolo 2</div>
+        <div class="text-muted">
+          <small>Creato il 17/07/2018 16:00</small>
+        </div>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Giocatore 1</li>
+        <li class="list-group-item">...</li>
+      </ul>
+      <div class="card-body pt-0">
+        <div class="row">
+          <div class="col-6">
+            <a class="btn btn-primary btn-block btn-sm">Osserva</a>
+          </div>
+          <div class="col-6">
+            <a class="btn btn-primary btn-block btn-sm">Gioca</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

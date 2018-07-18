@@ -1,3 +1,6 @@
+/**
+ * Arrow Function that returns a Random Alphanumeric String
+ */
 let alphanumericUnique = () => {
   return Math.random()
     .toString(36)
@@ -9,4 +12,11 @@ let alphanumericUnique = () => {
     .substr(2, 8);
 };
 
-export { alphanumericUnique };
+/**
+ * Arrow function that return a integer random number from min and max
+ */
+let randomIntFromInterval = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+export { alphanumericUnique, randomIntFromInterval };

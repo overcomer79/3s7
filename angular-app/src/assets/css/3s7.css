@@ -87,6 +87,8 @@ a:hover {  color: #73BBC1;  text-decoration: underline;}
 .btn-outline-primary { color: #73BBC1 !important;  background-color: transparent !important;  background-image: none;  border-color: #73BBC1;}
 .btn-outline-primary:hover{ color: #ffffff !important;  background-color: #73BBC1 !important;  border-color: #73BBC1 !important;}
 .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-primary.dropdown-toggle:focus { box-shadow: 0 0 0 0.2rem rgba(115, 187, 193, 0.5);}
+.btn-outline-primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-primary.dropdown-toggle{ border-color: rgb(87, 140, 145) !important;}
+
 /* button secondary*/
 .btn-secondary{ border-color: #CCCCCC !important; background-color: #CCCCCC !important; color: #ffffff !important; border-radius: 50px;  }
 .btn-secondary:focus, .btn-secondary.focus { outline: 0;  box-shadow: 0 0 0 0.2rem rgba(204, 204, 204, 0.25);}
@@ -95,6 +97,8 @@ a:hover {  color: #73BBC1;  text-decoration: underline;}
 .btn-outline-secondary { color: #CCCCCC !important;  background-color: transparent !important;  background-image: none;  border-color: #CCCCCC;}
 .btn-outline-secondary:hover{ color: #ffffff !important;  background-color: #CCCCCC !important;  border-color: #CCCCCC !important;}
 .btn-outline-secondary:not(:disabled):not(.disabled):active:focus, .btn-outline-secondary:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-secondary.dropdown-toggle:focus { box-shadow: 0 0 0 0.2rem rgba(204, 204, 204, 0.5);}
+.btn-outline-secondary:not(:disabled):not(.disabled).active, .btn-outline-secondary:not(:disabled):not(.disabled):active, .show>.btn-outline-secondary.dropdown-toggle{ border-color: rgb(104, 104, 104) !important;}
+
 /* button success*/
 .btn-success{ border-color: #99D8BE !important; background-color: #99D8BE !important;}
 .btn-success:focus, .btn-success.focus { outline: 0;  box-shadow: 0 0 0 0.2rem rgba(153, 216, 190, 0.25);}
@@ -218,6 +222,7 @@ textarea.form-control{border-radius: 20px;}
 
 /*Badges*/
 .badge{border-radius: 50px; font-weight: normal; font-size: 1em; color: #ffffff;}
+.badge img{ height: 16px; width: 16px; }
 .badge-primary{ background-color: #73BBC1;}
 .badge-secondary{ background-color: #CCCCCC;}
 .badge-success{ background-color: #99D8BE;}
@@ -241,6 +246,7 @@ textarea.form-control{border-radius: 20px;}
 .card-header{border-top-left-radius: 50px !important; border-top-right-radius: 50px !important; padding-left: 30px; padding-right: 30px; padding-top: 20px; padding-bottom: 20px;}
 .card-footer{border-bottom-left-radius: 50px !important; border-bottom-right-radius: 50px !important; padding-left: 30px; padding-right: 30px; padding-top: 20px; padding-bottom: 20px;}
 .card-body{padding: 25px;}
+.card .list-group{box-shadow: none !important;}
 
 .card-item{ border: none !important; border-radius: 50px !important; }
 .card-item .card-item-body{ padding: 10px; }
@@ -319,6 +325,7 @@ a.bg-danger:hover, a.bg-danger:focus, button.bg-danger:hover, button.bg-danger:f
 /*sticky*/
 .sticky{ border-radius: 100%; text-align: center; }
 .card .sticky{position: absolute;}
+.sticky.sticky-inline{position: relative;}
 
 .sticky-lg{ width: 100px; height: 100px; font-size: 2em; border: 10px solid #ffffff; line-height: 75px; }
 .sticky-lg img{ max-width: 50px; max-height: 50px;}

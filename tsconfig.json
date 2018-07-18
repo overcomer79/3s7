@@ -9,6 +9,6 @@
       "*": ["node_modules/*", "src/types/*"]
     }
   },
-  "include": ["src/**/*"],
+  "include": ["test/**/*"],
   "exclude": ["node_modules"]
 }

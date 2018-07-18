@@ -17,7 +17,8 @@ import { PrivateModule } from "./modules/private/private.module";
 import { UtentiConnessiBadgeComponent } from "./components/utenti-connessi-badge/utenti-connessi-badge.component";
 import { AdminModule } from "./modules/admin/admin.module";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { GamesModule } from "./modules/games/games.module";
+import { RoomsModule } from "./modules/rooms/rooms.module";
+import { RoomsService } from "./services/rooms/rooms.service";
 
 /*
 const fbLoginOptions: LoginOpt = {
@@ -67,12 +68,13 @@ export function provideConfig() {
     PublicModule,
     PrivateModule,
     AdminModule,
-    GamesModule,
+    RoomsModule,
     NgbModule.forRoot()
   ],
   providers: [
     LocalAuthService,
     AuthGuard,
+    RoomsService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
     { provide: AuthServiceConfig, useFactory: provideConfig }
   ],
