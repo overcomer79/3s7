@@ -21,28 +21,28 @@ export const userSchema: Schema = new Schema({
   },
   local: {
     email: {
-      type: String,
+      type: Schema.Types.String,
       lowercase: true
     },
     password: {
-      type: String
+      type: Schema.Types.String
     }
   },
   google: {
     id: {
-      type: String
+      type: Schema.Types.String
     },
     email: {
-      type: String,
+      type: Schema.Types.String,
       lowercase: true
     }
   },
   facebook: {
     id: {
-      type: String
+      type: Schema.Types.String
     },
     email: {
-      type: String,
+      type: Schema.Types.String,
       lowercase: true
     }
   }

@@ -1,20 +1,31 @@
-import { ITable, TableState } from "../interfaces/ITable";
+import { ITable, TableState, TableSettings } from "../interfaces/ITable";
 import { IUser } from "../models/user";
 import { randomIntFromInterval } from "../../shared/helpers/math";
+import { ConnectedVisitor } from "../models/connectedVisitors";
 
 export abstract class Table implements ITable {
   state: TableState;
-  players: Array<IUser>;
-  observers: Array<Array<IUser>>;
+  players: Array<IUser> = new Array<IUser>();
+  observers: Array<Array<ConnectedVisitor>>;
   opener: number;
   numberOfPlayer: number;
+  settings: TableSettings = {
+    IsObservable: true,
+    IsPrivate: false
+  };
 
-  constructor(owner: IUser, numberOfPlayer: number) {
+  constructor(owner: IUser, numberOfPlayer: number, settings: TableSettings) {
     this.state = TableState.Waiting;
     this.numberOfPlayer = numberOfPlayer;
     this.players.push(owner);
     this.observers = new Array<any>(numberOfPlayer);
     this.opener = randomIntFromInterval(0, numberOfPlayer - 1);
+    if (settings) {
+      this.settings = {
+        IsPrivate: settings.IsPrivate,
+        IsObservable: settings.IsObservable
+      };
+    }
   }
 
   OpenerSetNext(): void {
@@ -25,13 +36,18 @@ export abstract class Table implements ITable {
   }
 
   JoinAsPlayer(player: IUser): void {
-    if (this.players.length === this.numberOfPlayer) {
-      return;
-    }
+    if (this.settings.IsPrivate) { return; }
+    if (this.state !== TableState.Waiting) { return; }
+
     this.players.push(player);
+
+    if (this.players.length === this.numberOfPlayer) {
+      this.state = TableState.Ready;
+    }
   }
 
-  JoinAsObserver(observer: IUser, indexPlayer: number): void {
+  JoinAsObserver(observer: ConnectedVisitor, indexPlayer: number): void {
+    if (!this.settings.IsObservable) { return; }
     if (indexPlayer < 0) {
       return;
     }
@@ -41,3 +57,5 @@ export abstract class Table implements ITable {
     this.observers[indexPlayer].push(observer);
   }
 }
+
+export default Table;
