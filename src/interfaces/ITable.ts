@@ -19,9 +19,10 @@ export enum TableState {
  *              has been invited
  *  IsOservable: Observators are permitted to join the table
  */
-export interface TableSettings {
-  IsPrivate: boolean;
-  IsObservable: boolean;
+export interface ITableSettings {
+  isPrivate: boolean;
+  isObservable: boolean;
+  secondsToPlay: number;
 }
 
 /**
@@ -41,7 +42,7 @@ export interface ITable {
   players: Array<IUser>;
   observers: Array<Array<ConnectedVisitor>>;
   opener: number;
-  settings: TableSettings;
+  settings: ITableSettings;
 
   OpenerSetNext(): void;
   JoinAsPlayer(player: IUser): void;

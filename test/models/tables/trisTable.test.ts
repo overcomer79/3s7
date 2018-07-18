@@ -10,8 +10,8 @@ describe("#TrisTable Initial conditions", () => {
         // Arrange
         const user = new User();
         
-        // Act
-        const table = new TrisTable(user);
+        // Act - using standard settings
+        const table = new TrisTable(user, null);
         
         // Assert
         _.isObject(table).should.be.true;
