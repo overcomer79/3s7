@@ -38,13 +38,13 @@ export abstract class Table implements ITable {
     }
   }
 
-  OpenerSetNext(): void {
+  openerSetNext(): void {
     if (this.opener < this.numberOfPlayer - 1) {
       this.opener++;
     } else this.opener = 0;
   }
 
-  JoinAsPlayer(player: IUser): void {
+  joinAsPlayer(player: IUser): void {
     if (this.settings.isPrivate) {
       return;
     }
@@ -59,7 +59,7 @@ export abstract class Table implements ITable {
     }
   }
 
-  JoinAsObserver(observer: ConnectedVisitor, indexPlayer: number): void {
+  joinAsObserver(observer: ConnectedVisitor, indexPlayer: number): void {
     if (!this.settings.isObservable) {
       return;
     }

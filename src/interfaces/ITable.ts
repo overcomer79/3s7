@@ -28,7 +28,7 @@ export interface ITableSettings {
 /**
  * The interface that defines the Table
  *  ...
- *  Opener: the index of the player in the players array that begin to play (open the game)
+ *  opener: the index of the player in the players array that begin to play (open the game)
  *  ...
  *
  *  OpenreSetNext(): Set the turn to the next player in the players array
@@ -44,8 +44,8 @@ export interface ITable {
   opener: number;
   settings: ITableSettings;
 
-  OpenerSetNext(): void;
-  JoinAsPlayer(player: IUser): void;
-  JoinAsObserver(observer: ConnectedVisitor, indexPlayer: number): void
+  openerSetNext(): void;
+  joinAsPlayer(player: IUser): void;
+  joinAsObserver(observer: ConnectedVisitor, indexPlayer: number): void
 
 }

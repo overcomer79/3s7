@@ -13,7 +13,7 @@ export enum TableSpeed {
 /**
  * Standard Table settings
  */
-class TableSetting implements ITableSettings {
+export class TableSetting implements ITableSettings {
   isPrivate = false;
   isObservable = false;
   secondsToPlay = TableSpeed.Normal;

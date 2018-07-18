@@ -24,7 +24,7 @@ beforeEach("create a mock table istance", () => {
 });
 
 describe("#Base Table Initial conditions", () => {
-  it("A table could be extended", () => {
+  it("A abstract class Table should be extended", () => {
     _.isObject(this.table).should.be.true;
   });
 
@@ -56,7 +56,7 @@ describe("#Base Table Methods", () => {
         );
       } while (this.table.opener === this.table.numberOfPlayer - 1);
       const indexBefore = this.table.opener;
-      this.table.OpenerSetNext();
+      this.table.openerSetNext();
       this.table.opener.should.be.equals(indexBefore + 1);
     });
 
@@ -67,7 +67,7 @@ describe("#Base Table Methods", () => {
           this.table.numberOfPlayer - 1
         );
       } while (this.table.opener !== this.table.numberOfPlayer - 1);
-      this.table.OpenerSetNext();
+      this.table.openerSetNext();
       this.table.opener.should.be.equals(0);
     });
   });
@@ -77,7 +77,7 @@ describe("#Base Table Methods", () => {
     it("A player can join a table (if is is not private)", () => {
       const playersNumber = this.table.players.length;
       const user = new User();
-      this.table.JoinAsPlayer(user);
+      this.table.joinAsPlayer(user);
       this.table.players.length.should.equals(playersNumber + 1);
     });
 
@@ -85,7 +85,7 @@ describe("#Base Table Methods", () => {
       const capacity = this.table.numberOfPlayer;
       for (let index = 1; index < capacity; index++) {
         const user = new User();
-        this.table.JoinAsPlayer(user);
+        this.table.joinAsPlayer(user);
       }
       this.table.state.should.equals(TableState.Ready);
     });
@@ -93,11 +93,11 @@ describe("#Base Table Methods", () => {
     it("If a table is ready a player can't join the table", () => {
       while (this.table.state === TableState.Waiting) {
         const user = new User();
-        this.table.JoinAsPlayer(user);
+        this.table.joinAsPlayer(user);
       }
       const numberOfPlayer = this.table.players.length;
       const user = new User();
-      this.table.JoinAsPlayer(user);
+      this.table.joinAsPlayer(user);
       numberOfPlayer.should.equals(this.table.players.length);
     });
 
@@ -105,7 +105,7 @@ describe("#Base Table Methods", () => {
       this.table.settings.isPrivate = true;
       const numberOfPlayer = this.table.players.length;
       const user = new User();
-      this.table.JoinAsPlayer(user);
+      this.table.joinAsPlayer(user);
       numberOfPlayer.should.equals(this.table.players.length);
     });
   });
@@ -123,14 +123,14 @@ describe("#Base Table Methods", () => {
         .length;
       const visitor = new Visitor("mockString");
       const user = new User();
-      this.table.JoinAsObserver(user, indexPlayerToObserve);
-      this.table.JoinAsObserver(visitor, indexPlayerToObserve);
+      this.table.joinAsObserver(user, indexPlayerToObserve);
+      this.table.joinAsObserver(visitor, indexPlayerToObserve);
       this.table.observers[indexPlayerToObserve].length.should.equals(
         numberOfObeserver
       );
     });
 
-    it("if a table is observable a visitor/player can observe a player", () => {
+    it("if a table is observable(default setting) a visitor/player can observe a player", () => {
         const indexPlayerToObserve = randomIntFromInterval(
           0,
           this.table.numberOfPlayer - 1
@@ -139,8 +139,8 @@ describe("#Base Table Methods", () => {
           .length;
         const visitor = new Visitor("mockString");
         const user = new User();
-        this.table.JoinAsObserver(user, indexPlayerToObserve);
-        this.table.JoinAsObserver(visitor, indexPlayerToObserve);
+        this.table.joinAsObserver(user, indexPlayerToObserve);
+        this.table.joinAsObserver(visitor, indexPlayerToObserve);
         this.table.observers[indexPlayerToObserve].length.should.equals(
           numberOfObeserver + 2
         );
