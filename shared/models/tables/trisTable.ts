@@ -1,6 +1,6 @@
 import { Table } from "../../../src/abstracts/table";
 import { IUser } from "../../../src/models/user";
-import { ITableSettings } from "../../../src/interfaces/ITable";
+import { ITableSettings } from "../../../shared/interfaces/ITable";
 
 const NumberOfPlayer = 2;
 

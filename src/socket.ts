@@ -1,7 +1,7 @@
 import * as io from "socket.io";
 import { Server } from "https";
-import { ConnectedVisitor } from "./models/connectedVisitors";
 import { MessagePack } from "../shared/models/socket_messages/messagePack";
+import { Visitor, IVisitorConnectionInfo } from "../shared/models/visitor";
 
 const DEBUG: boolean = true;
 const mainRoom: string = "app";
@@ -12,14 +12,21 @@ let listen: any = (server: Server) => {
   const socketIO: SocketIO.Server = io.listen(server);
 
   socketIO.on("connection", (socket: SocketIO.Socket) => {
+
     socket.join(mainRoom);
-    const room: any = socketIO.nsps["/"].adapter.rooms[mainRoom];
-    ConnectedVisitor.onConnect(socket, mainRoom, room, pack);
+    
+    const connectionInfo: IVisitorConnectionInfo = {
+      socket: socket,
+      roomName: mainRoom,
+      rooms: socketIO.nsps["/"].adapter.rooms[mainRoom],
+      pack: pack
+    }
+    
+    Visitor.onConnect(connectionInfo);
 
     socket.on("message", data => {
-      ConnectedVisitor.connectedVisitorsList[socket.id].sendChatMessage(
-        socketIO,
-        data.room,
+      Visitor.visitors[socket.id].sendChatMessage(
+        connectionInfo,
         data.message
       );
     });
@@ -38,8 +45,8 @@ let listen: any = (server: Server) => {
     });
 
     socket.on("disconnect", () => {
-      socket.leave(mainRoom);
-      ConnectedVisitor.onDisconnect(socket, mainRoom, room, pack);
+      connectionInfo.socket.leave(mainRoom);
+      Visitor.onDisconnect(connectionInfo);
     });
   });
 

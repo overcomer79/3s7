@@ -1,10 +1,11 @@
 import { Schema, Model, model } from "mongoose";
 import * as bcrypt from "bcryptjs";
 import { IUserDocument } from "../interfaces/IUserDocument";
-import { ConnectedVisitor } from "./connectedVisitors";
-import { NextFunction } from "../../node_modules/@types/express-serve-static-core";
+//import { ConnectedVisitor } from "./connectedVisitors";
+import { NextFunction } from "express-serve-static-core";
+import { Visitor } from "../../shared/models/visitor";
 
-export interface IUser extends IUserDocument, ConnectedVisitor {
+export interface IUser extends IUserDocument, Visitor {
   isValidPassword(password: string): Promise<boolean>;
 }
 

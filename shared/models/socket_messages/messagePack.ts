@@ -1,4 +1,4 @@
-import { ConnectedUsersInfo } from "../connectedUsersInfo";
+import { ConnectedUsersInfo } from "./connectedUsersInfo";
 
 /**
  * Message sended from the socket server with setInterval

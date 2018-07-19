@@ -7,7 +7,7 @@
     "test": "mocha dist/__test__/**/*.test.js",
     "start": "nodemon dist/src/server.js",
     "js_start": "nodemon JS/server.js",
-    "coverage_all": "istanbul cover ./node_modules/mocha/bin/_mocha --include-all-sources -x test/",
+    "coverage_all": "istanbul cover -x \"**/config/**\" -x \"**/__test__/**\" ./node_modules/mocha/bin/_mocha --include-all-sources dist/__test__/**/*.test.js -root ./dist",
     "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha dist/__test__/**/*.test.js -x dist/__test__/**/*.test.js",
     "showcoverage": "start coverage/lcov-report/index.html"
   },

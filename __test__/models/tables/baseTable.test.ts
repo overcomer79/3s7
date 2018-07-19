@@ -6,7 +6,7 @@ import * as math from "../../../shared/helpers/math";
 
 import { Table } from "../../../src/abstracts/table";
 import { User } from "../../../src/models/user";
-import { TableState } from "../../../src/interfaces/ITable";
+import { TableState } from "../../../shared/interfaces/ITable";
 import { randomIntFromInterval } from "../../../shared/helpers/math";
 import { Visitor } from "../../../shared/models/visitor";
 

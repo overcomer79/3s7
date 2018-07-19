@@ -1,12 +1,12 @@
-import { ITable, TableState, ITableSettings } from "../interfaces/ITable";
+import { ITable, TableState, ITableSettings } from "../../shared/interfaces/ITable";
 import { IUser } from "../models/user";
 import { randomIntFromInterval } from "../../shared/helpers/math";
-import { ConnectedVisitor } from "../models/connectedVisitors";
+import { Visitor } from "../../shared/models/visitor";
 
 export abstract class Table implements ITable {
   state: TableState;
   players: IUser[];
-  observers: ConnectedVisitor[][];
+  observers: Visitor[][];
   opener: number;
   numberOfPlayer: number;
   settings: ITableSettings = {
@@ -59,7 +59,7 @@ export abstract class Table implements ITable {
     }
   }
 
-  joinAsObserver(observer: ConnectedVisitor, indexPlayer: number): void {
+  joinAsObserver(observer: Visitor, indexPlayer: number): void {
     if (!this.settings.isObservable) {
       return;
     }

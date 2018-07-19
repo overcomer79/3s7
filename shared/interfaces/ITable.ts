@@ -1,11 +1,11 @@
-import { IUser } from "../models/user";
-import { ConnectedVisitor } from "../models/connectedVisitors";
+import { IUser } from "./../../src/models/user"
+import { Visitor } from "../models/visitor";
 
 /**
  * Various basic states of the table
- *  Waiting: when the table is created, waiting for the players to join it.
- *  Ready: All the players joined the table
- *  Playing: The players are playing the game
+ *  - Waiting: when the table is created, waiting for the players to join it.
+ *  - Ready: All the players joined the table
+ *  - Playing: The players are playing the game
  */
 export enum TableState {
   Waiting,
@@ -40,12 +40,12 @@ export interface ITableSettings {
 export interface ITable {
   state: TableState;
   players: Array<IUser>;
-  observers: Array<Array<ConnectedVisitor>>;
+  observers: Array<Array<Visitor>>;
   opener: number;
   settings: ITableSettings;
 
   openerSetNext(): void;
   joinAsPlayer(player: IUser): void;
-  joinAsObserver(observer: ConnectedVisitor, indexPlayer: number): void
+  joinAsObserver(observer: Visitor, indexPlayer: number): void
 
 }

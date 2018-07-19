@@ -1,10 +1,10 @@
-import { ITable } from './../../src/interfaces/ITable';
-import * as global from "./../helpers/global";
-import { IUser } from "./../../src/models/user";
-import { ConnectedVisitor } from "./../../src/models/connectedVisitors";
+import { ITable } from './ITable';
+import * as global from "../helpers/global";
+import { IUser } from "../../src/models/user";
+import { Visitor } from '../models/visitor';
 
 /**
- * The interface tha define the Room
+ * The interface that defines the Room
  * ***
  *  - A room can be used only if it is enabled (default)
  *  - A room is a collection of Tables, user and visitors
@@ -12,9 +12,10 @@ import { ConnectedVisitor } from "./../../src/models/connectedVisitors";
  * *** 
  * 
  * 
- *      visitors/user   -> "the visitors/user that joined/left the room"
- *      tables          -> "the created tables list"
- *      gameType        -> "The type of game"
+ *      users       -> "the users that joined/left the room"
+ *      visitors    -> "the visitors that joined/left the room"
+ *      tables      -> "the created tables list"
+ *      gameType    -> "The type of game"
  * 
  * methods:
  * 
@@ -30,12 +31,12 @@ export interface IRoom {
     tables: Array<ITable>;
     isEnabled: boolean;
     gameType: global.GameType;
-    visitors: Array<ConnectedVisitor>;
+    visitors: Array<Visitor>;
     users: Array<IUser>;
 
     userJoin(user: IUser): void;
     userLeft(user: IUser): void;
-    visitorJoin(visitor: ConnectedVisitor): void;
-    visitorLeft(visitor: ConnectedVisitor): void;
+    visitorJoin(visitor: Visitor): void;
+    visitorLeft(visitor: Visitor): void;
     addTable(table: ITable);
 }

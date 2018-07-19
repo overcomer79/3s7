@@ -1,4 +1,4 @@
-import { LogMessage } from "../models/socket_messages/logMessage";
+import { LogMessage } from "../models/chat_messages/logMessage";
 
 export enum GameType {
   TRESSETTE,

@@ -1,15 +1,14 @@
 import * as global from "../helpers/global";
 import { IRoom } from "../interfaces/IRoom";
-import { ITable } from "../../src/interfaces/ITable";
-import { ConnectedVisitor } from "../../src/models/connectedVisitors";
+import { ITable } from "../interfaces/ITable";
 import { IUser } from "../../src/models/user";
-import * as tris from "../models/tables/trisTable" 
+import { Visitor } from "./visitor";
 
 export class Room implements IRoom {
   tables: ITable[];
   isEnabled: boolean;
   gameType: global.GameType;
-  visitors: ConnectedVisitor[];
+  visitors: Visitor[];
   users: IUser[];
 
   constructor(type: global.GameType) {
@@ -21,7 +20,9 @@ export class Room implements IRoom {
   }
 
   userJoin(user: IUser): void {
-    if (!this.isEnabled) { return; }
+    if (!this.isEnabled) {
+      return;
+    }
     this.users.push(user);
   }
 
@@ -32,12 +33,14 @@ export class Room implements IRoom {
     }
   }
 
-  visitorJoin(visitor: ConnectedVisitor): void {
-    if (!this.isEnabled) { return; }
+  visitorJoin(visitor: Visitor): void {
+    if (!this.isEnabled) {
+      return;
+    }
     this.visitors.push(visitor);
   }
 
-  visitorLeft(visitor: ConnectedVisitor): void {
+  visitorLeft(visitor: Visitor): void {
     const index = this.visitors.indexOf(visitor, 0);
     if (index > -1) {
       this.visitors.splice(index, 1);
@@ -45,11 +48,9 @@ export class Room implements IRoom {
   }
 
   addTable(table: ITable): void {
-    if (!this.isEnabled) { return; }
-
-    if (this.gameType === global.GameType.TRIS) {
-      this.tables.push(table);
+    if (!this.isEnabled) {
+      return;
     }
-    //Here all others gameType
+    this.tables.push(table);
   }
 }
