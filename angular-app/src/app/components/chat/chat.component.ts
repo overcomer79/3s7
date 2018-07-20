@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ChatService } from "./chat.service";
-import { LogMessage } from "../../../../../shared/models/socket_messages/logMessage";
+import { LogMessage } from "../../../../../shared/models/chat_messages/logMessage";
 
 @Component({
   selector: "app-chat",

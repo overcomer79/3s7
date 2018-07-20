@@ -1,37 +1,16 @@
 import * as Global from "../helpers/global";
 import { alphanumericUnique } from "../helpers/math";
-import { MessagePack } from "./socket_messages/messagePack";
+import { IVisitor, IVisitorConnectionInfo} from "./../interfaces/IVisitor";
 import { LogMessage } from "./chat_messages/logMessage";
 import { UserMessage } from "../models/chat_messages/userMessage";
 
-/**
- * It Defines the basic connection visitors info
- * ***
- * properties
- *
- *      socket      -> "Socket user for exchange message"
- *      roomName    -> "The socket room where to exchange message"
- *      rooms       -> "All the rooms of the Server socket"
- *      pack        -> "The effective info of the message"
- */
-export interface IVisitorConnectionInfo {
-  socket /*: SocketIO.Socket*/;
-  roomName: string;
-  rooms;
-  pack: MessagePack;
-}
 
 /**
- * The Class that defines the Visitor
+ * The Class for the Visitor
  * ***
- *  - A visitor is the base user
- *  - A visitor can connent o disconnect the variuos socket's rooms
- * ***
- * properties
+ * static properties
  *
- *
- *      socketID -> "Socket Id connected to the user"
- *      username -> "Random username for the user"
+ *      visitors -> "Socket Id connected to the user"
  *
  * ***
  * static methods
@@ -41,17 +20,14 @@ export interface IVisitorConnectionInfo {
  *
  *      onDisconnect() -> "Send info to the server"
  *                        "that the user disconnected"
- * 
- * methods
- *        
- *      sendChatMessage() -> "send a chat message"
  */
-export class Visitor {
+export class Visitor implements IVisitor{
   socketId: string;
   username: string;
   color: string;
   canSendMessage: boolean =  true;
 
+  // Questo lo devo cambiare
   static visitors: Array<Visitor> = [];
 
   constructor(idSocket: string) {

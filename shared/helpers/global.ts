@@ -6,7 +6,7 @@ export enum GameType {
   TRIS
 }
 
-const costants = Object.freeze({
+export const costants = Object.freeze({
 
   BaseUserConfig: {
     usernamePrefix: "DEMON"
@@ -17,5 +17,3 @@ const costants = Object.freeze({
     ROOM_LEFT: "ha abbandonato la stanza..."
   }),
 });
-
-export { costants };

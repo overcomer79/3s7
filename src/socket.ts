@@ -1,7 +1,8 @@
 import * as io from "socket.io";
 import { Server } from "https";
 import { MessagePack } from "../shared/models/socket_messages/messagePack";
-import { Visitor, IVisitorConnectionInfo } from "../shared/models/visitor";
+import { Visitor } from "../shared/models/visitor";
+import { IVisitorConnectionInfo } from "../shared/interfaces/IVisitor";
 
 const DEBUG: boolean = true;
 const mainRoom: string = "app";
@@ -11,27 +12,31 @@ const pack: MessagePack = new MessagePack();
 let listen: any = (server: Server) => {
   const socketIO: SocketIO.Server = io.listen(server);
 
-  socketIO.on("connection", (socket: SocketIO.Socket) => {
+  socketIO.sockets.on("connection", (socket: SocketIO.Socket) => {
 
-    socket.join(mainRoom);
+  });
+
+  socketIO.of('/tris').on("connection", () => {
     
+  });
+
+  socketIO.on("connection", (socket: SocketIO.Socket) => {
+    socket.join(mainRoom);
+
     const connectionInfo: IVisitorConnectionInfo = {
       socket: socket,
       roomName: mainRoom,
       rooms: socketIO.nsps["/"].adapter.rooms[mainRoom],
       pack: pack
-    }
-    
+    };
+
     Visitor.onConnect(connectionInfo);
 
     socket.on("message", data => {
-      Visitor.visitors[socket.id].sendChatMessage(
-        connectionInfo,
-        data.message
-      );
+      Visitor.visitors[socket.id].sendChatMessage(connectionInfo, data.message);
     });
 
-    socket.on("evalServer", (data: string) => {
+    socket.on("evalServer", (data: string): void => {
       console.log("----- FROM CLIENT: TEXT TO EVAL -------");
       if (!DEBUG) {
         return;

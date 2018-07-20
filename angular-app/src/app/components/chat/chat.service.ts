@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
-import { LogMessage } from "../../../../../shared/models/socket_messages/logMessage";
+import { LogMessage } from "../../../../../shared/models/chat_messages/logMessage";
 import { WebsocketService } from "../../services/socket/websocket.service";
 
 @Injectable({
@@ -16,6 +16,7 @@ export class ChatService {
 
   // Our constructor calls our wsService connect method
   constructor(private _wsService: WebsocketService) {
+    // this._wsService.setNameSpace('/tris');
     this.messages = <Subject<any>>_wsService.chat().map(
       (response: any): any => {
         return response;

@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  ws_url: "https://localhost:3000"
+  ws_url: "https://localhost:3000",
+  socket_namespace: {
+    home: "/",
+    tris: "tris/",
+  }
 };
 
 /*

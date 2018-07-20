@@ -5,14 +5,18 @@ import { Subject } from "rxjs/Subject";
 import { environment } from "../../../environments/environment";
 import "rxjs/add/operator/map";
 import { MessagePack } from '../../../../../shared/models/socket_messages/messagePack';
-import { ConnectedUsersInfo } from "../../../../../shared/models/connectedUsersInfo";
-import { LogMessage } from "../../../../../shared/models/socket_messages/logMessage";
+import { ConnectedUsersInfo } from "../../../../../shared/models/socket_messages/connectedUsersInfo";
+import { LogMessage } from "../../../../../shared/models/chat_messages/logMessage";
 
 @Injectable({
   providedIn: "root"
 })
 export class WebsocketService {
   private socket = io(environment.ws_url, { secure: true });
+
+  setNameSpace(namespace: string) {
+    this.socket.nsp = namespace;
+  }
 
   connectedUsersInfo(): Observable<ConnectedUsersInfo> {
     const observable = new Observable<ConnectedUsersInfo>(observer => {
@@ -53,7 +57,6 @@ export class WebsocketService {
   userLeftRoom(): Observable<LogMessage> {
     const observable = new Observable<LogMessage>(observer => {
       this.socket.on("left room", (data: LogMessage) => {
-        console.log(data);
         observer.next(data);
       });
       return () => {
