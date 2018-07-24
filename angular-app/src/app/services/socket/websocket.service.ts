@@ -7,6 +7,7 @@ import "rxjs/add/operator/map";
 import { MessagePack } from '../../../../../shared/models/socket_messages/messagePack';
 import { ConnectedUsersInfo } from "../../../../../shared/models/socket_messages/connectedUsersInfo";
 import { LogMessage } from "../../../../../shared/models/chat_messages/logMessage";
+import { MessageInfo, MessageType} from "../../../../../shared/helpers/global";
 
 @Injectable({
   providedIn: "root"
@@ -102,7 +103,7 @@ export class WebsocketService {
 
     const observer = {
       next: (data: Object) => {
-        this.socket.emit("message", data);
+        this.socket.emit(MessageInfo.get(MessageType.CHAT_MESSAGE), data);
       }
     };
     return Subject.create(observer, observable);
