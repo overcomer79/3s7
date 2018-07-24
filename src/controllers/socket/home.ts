@@ -1,6 +1,6 @@
 import { IVisitorConnectionInfo } from "./../../../shared/interfaces/IVisitor";
 import { Visitor } from "./../../../shared/models/visitor";
-import { Core } from "../../models/core";
+import { core } from "../../models/core";
 import { MessageType } from "../../../shared/helpers/global";
 import { MessageInfo } from "../../../shared/helpers/global";
 
@@ -18,7 +18,7 @@ export let HomeSocketController = (socket: SocketIO.Socket) => {
   Visitor.onConnect(connectionInfo);
 
   socket.on(MessageInfo.get(MessageType.CHAT_MESSAGE), data => {
-    Core.visitors[socket.id].sendChatMessage(connectionInfo, data.message);
+    core.visitors[socket.id].sendChatMessage(connectionInfo, data.message);
   });
 
   /**

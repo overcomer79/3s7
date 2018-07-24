@@ -3,7 +3,7 @@ import { alphanumericUnique } from "../helpers/math";
 import { IVisitor, IVisitorConnectionInfo } from "./../interfaces/IVisitor";
 import { LogMessage } from "./chat_messages/logMessage";
 import { UserMessage } from "../models/chat_messages/userMessage";
-import { Core } from "../../src/models/core";
+import { core } from "../../src/models/core";
 
 /**
  * The Class for the Visitor
@@ -38,7 +38,7 @@ export class Visitor implements IVisitor {
 
   static onConnect(connInfo: IVisitorConnectionInfo) {
     const visitor = new Visitor(connInfo.socket.id);
-    Core.visitors[connInfo.socket.id] = visitor;
+    core.visitors[connInfo.socket.id] = visitor;
     console.log("utente", visitor.username, "si è connesso...");
     connInfo.socket.emit("connected user", { user: visitor });
     connInfo.socket.broadcast
@@ -52,7 +52,7 @@ export class Visitor implements IVisitor {
   static onDisconnect(connInfo: IVisitorConnectionInfo) {
     console.log(
       "utente",
-      Core.visitors[connInfo.socket.id].username,
+      core.visitors[connInfo.socket.id].username,
       "ha abbandonato la pagina..."
     );
     connInfo.socket.broadcast
@@ -60,11 +60,11 @@ export class Visitor implements IVisitor {
       .emit(
         "left room",
         new LogMessage(
-          Core.visitors[connInfo.socket.id],
+          core.visitors[connInfo.socket.id],
           Global.costants.LogMessages.ROOM_LEFT
         )
       );
-    delete Core.visitors[connInfo.socket.id];
+    delete core.visitors[connInfo.socket.id];
   }
 
   sendChatMessage(connInfo: IVisitorConnectionInfo, data: string) {
@@ -84,7 +84,7 @@ export class Visitor implements IVisitor {
       connInfo.socket.emit(
         "left room",
         new LogMessage(
-          Core.visitors[connInfo.socket.id],
+          core.visitors[connInfo.socket.id],
           " Non hai il permesso di scrivere in chat"
         )
       );

@@ -5,21 +5,37 @@ import { HomeResponse } from "../../shared/models/responses/home";
 import { Visitor } from "../../shared/models/visitor";
 import { IUser } from "./user";
 
-export class Core {
-  static rooms: Array<IRoom> = [];
-  static users: Array<IUser> = [];
-  static visitors: Array<Visitor> = [];
+/**
+ * Core Singleton of the application
+ * ***
+ * properties:
+ *  
+ *      users -> "List of users that are using the app"
+ *      visitors -> "List of the visitors that are using the app"
+ *      rooms -> "list of the rooms implemented for playing"
+ * ***
+ * methods:
+ * 
+ *      getHomeResponse -> "Object sent to the frontend in order to build the home page"
+ */
+class Core {
+  rooms: Array<IRoom>;
+  users: Array<IUser>;
+  visitors: Array<Visitor>;
 
   constructor() {
     GameInfo.forEach((el, key) => {
-      Core.rooms.push(new Room(key));
+      this.users = [];
+      this.visitors = [];
+      this.rooms = [];
+      this.rooms.push(new Room(key));
     });
   }
 
-  static getHomeResponse(): HomeResponse {
+  getHomeResponse(): HomeResponse {
     const response = new HomeResponse();
 
-    Core.rooms.forEach(e => {
+    this.rooms.forEach(e => {
       response.rooms.push({
         name: GameInfo.get(e.gameType).roomName,
         connectedUser: e.users.length,
@@ -31,3 +47,8 @@ export class Core {
     return response;
   }
 }
+
+/**
+ * Create a singleton to be exported
+ */
+export const core = new Core();
