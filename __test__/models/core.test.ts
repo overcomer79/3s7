@@ -11,7 +11,7 @@ describe("@@ CORE CLASS", () => {
     });
 
     describe("#Methods", () => {
-        it.only("A Home response should be an object", () => {
+        it("A Home response should be an object", () => {
             const core = new Core();
             console.log(core.getHomeResponse());
         });

@@ -17,10 +17,15 @@ class MockTable extends Table {
 }
 
 describe("@@ TABLE ABSTRACT CLASS", () => {
+
   beforeEach("create a mock table istance", () => {
     const user = new User();
     const number = math.randomIntFromInterval(2, 10);
     this.table = new MockTable(user, number);
+  });
+
+  afterEach(() => {
+    this.table = undefined;
   });
 
   describe("#Base Table Initial conditions", () => {
@@ -73,10 +78,11 @@ describe("@@ TABLE ABSTRACT CLASS", () => {
 
     describe("@JoinAsPlayer Method", () => {
       it("A player can join a table (if is is not private)", () => {
-        const playersNumber = this.table.players.length;
+        //const playersNumber = this.table.players.length;
         const user = new User();
         this.table.joinAsPlayer(user);
-        this.table.players.length.should.equals(playersNumber + 1);
+        //this.table.players.length.should.equals(playersNumber + 1);
+        this.table.players.should.include(user);
       });
 
       it("A table if all player are joined should be in ready state", () => {
