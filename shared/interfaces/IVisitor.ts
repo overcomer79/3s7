@@ -7,14 +7,10 @@ import { MessagePack } from "./../models/socket_messages/messagePack";
  *
  *      socket      -> "Socket user for exchange message"
  *      roomName    -> "The socket room where to exchange message"
- *      rooms       -> "All the rooms of the Server socket"
- *      pack        -> "The effective info of the message"
  */
 export interface IVisitorConnectionInfo {
     socket /*: SocketIO.Socket*/;
     roomName: string;
-    rooms;
-    pack: MessagePack;
   }
 
   /**

@@ -11,10 +11,10 @@ describe("@@ CORE CLASS", () => {
     });
 
     describe("#Methods", () => {
-        it("A Home response should be an object", () => {
-            const core = new Core();
-            console.log(core.getHomeResponse());
+        it.only("Home response should be an object", () => {
+            console.log(Core.getHomeResponse());
         });
+
     });
     
 });
