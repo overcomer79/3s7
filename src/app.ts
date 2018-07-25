@@ -33,7 +33,7 @@ class App {
        * "atlas_coonn_string":  connects to the cloud atlas Mongo DB
        * "local":               connects to local Mongo DB istance
        */
-      conf.keys.mongoDB.local,
+      conf.keys.mongoDB.atlas_conn_string,
       err => {
         if (err) {
           console.log("Unable to connect to Mongo DB:", err);

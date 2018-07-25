@@ -19,6 +19,7 @@ import { IUser } from "./user";
  *      getHomeResponse -> "Object sent to the frontend in order to build the home page"
  */
 class Core {
+  
   rooms: Array<IRoom>;
   users: Array<IUser>;
   visitors: Array<Visitor>;

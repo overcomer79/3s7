@@ -5,7 +5,7 @@ import { MessageType } from "../../../shared/helpers/global";
 import { MessageInfo } from "../../../shared/helpers/global";
 
 const DEBUG: boolean = true;
-const mainRoom: string = "/";
+const mainRoom: string = "home";
 
 export let HomeSocketController = (socket: SocketIO.Socket) => {
   socket.join(mainRoom);

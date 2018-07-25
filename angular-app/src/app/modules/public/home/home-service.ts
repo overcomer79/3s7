@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import * as io from "socket.io-client";
 import {} from "rxjs/Observable";
 import { Observable } from "rxjs";
-
+/*
 @Injectable({ providedIn: "root" })
 export class HomeService {
   private socket = io("https://localhost:3000", { secure: true });
@@ -44,3 +44,4 @@ export class HomeService {
     return observable;
   }
 }
+*/

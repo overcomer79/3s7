@@ -4,6 +4,7 @@ import { IVisitor, IVisitorConnectionInfo } from "./../interfaces/IVisitor";
 import { LogMessage } from "./chat_messages/logMessage";
 import { UserMessage } from "../models/chat_messages/userMessage";
 import { core } from "../../src/models/core";
+import { socketIO } from "../../src/socket";
 
 /**
  * The Class for the Visitor
@@ -39,7 +40,7 @@ export class Visitor implements IVisitor {
   static onConnect(connInfo: IVisitorConnectionInfo) {
     const visitor = new Visitor(connInfo.socket.id);
     core.visitors[connInfo.socket.id] = visitor;
-    console.log("utente", visitor.username, "si è connesso...");
+    console.log("user", visitor.username, "join", connInfo.roomName);
     connInfo.socket.emit("connected user", { user: visitor });
     connInfo.socket.broadcast
       .to(connInfo.roomName)
@@ -51,9 +52,9 @@ export class Visitor implements IVisitor {
 
   static onDisconnect(connInfo: IVisitorConnectionInfo) {
     console.log(
-      "utente",
+      "user",
       core.visitors[connInfo.socket.id].username,
-      "ha abbandonato la pagina..."
+      "left", connInfo.roomName
     );
     connInfo.socket.broadcast
       .to(connInfo.roomName)
@@ -71,7 +72,7 @@ export class Visitor implements IVisitor {
     if (this.canSendMessage) {
       if (!data || data.trim() === "") return;
 
-      connInfo.socket.emit(
+      socketIO.in(connInfo.roomName).emit(
         "addToChat",
         new UserMessage({
           user: this.username,

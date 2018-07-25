@@ -4,6 +4,9 @@ import { TrisComponent } from "./tris/tris.component";
 import { RoomComponent } from './room/room.component';
 import { AngularFontAwesomeModule } from "angular-font-awesome";
 import { CardTableComponent } from '../../components/card-table/card-table.component';
+import { PublicModule } from "../public/public.module";
+import { ChatComponent } from "../../components/chat/chat.component";
+
 
 const RoomsRouting: ModuleWithProviders = RouterModule.forChild([
   {
@@ -15,12 +18,14 @@ const RoomsRouting: ModuleWithProviders = RouterModule.forChild([
 @NgModule({
   imports: [
     RoomsRouting,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    PublicModule
   ],
   declarations: [
     TrisComponent,
     RoomComponent,
-    CardTableComponent
+    CardTableComponent,
+    // ChatComponent
   ]
 })
 export class RoomsModule {}

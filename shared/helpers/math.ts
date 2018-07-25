@@ -1,7 +1,7 @@
 /**
  * Arrow Function that returns a Random Alphanumeric String
  */
-let alphanumericUnique = () => {
+const alphanumericUnique = () => {
   return Math.random()
     .toString(36)
     .split("")
@@ -15,7 +15,7 @@ let alphanumericUnique = () => {
 /**
  * Arrow function that return a integer random number from min and max
  */
-let randomIntFromInterval = (min: number, max: number) => {
+const randomIntFromInterval = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 

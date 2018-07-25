@@ -28,6 +28,7 @@ const publicRouting: ModuleWithProviders = RouterModule.forChild([
         ChatComponent,
         RegisterComponent,
         CardRoomComponent
-    ]
+    ],
+    exports: [ChatComponent]
 })
 export class PublicModule { }

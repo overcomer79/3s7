@@ -16,7 +16,7 @@ export class ChatService {
 
   // Our constructor calls our wsService connect method
   constructor(private _wsService: WebsocketService) {
-    // this._wsService.setNameSpace('/tris');
+    //this._wsService.setNameSpace('/tris');
     this.messages = <Subject<any>>_wsService.chat().map(
       (response: any): any => {
         return response;
@@ -54,5 +54,9 @@ export class ChatService {
     } else {
       this.messages.next(msg);
     }
+  }
+
+  setNamespace(nsp) {
+    this._wsService.setNameSpace(nsp);
   }
 }
