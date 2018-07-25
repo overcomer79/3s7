@@ -42,19 +42,33 @@ export class Visitor implements IVisitor {
     core.visitors[connInfo.socket.id] = visitor;
     console.log("user", visitor.username, "join", connInfo.roomName);
     connInfo.socket.emit("connected user", { user: visitor });
+   /*
+    Object.keys(socketIO.of("/chat").adapter.rooms).forEach(element => {
+      console.log(element);
+    });
+    
+    socketIO
+      .of("/general").to(connInfo.roomName)
+      .emit(
+        "new user joined",
+        new LogMessage(visitor, Global.costants.LogMessages.ROOM_JOINED)
+      );
+    */
     connInfo.socket.broadcast
       .to(connInfo.roomName)
       .emit(
         "new user joined",
         new LogMessage(visitor, Global.costants.LogMessages.ROOM_JOINED)
       );
+
   }
 
   static onDisconnect(connInfo: IVisitorConnectionInfo) {
     console.log(
       "user",
       core.visitors[connInfo.socket.id].username,
-      "left", connInfo.roomName
+      "left",
+      connInfo.roomName
     );
     connInfo.socket.broadcast
       .to(connInfo.roomName)
@@ -71,8 +85,7 @@ export class Visitor implements IVisitor {
   sendChatMessage(connInfo: IVisitorConnectionInfo, data: string) {
     if (this.canSendMessage) {
       if (!data || data.trim() === "") return;
-
-      socketIO.in(connInfo.roomName).emit(
+      socketIO.of('/chat').in(connInfo.roomName).emit(
         "addToChat",
         new UserMessage({
           user: this.username,

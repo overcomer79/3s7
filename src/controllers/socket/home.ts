@@ -7,19 +7,21 @@ import { MessageInfo } from "../../../shared/helpers/global";
 const DEBUG: boolean = true;
 const mainRoom: string = "home";
 
-export let HomeSocketController = (socket: SocketIO.Socket) => {
+export const HomeSocketController = (socket: SocketIO.Socket) => {
   socket.join(mainRoom);
 
   const connectionInfo: IVisitorConnectionInfo = {
     socket: socket,
     roomName: mainRoom
   };
+  /*
 
   Visitor.onConnect(connectionInfo);
-
+*/
   socket.on(MessageInfo.get(MessageType.CHAT_MESSAGE), data => {
     core.visitors[socket.id].sendChatMessage(connectionInfo, data.message);
   });
+  
 
   /**
    * this function can be usefull
@@ -44,9 +46,10 @@ export let HomeSocketController = (socket: SocketIO.Socket) => {
     }
   );
   */
-
+/*
   socket.on("disconnect", () => {
     connectionInfo.socket.leave(mainRoom);
     Visitor.onDisconnect(connectionInfo);
   });
+  */
 };

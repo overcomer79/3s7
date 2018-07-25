@@ -11,8 +11,8 @@ export class RoomUi extends Room {
         super(gt);
         this.icon = icon;
         this.bgIconColor = bgIconColor;
-        if (gt === GameType.TRESSETTE) { this.title = "Tressette"; }
-        if (gt === GameType.BRISCOLA) { this.title = "Briscola"; }
-        if (gt === GameType.TRIS) { this.title = "Tris"; }
+        if (gt === GameType.TRESSETTE) { this.title = "App1"; }
+        if (gt === GameType.BRISCOLA) { this.title = "App2"; }
+        if (gt === GameType.TRIS) { this.title = "App3"; }
     }
 }

@@ -1,7 +1,8 @@
 import * as io from "socket.io";
 import { Server } from "https";
 import { MessagePack } from "../shared/models/socket_messages/messagePack";
-import { HomeSocketController } from "./controllers/socket/home";
+import { GeneralSocketController } from "./controllers/socket/general";
+import { ChatSocketController } from "./controllers/socket/chat";
 
 /*
 // sending to sender-client only
@@ -31,19 +32,35 @@ socket.broadcast.to(socketid).emit('message', 'for your eyes only');
 
 const pack: MessagePack = new MessagePack();
 
-export let socketIO : SocketIO.Server;
+export let socketIO: SocketIO.Server;
 
 export const listen: any = (server: Server) => {
   socketIO = io.listen(server);
-  
-  socketIO.of('/').on("connection", HomeSocketController);
-  socketIO.of('/tris').on("connection", () => {console.log("SONO QUI"); })
-  
+
+  Object.keys(socketIO.sockets.adapter.nsp.name).forEach(element => {
+    console.log(element);
+  });
+
+  socketIO.of("/general").on("connection", GeneralSocketController);
+  socketIO.of("/chat").on("connection", ChatSocketController);
+
+  //socketIO.of("/").on("connection", HomeSocketController);
+  /*
+  socketIO.of('/rooms/2').on("connection", () => {console.log("SONO QUI"); })
+  */
+
+  /*
   setInterval(() => {
     Object.keys(socketIO.sockets.adapter.rooms).forEach(element => {
       pack.update();
+      console.log(pack.usersInfo.numberOfUser);
       socketIO.in(element).emit("ServerMsg", pack);
     });
+  }, 100);*/
+
+  setInterval(() => {
+    pack.update();
+    socketIO.of("/general").emit("ServerMsg", pack);
   }, 100);
 
   return socketIO;

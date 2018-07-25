@@ -8,7 +8,7 @@ describe("@@ CORE CLASS", () => {
 
     describe("#Core Class Initial Conditions", () => {
         it("A core should be an object", () => {
-            _.isObject(this.core);
+            _.isObject(core);
         });
         it("A Core should contains the same number of rooms defined in the config files", () => {
             core.rooms.length.should.equals(GameInfo.size);

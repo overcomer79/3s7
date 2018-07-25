@@ -9,28 +9,36 @@ import { IUser } from "./user";
  * Core Singleton of the application
  * ***
  * properties:
- *  
+ *
  *      users -> "List of users that are using the app"
  *      visitors -> "List of the visitors that are using the app"
  *      rooms -> "list of the rooms implemented for playing"
  * ***
  * methods:
- * 
+ *
  *      getHomeResponse -> "Object sent to the frontend in order to build the home page"
  */
 class Core {
-  
   rooms: Array<IRoom>;
   users: Array<IUser>;
   visitors: Array<Visitor>;
 
   constructor() {
+    this.users = [];
+    this.visitors = [];
+    this.rooms = [];
     GameInfo.forEach((el, key) => {
-      this.users = [];
-      this.visitors = [];
-      this.rooms = [];
       this.rooms.push(new Room(key));
     });
+  }
+
+  getVisitorBySocketId(idSocket: string): Visitor {
+    const cleanSocketId = idSocket.split("#")[1];
+    let result = this.visitors["/general#" + cleanSocketId];
+    if (result) return result;
+
+    result = this.users["/general#" + cleanSocketId];
+    if (result) return result;
   }
 
   getHomeResponse(): HomeResponse {

@@ -6,11 +6,11 @@ import { MessagePack } from "./../models/socket_messages/messagePack";
  * properties
  *
  *      socket      -> "Socket user for exchange message"
- *      roomName    -> "The socket room where to exchange message"
+ *      roomName?    -> "The socket room where to exchange message"
  */
 export interface IVisitorConnectionInfo {
     socket /*: SocketIO.Socket*/;
-    roomName: string;
+    roomName?: string;
   }
 
   /**

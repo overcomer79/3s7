@@ -1,28 +1,20 @@
-/*
 import { Injectable } from "@angular/core";
-import * as io from "socket.io-client";
-import { Observable } from "rxjs/Observable";
-import { Subject } from "rxjs/Subject";
 import { environment } from "../../../environments/environment";
-import "rxjs/add/operator/map";
-import { MessagePack } from '../../../../../shared/models/socket_messages/messagePack';
+import { Observable } from "rxjs/Observable";
 import { ConnectedUsersInfo } from "../../../../../shared/models/socket_messages/connectedUsersInfo";
+import { MessagePack } from "../../../../../shared/models/socket_messages/messagePack";
 import { LogMessage } from "../../../../../shared/models/chat_messages/logMessage";
-import { MessageInfo, MessageType} from "../../../../../shared/helpers/global";
+
+import * as io from "socket.io-client";
 
 @Injectable({
   providedIn: "root"
 })
-export class WebsocketService {
-  private socket = io(environment.ws_url, { secure: true });
-
-  setNameSpace(namespace: string) {
-    this.socket.nsp = namespace;
-  }
-
-  connect() {
-    this.socket.connect();
-  }
+export class GeneralInfoSocketService {
+  private socket = io(
+    environment.ws_url + environment.socket_namespace.general,
+    { secure: true }
+  );
 
   connectedUsersInfo(): Observable<ConnectedUsersInfo> {
     const observable = new Observable<ConnectedUsersInfo>(observer => {
@@ -47,7 +39,6 @@ export class WebsocketService {
     });
     return observable;
   }
-
   userJoinRoom(): Observable<LogMessage> {
     const observable = new Observable<LogMessage>(observer => {
       this.socket.on("new user joined", (data: LogMessage) => {
@@ -71,47 +62,4 @@ export class WebsocketService {
     });
     return observable;
   }
-
-  evalLog(): Subject<MessageEvent> {
-    const observable = new Observable<any>(obs => {
-      this.socket.on("evalAnswer", data => {
-        obs.next(data);
-      });
-      return () => {
-        this.socket.disconnect();
-      };
-    });
-
-    const observer = {
-      next: (data: Object) => {
-        this.socket.emit("evalServer", data);
-      }
-    };
-    return Subject.create(observer, observable);
-
-  }
-
-  chat(): Subject<MessageEvent> {
-   const observable = new Observable<{
-      user: String;
-      color: String;
-      message: String;
-      date: Date;
-    }>(obs => {
-      this.socket.on("addToChat", data => {
-        obs.next(data);
-      });
-      return () => {
-        this.socket.disconnect();
-      };
-    });
-
-    const observer = {
-      next: (data: Object) => {
-        this.socket.emit(MessageInfo.get(MessageType.CHAT_MESSAGE), data);
-      }
-    };
-    return Subject.create(observer, observable);
-  }
 }
-*/

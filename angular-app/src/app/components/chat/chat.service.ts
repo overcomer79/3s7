@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 import { LogMessage } from "../../../../../shared/models/chat_messages/logMessage";
-import { WebsocketService } from "../../services/socket/websocket.service";
+import { GeneralInfoSocketService } from "../../services/socket/general-info-socket.service";
+import { ChatSocketService } from "../../services/socket/chat-socket.service";
 
 @Injectable({
   providedIn: "root"
@@ -12,39 +13,46 @@ export class ChatService {
   evalMessages: Subject<any>;
   roomJoins: Observable<LogMessage>;
   roomLeaves: Observable<LogMessage>;
-  connectedUser: Observable<any>;
+  connectedUser: Observable<string>;
 
-  // Our constructor calls our wsService connect method
-  constructor(private _wsService: WebsocketService) {
-    //this._wsService.setNameSpace('/tris');
-    this.messages = <Subject<any>>_wsService.chat().map(
+  constructor(
+    private _csService: ChatSocketService,
+    private _gisocketService: GeneralInfoSocketService
+  ) {
+
+    this.messages = <Subject<any>>_csService.chat().map(
       (response: any): any => {
         return response;
       }
     );
 
-    this.evalMessages = <Subject<any>>_wsService.evalLog().map(
+    this.evalMessages = <Subject<any>>_csService.evalLog().map(
       (response: any): any => {
         return response;
       }
     );
 
-    this.roomJoins = <Observable<LogMessage>>_wsService.userJoinRoom().map(
-      (response: any): any => {
-        return response;
-      }
+    this.roomJoins = <Observable<LogMessage>>(
+      _gisocketService.userJoinRoom().map(
+        (response: any): any => {
+          return response;
+        }
+      )
     );
 
-    this.roomLeaves = <Observable<LogMessage>>_wsService.userLeftRoom().map(
-      (response: any): any => {
-        return response;
-      }
+    this.roomLeaves = <Observable<LogMessage>>(
+      _gisocketService.userLeftRoom().map(
+        (response: any): any => {
+          return response;
+        }
+      )
     );
-
-    this.connectedUser = <Observable<any>>_wsService.connectedUser().map(
-      (response: any): any => {
-        return response;
-      }
+    this.connectedUser = <Observable<any>>(
+      _gisocketService.connectedUser().map(
+        (response: any): any => {
+          return response;
+        }
+      )
     );
   }
 
@@ -56,7 +64,13 @@ export class ChatService {
     }
   }
 
+  /*
   setNamespace(nsp) {
     this._wsService.setNameSpace(nsp);
   }
+
+  connect() {
+    this._wsService.connectedUser();
+  }
+  */
 }

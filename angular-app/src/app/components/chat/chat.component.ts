@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ChatService } from "./chat.service";
 import { LogMessage } from "../../../../../shared/models/chat_messages/logMessage";
-import { ActivatedRoute, Router, NavigationEnd} from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
 
 @Component({
   selector: "app-chat",
@@ -12,7 +12,7 @@ import { ActivatedRoute, Router, NavigationEnd} from '@angular/router';
 export class ChatComponent implements OnInit {
   room: "app";
   namespace: string;
-  user: String;
+  user: string;
   messageText: String;
   messageArray: Array<{
     user: String;
@@ -22,18 +22,24 @@ export class ChatComponent implements OnInit {
     type: string;
   }> = [];
 
-  //constructor(private _chatService: ChatService) {}
-  constructor(private _chatService: ChatService, router:Router, route:ActivatedRoute) {
+  // constructor(private _chatService: ChatService) {}
+  constructor(
+    private _chatService: ChatService,
+    router: Router,
+    route: ActivatedRoute
+  ) {
     router.events
-      //.filter(e => e instanceof ChatComponent)
+      // .filter(e => e instanceof ChatComponent)
       .forEach(e => {
-        if (e instanceof NavigationEnd){
+        if (e instanceof NavigationEnd) {
+          // this.namespace = e.url;
+          /*
           this._chatService.setNamespace(e.url);
+          this._chatService.connect();
+          */
         }
-        
-        
-    });
-}
+      });
+  }
 
   ngOnInit() {
     this._chatService.roomJoins.subscribe((data: LogMessage) => {
