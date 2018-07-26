@@ -9,17 +9,19 @@ import { ChatSocketService } from "../../services/socket/chat-socket.service";
   providedIn: "root"
 })
 export class ChatService {
+
+  user: string;
   messages: Subject<any>;
   evalMessages: Subject<any>;
   roomJoins: Observable<LogMessage>;
   roomLeaves: Observable<LogMessage>;
+
   connectedUser: Observable<string>;
 
   constructor(
     private _csService: ChatSocketService,
     private _gisocketService: GeneralInfoSocketService
   ) {
-
     this.messages = <Subject<any>>_csService.chat().map(
       (response: any): any => {
         return response;
@@ -47,12 +49,11 @@ export class ChatService {
         }
       )
     );
-    this.connectedUser = <Observable<any>>(
-      _gisocketService.connectedUser().map(
-        (response: any): any => {
-          return response;
-        }
-      )
+    this.connectedUser = <Observable<any>>_gisocketService.connectedUser().map(
+      (response: any): any => {
+        this.user = response;
+        return response;
+      }
     );
   }
 
@@ -64,13 +65,11 @@ export class ChatService {
     }
   }
 
-  /*
-  setNamespace(nsp) {
-    this._wsService.setNameSpace(nsp);
+  joinRoom(data) {
+    this._csService.joinRoom(data);
   }
 
-  connect() {
-    this._wsService.connectedUser();
+  leaveRoom(data) {
+    this._csService.leaveRoom(data);
   }
-  */
 }

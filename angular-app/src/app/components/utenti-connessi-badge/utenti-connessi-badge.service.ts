@@ -10,6 +10,7 @@ export class UtentiConnessiBadgeService {
   usersInfo: Observable<any>;
   connectedUser: Observable<any>;
 
+
   constructor(private _gisService: GeneralInfoSocketService) {
     this.usersInfo = <Observable<any>>_gisService.connectedUsersInfo().map(
       (response: any): any => {
@@ -22,5 +23,6 @@ export class UtentiConnessiBadgeService {
         return response;
       }
     );
+
   }
 }

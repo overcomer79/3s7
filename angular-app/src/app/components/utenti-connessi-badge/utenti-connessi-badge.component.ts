@@ -9,7 +9,7 @@ import { UtentiConnessiBadgeService } from "./utenti-connessi-badge.service";
 })
 export class UtentiConnessiBadgeComponent implements OnInit {
   utentiConnessi = 0;
-  myUserName = '';
+  myUserName = "";
 
   constructor(private _utentiConnessiSrv: UtentiConnessiBadgeService) {}
 
@@ -17,7 +17,6 @@ export class UtentiConnessiBadgeComponent implements OnInit {
     this._utentiConnessiSrv.usersInfo.subscribe(data => {
       this.utentiConnessi = data.numberOfUser;
     });
-
     this._utentiConnessiSrv.connectedUser.subscribe(data => {
       this.myUserName = data;
     });

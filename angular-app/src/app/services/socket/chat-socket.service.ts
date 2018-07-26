@@ -14,6 +14,15 @@ export class ChatSocketService {
     secure: true
   });
 
+  joinRoom(data) {
+    this.socket.connect(); // Need to reconnect after unsubscribe
+    this.socket.emit("join", data);
+  }
+
+  leaveRoom(data) {
+    this.socket.emit("leave", data);
+  }
+
   evalLog(): Subject<MessageEvent> {
     const observable = new Observable<any>(obs => {
       this.socket.on("evalAnswer", data => {

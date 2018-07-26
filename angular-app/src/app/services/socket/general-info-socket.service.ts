@@ -39,6 +39,7 @@ export class GeneralInfoSocketService {
     });
     return observable;
   }
+
   userJoinRoom(): Observable<LogMessage> {
     const observable = new Observable<LogMessage>(observer => {
       this.socket.on("new user joined", (data: LogMessage) => {
