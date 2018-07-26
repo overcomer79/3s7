@@ -1,9 +1,11 @@
-import { IVisitorConnectionInfo } from "./../../../shared/interfaces/IVisitor";
-import { Visitor } from "./../../../shared/models/visitor";
+import { IVisitorConnectionInfo } from "../../../shared/interfaces/IVisitor";
+import { Visitor } from "../../../shared/models/visitor";
+import { sockets } from "../../../shared/config/sockets";
 
 const mainRoom: string = "app";
 export const GeneralSocketController = (socket: SocketIO.Socket) => {
   socket.join(mainRoom);
+
   const connectionInfo: IVisitorConnectionInfo = {
     socket: socket,
     roomName: mainRoom
@@ -11,7 +13,7 @@ export const GeneralSocketController = (socket: SocketIO.Socket) => {
 
   Visitor.onConnect(connectionInfo);
 
-  socket.on("disconnect", () => {
+  socket.on(sockets.messages.socketDisconnect, () => {
     connectionInfo.socket.leave(mainRoom);
     Visitor.onDisconnect(connectionInfo);
   });

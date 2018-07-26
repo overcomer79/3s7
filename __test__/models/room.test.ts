@@ -3,15 +3,15 @@ import chai = require("chai");
 var should = chai.should();
 
 import { Room } from "./../../shared/models/room";
-import { GameType } from "./../../shared/helpers/global";
+import { randomProperty } from "./../../shared/helpers/objectManipulations";
 import { User } from "../../src/models/user";
 import { Visitor } from "../../shared/models/visitor";
 import { TrisTable } from "../../shared/models/tables/trisTable";
+import { games } from "../../shared/config/games";
 
 describe("@@ ROOM CLASS", () => {
   beforeEach("Create a random room", () => {
-    const numberOfDifferentGames = Object.keys(GameType).length / 2;
-    this.room = new Room(<GameType>numberOfDifferentGames);
+    this.room = new Room(randomProperty(games));
   });
 
   describe("#Room Initial Conditions", () => {

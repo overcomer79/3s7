@@ -1,4 +1,4 @@
-import { IUser } from "./../../src/models/user"
+import { IUser } from "../../src/models/user"
 import { Visitor } from "../models/visitor";
 
 /**

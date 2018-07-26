@@ -30,7 +30,7 @@ export interface IRoom {
 
     tables: Array<ITable>;
     isEnabled: boolean;
-    gameType: global.GameType;
+    gameType: string;
     visitors: Array<Visitor>;
     users: Array<IUser>;
 

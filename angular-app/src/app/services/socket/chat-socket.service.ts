@@ -3,29 +3,29 @@ import { environment } from "../../../environments/environment";
 import { Observable } from "rxjs/Observable";
 import { LogMessage } from "../../../../../shared/models/chat_messages/logMessage";
 import { Subject } from "rxjs/Subject";
-import { MessageInfo, MessageType } from "../../../../../shared/helpers/global";
 import * as io from "socket.io-client";
+import { sockets } from "../../../../../shared/config/sockets";
 
 @Injectable({
   providedIn: "root"
 })
 export class ChatSocketService {
-  private socket = io(environment.ws_url + environment.socket_namespace.chat, {
+  private socket = io(environment.ws_url + sockets.namespaces.chat, {
     secure: true
   });
 
   joinRoom(data) {
     this.socket.connect(); // Need to reconnect after unsubscribe
-    this.socket.emit("join", data);
+    this.socket.emit(sockets.messages.joinSocketRoom, data);
   }
 
   leaveRoom(data) {
-    this.socket.emit("leave", data);
+    this.socket.emit(sockets.messages.leaveSocketRoom, data);
   }
 
   evalLog(): Subject<MessageEvent> {
     const observable = new Observable<any>(obs => {
-      this.socket.on("evalAnswer", data => {
+      this.socket.on(sockets.messages.evalAnswer, data => {
         obs.next(data);
       });
       return () => {
@@ -35,7 +35,7 @@ export class ChatSocketService {
 
     const observer = {
       next: (data: Object) => {
-        this.socket.emit("evalServer", data);
+        this.socket.emit(sockets.messages.evalFromServer, data);
       }
     };
     return Subject.create(observer, observable);
@@ -43,7 +43,7 @@ export class ChatSocketService {
 
   chat(): Subject<MessageEvent> {
     const observable = new Observable<any>(obs => {
-      this.socket.on("addToChat", data => {
+      this.socket.on(sockets.messages.chat, data => {
         obs.next(data);
       });
       return () => {
@@ -53,7 +53,7 @@ export class ChatSocketService {
 
     const observer = {
       next: (data: Object) => {
-        this.socket.emit(MessageInfo.get(MessageType.CHAT_MESSAGE), data);
+        this.socket.emit(sockets.messages.chat, data);
       }
     };
     return Subject.create(observer, observable);

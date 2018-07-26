@@ -4,6 +4,8 @@ import { Observable } from "rxjs/Observable";
 import { ConnectedUsersInfo } from "../../../../../shared/models/socket_messages/connectedUsersInfo";
 import { MessagePack } from "../../../../../shared/models/socket_messages/messagePack";
 import { LogMessage } from "../../../../../shared/models/chat_messages/logMessage";
+import { sockets } from "../../../../../shared/config/sockets";
+
 
 import * as io from "socket.io-client";
 
@@ -12,13 +14,13 @@ import * as io from "socket.io-client";
 })
 export class GeneralInfoSocketService {
   private socket = io(
-    environment.ws_url + environment.socket_namespace.general,
+    environment.ws_url + sockets.namespaces.general,
     { secure: true }
   );
 
   connectedUsersInfo(): Observable<ConnectedUsersInfo> {
     const observable = new Observable<ConnectedUsersInfo>(observer => {
-      this.socket.on("ServerMsg", (data: MessagePack) => {
+      this.socket.on(sockets.messages.pulse, (data: MessagePack) => {
         observer.next(data.usersInfo);
       });
       return () => {
@@ -30,7 +32,7 @@ export class GeneralInfoSocketService {
 
   connectedUser(): Observable<any> {
     const observable = new Observable<String>(observer => {
-      this.socket.on("connected user", data => {
+      this.socket.on(sockets.messages.connectedUserInfo, data => {
         observer.next(data.user.username);
       });
       return () => {
@@ -42,7 +44,7 @@ export class GeneralInfoSocketService {
 
   userJoinRoom(): Observable<LogMessage> {
     const observable = new Observable<LogMessage>(observer => {
-      this.socket.on("new user joined", (data: LogMessage) => {
+      this.socket.on(sockets.messages.log.UserJoined, (data: LogMessage) => {
         observer.next(data);
       });
       return () => {
@@ -54,7 +56,7 @@ export class GeneralInfoSocketService {
 
   userLeftRoom(): Observable<LogMessage> {
     const observable = new Observable<LogMessage>(observer => {
-      this.socket.on("left room", (data: LogMessage) => {
+      this.socket.on(sockets.messages.log.UserLeft, (data: LogMessage) => {
         observer.next(data);
       });
       return () => {

@@ -7,11 +7,11 @@ import { Visitor } from "./visitor";
 export class Room implements IRoom {
   tables: ITable[];
   isEnabled: boolean;
-  gameType: global.GameType;
+  gameType: any;
   visitors: Visitor[];
   users: IUser[];
 
-  constructor(type: global.GameType) {
+  constructor(type: string) {
     this.gameType = type;
     this.isEnabled = true;
     this.tables = [];

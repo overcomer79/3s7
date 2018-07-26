@@ -13,13 +13,14 @@ export class RoomComponent implements OnInit {
     private route: ActivatedRoute,
     private roomService: RoomsService,
     private router: Router,
-  ) {}
+  ) { }
 
   public room: RoomUi;
 
   ngOnInit() {
     this.route.paramMap.subscribe(p => {
-      this.room = this.roomService.getRoomByType(+p.get("id"));
+      //this.room = this.roomService.getRoomByType(+p.get("id"));
+      this.room = this.roomService.getRoomByNameType(p.get("id"));
       if (!this.room) {
         this.router.navigate([""]);
       }

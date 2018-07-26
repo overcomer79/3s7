@@ -1,9 +1,9 @@
 import { IRoom } from "../../shared/interfaces/IRoom";
-import { GameInfo } from "../../shared/helpers/global";
 import { Room } from "../../shared/models/room";
 import { HomeResponse } from "../../shared/models/responses/home";
 import { Visitor } from "../../shared/models/visitor";
 import { IUser } from "./user";
+import { games } from "../../shared/config/games";
 
 /**
  * Core Singleton of the application
@@ -27,11 +27,15 @@ class Core {
     this.users = [];
     this.visitors = [];
     this.rooms = [];
-    GameInfo.forEach((el, key) => {
-      this.rooms.push(new Room(key));
+    Object.keys(games).forEach(key => {
+      this.rooms.push(new Room(games[key]));
     });
   }
 
+  /**
+  * TODO: To be generalize: need to now the namespace
+  * - HINT: maybe the full socket contains the info?
+  */
   getVisitorBySocketId(idSocket: string): Visitor {
     const cleanSocketId = idSocket.split("#")[1];
     let result = this.visitors["/general#" + cleanSocketId];
@@ -44,12 +48,12 @@ class Core {
   getHomeResponse(): HomeResponse {
     const response = new HomeResponse();
 
-    this.rooms.forEach(e => {
+    this.rooms.forEach(room => {
       response.rooms.push({
-        name: GameInfo.get(e.gameType).roomName,
-        connectedUser: e.users.length,
-        connectedVisitor: e.visitors.length,
-        tables: e.tables.length
+        name: games[room.gameType].roomName,
+        connectedUser: room.users.length,
+        connectedVisitor: room.visitors.length,
+        tables: room.tables.length
       });
     });
 

@@ -1,7 +1,8 @@
 import * as _ from "lodash";
 import chai = require("chai");
 import { core } from "../../src/models/core";
-import { GameInfo } from "../../shared/helpers/global";
+import { games } from "../../shared/config/games";
+//import { GameInfo } from "../../shared/helpers/global";
 var should = chai.should();
 
 describe("@@ CORE CLASS", () => {
@@ -11,7 +12,7 @@ describe("@@ CORE CLASS", () => {
             _.isObject(core);
         });
         it("A Core should contains the same number of rooms defined in the config files", () => {
-            core.rooms.length.should.equals(GameInfo.size);
+            core.rooms.length.should.equals(Object.keys(games).length);
         });
         it("A Core should not contains any users or visitos", () => {
             core.users.should.be.empty;

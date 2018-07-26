@@ -1,10 +1,11 @@
 import * as Global from "../helpers/global";
 import { alphanumericUnique } from "../helpers/math";
-import { IVisitor, IVisitorConnectionInfo } from "./../interfaces/IVisitor";
+import { IVisitor, IVisitorConnectionInfo } from "../interfaces/IVisitor";
 import { LogMessage } from "./chat_messages/logMessage";
-import { UserMessage } from "../models/chat_messages/userMessage";
+import { UserMessage } from "./chat_messages/userMessage";
 import { core } from "../../src/models/core";
 import { socketIO } from "../../src/socket";
+import { sockets } from "../config/sockets";
 
 /**
  * The Class for the Visitor
@@ -38,55 +39,67 @@ export class Visitor implements IVisitor {
   }
 
   static onConnect(connInfo: IVisitorConnectionInfo) {
+    // create a new visitor
     const visitor = new Visitor(connInfo.socket.id);
+
+    // Update the core 
     core.visitors[connInfo.socket.id] = visitor;
+
+    // server log
+    // TODO: this should be implemented with a specific library
+    //        -  winston?
     console.log("user", visitor.username, "join", connInfo.roomName);
-    connInfo.socket.emit("connected user", { user: visitor });
-   /*
-    Object.keys(socketIO.of("/chat").adapter.rooms).forEach(element => {
-      console.log(element);
-    });
     
-    socketIO
-      .of("/general").to(connInfo.roomName)
-      .emit(
-        "new user joined",
-        new LogMessage(visitor, Global.costants.LogMessages.ROOM_JOINED)
-      );
-    */
+    // Emit to the frontend the info of the connected user
+    connInfo.socket.emit(sockets.messages.connectedUserInfo, { user: visitor });
+
+    // Broadcast to the room the info that a new user has joined
     connInfo.socket.broadcast
       .to(connInfo.roomName)
+      // TODO: 
+        // - this should be log INFO(HAPPY)
+        // the socket message just log and specify the LogMessage Class
       .emit(
-        "new user joined",
+        sockets.messages.log.UserJoined,
         new LogMessage(visitor, Global.costants.LogMessages.ROOM_JOINED)
       );
 
   }
 
   static onDisconnect(connInfo: IVisitorConnectionInfo) {
+    // server log
     console.log(
       "user",
       core.visitors[connInfo.socket.id].username,
       "left",
       connInfo.roomName
     );
+
+    // Broadcast to the room the info that a new user has left
     connInfo.socket.broadcast
       .to(connInfo.roomName)
       .emit(
-        "left room",
+        // TODO: 
+        // - this should be log INFO(SAD)
+        // the socket message just log and specify the LogMessage Class
+        sockets.messages.log.UserLeft,
         new LogMessage(
           core.visitors[connInfo.socket.id],
           Global.costants.LogMessages.ROOM_LEFT
         )
       );
+
+    // Update the core
     delete core.visitors[connInfo.socket.id];
   }
 
   sendChatMessage(connInfo: IVisitorConnectionInfo, data: string) {
     if (this.canSendMessage) {
       if (!data || data.trim() === "") return;
-      socketIO.of('/chat').in(connInfo.roomName).emit(
-        "addToChat",
+
+      // emit the chat message to the room
+      socketIO.of(sockets.namespaces.chat).in(connInfo.roomName).emit(
+        sockets.messages.chat,
         new UserMessage({
           user: this.username,
           color: this.color,
@@ -96,10 +109,13 @@ export class Visitor implements IVisitor {
       );
     } else {
       connInfo.socket.emit(
+        // TODO: 
+        // - this should be log ERROR
+        // the socket message just log and specify the LogMessage Class
         "left room",
         new LogMessage(
           core.visitors[connInfo.socket.id],
-          " Non hai il permesso di scrivere in chat"
+          "Non hai il permesso di scrivere in chat"
         )
       );
     }

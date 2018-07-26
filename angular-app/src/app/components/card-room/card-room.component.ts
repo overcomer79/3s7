@@ -17,7 +17,7 @@ export class CardRoomComponent implements OnInit {
   }
 
   showRoomGame() {
-    this.router.navigate(["rooms", this.room.gameType]);
+    this.router.navigate(["rooms", this.room.gameType.name]);
   }
 
 }
