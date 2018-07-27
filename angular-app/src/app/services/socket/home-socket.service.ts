@@ -14,7 +14,6 @@ export class HomeSocketService {
     secure: true
   });
 
-
   getServerResponse(): Observable<IRoomsHomeReponse[]> {
     const observable = new Observable<IRoomsHomeReponse[]>(observer => {
       this.socket.on(sockets.messages.response, (data) => {

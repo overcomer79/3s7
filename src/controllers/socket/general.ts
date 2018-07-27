@@ -2,19 +2,19 @@ import { IVisitorConnectionInfo } from "../../interfaces/IVisitor";
 import { Visitor } from "../../models/visitor";
 import { sockets } from "../../../shared/config/sockets";
 
-const mainRoom: string = "app";
+const general: string = "app";
 export const GeneralSocketController = (socket: SocketIO.Socket) => {
-  socket.join(mainRoom);
+  socket.join(general);
 
   const connectionInfo: IVisitorConnectionInfo = {
     socket: socket,
-    roomName: mainRoom
+    roomName: general
   };
 
   Visitor.onConnect(connectionInfo);
 
   socket.on(sockets.messages.socketDisconnect, () => {
-    socket.leave(mainRoom);
+    socket.leave(general);
     Visitor.onDisconnect(connectionInfo);
   });
 };

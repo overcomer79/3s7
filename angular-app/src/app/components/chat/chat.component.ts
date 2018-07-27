@@ -1,9 +1,13 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ChatService } from "./chat.service";
-import { LogMessage } from "../../../../../shared/models/chat_messages/logMessage";
 import { Router, NavigationEnd } from "@angular/router";
 import { Subject } from "rxjs";
 import "rxjs/add/operator/takeUntil";
+
+// From Frontend
+import { ChatService } from "./chat.service";
+
+// From Backend
+import { LogMessage } from "../../../../../shared/models/chat_messages/logMessage";
 
 @Component({
   selector: "app-chat",
@@ -15,6 +19,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<any> = new Subject();
   room: string;
   messageText: String;
+
+  // TODO: this should be an array of already defined object
   messageArray: Array<{
     user: String;
     color: String;
@@ -34,6 +40,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._chatService.joinRoom(this.room);
 
+    // TODO: should use takeUntil
     this._chatService.roomJoins
       // .takeUntil(this.unsubscribe)
       .subscribe((data: LogMessage) => {
@@ -45,6 +52,8 @@ export class ChatComponent implements OnInit, OnDestroy {
           type: "info"
         });
       });
+
+    // TODO: should use takeUntil
     this._chatService.roomLeaves
       // .takeUntil(this.unsubscribe)
       .subscribe((data: LogMessage) => {
@@ -57,9 +66,10 @@ export class ChatComponent implements OnInit, OnDestroy {
         });
       });
 
+    // TODO: should use takeUntil
     this._chatService.connectedUser
-    // .takeUntil(this.unsubscribe)
-    .subscribe();
+      // .takeUntil(this.unsubscribe)
+      .subscribe();
 
     this._chatService.messages.takeUntil(this.unsubscribe).subscribe(data => {
       this.messageArray.push({
@@ -71,6 +81,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       });
     });
 
+    // TODO: should use takeUntil
     this._chatService.evalMessages
       // .takeUntil(this.unsubscribe)
       .subscribe(data => {

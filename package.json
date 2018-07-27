@@ -4,7 +4,7 @@
   "description": "API RESTful project",
   "main": "",
   "scripts": {
-    "test": "mocha dist/__test__/**/*.test.js",
+    "test": "mocha dist/__test__/**/*.test.js --exit",
     "start": "nodemon dist/src/server.js",
     "js_start": "nodemon JS/server.js",
     "coverage_all": "istanbul cover -x \"**/config/**\" -x \"**/__test__/**\" ./node_modules/mocha/bin/_mocha --include-all-sources dist/__test__/**/*.test.js -root ./dist",
