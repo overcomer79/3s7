@@ -1,11 +1,11 @@
 export const games = {
     tressette: {
-        name: "Tressette"
+        name: "App1"//"Tressette"
     },
     briscola: {
-        name: "Briscola"
+        name: "App2"//"Briscola"
     },
     tris: {
-        name: "Tris"
+        name: "App3"//"Tris"
     }
 }
