@@ -1,7 +1,6 @@
-import * as global from "../helpers/global";
 import { IRoom } from "../interfaces/IRoom";
 import { ITable } from "../interfaces/ITable";
-import { IUser } from "../../src/models/user";
+import { IUser } from "./user";
 import { Visitor } from "./visitor";
 
 export class Room implements IRoom {

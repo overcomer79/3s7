@@ -1,7 +1,7 @@
 import * as JWT from "jsonwebtoken";
-import * as conf from "../../shared/config/keys";
-import User, { IUser } from "../models/user";
-import { NextFunction } from "../../node_modules/@types/express";
+import * as conf from "./../../shared/config/keys";
+import User, { IUser } from "./../models/user";
+import { NextFunction } from "express";
 
 const signToken = user => {
   return JWT.sign(

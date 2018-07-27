@@ -1,5 +1,5 @@
-import { IUser } from "../../src/models/user"
-import { Visitor } from "../models/visitor";
+import { IUser } from "./../models/user"
+import { Visitor } from "./../models/visitor";
 
 /**
  * Various basic states of the table

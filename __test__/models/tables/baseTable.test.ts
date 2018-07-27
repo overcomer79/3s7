@@ -2,13 +2,13 @@ import * as _ from "lodash";
 import chai = require("chai");
 var should = chai.should();
 
-import * as math from "../../../shared/helpers/math";
+import * as math from "./../../../shared/helpers/math";
 
-import { Table } from "../../../src/abstracts/table";
-import { User } from "../../../src/models/user";
-import { TableState } from "../../../shared/interfaces/ITable";
-import { randomIntFromInterval } from "../../../shared/helpers/math";
-import { Visitor } from "../../../shared/models/visitor";
+import { Table } from "./../../../src/abstracts/table";
+import { User } from "./../../../src/models/user";
+import { TableState } from "./../../../src/interfaces/ITable";
+import { randomIntFromInterval } from "./../../../shared/helpers/math";
+import { Visitor } from "./../../../src/models/visitor";
 
 class MockTable extends Table {
   constructor(user, n) {

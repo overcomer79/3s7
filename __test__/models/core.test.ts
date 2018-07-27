@@ -1,8 +1,8 @@
 import * as _ from "lodash";
 import chai = require("chai");
-import { core } from "../../src/models/core";
-import { games } from "../../shared/config/games";
-//import { GameInfo } from "../../shared/helpers/global";
+import { core } from "./../../src/models/core";
+import { games } from "./../../shared/config/games";
+
 var should = chai.should();
 
 describe("@@ CORE CLASS", () => {

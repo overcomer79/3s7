@@ -1,5 +1,5 @@
-import { IVisitorConnectionInfo } from "../../../shared/interfaces/IVisitor";
-import { Visitor } from "../../../shared/models/visitor";
+import { IVisitorConnectionInfo } from "../../interfaces/IVisitor";
+import { Visitor } from "../../models/visitor";
 import { sockets } from "../../../shared/config/sockets";
 
 const mainRoom: string = "app";

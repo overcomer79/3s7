@@ -2,12 +2,12 @@ import * as _ from "lodash";
 import chai = require("chai");
 var should = chai.should();
 
-import { Room } from "./../../shared/models/room";
+import { Room } from "./../../src/models/room";
+import { User } from "./../../src/models/user";
+import { Visitor } from "./../../src/models/visitor";
+import { TrisTable } from "./../../src/models/tables/trisTable";
+import { games } from "./../../shared/config/games";
 import { randomProperty } from "./../../shared/helpers/objectManipulations";
-import { User } from "../../src/models/user";
-import { Visitor } from "../../shared/models/visitor";
-import { TrisTable } from "../../shared/models/tables/trisTable";
-import { games } from "../../shared/config/games";
 
 describe("@@ ROOM CLASS", () => {
   beforeEach("Create a random room", () => {

@@ -1,5 +1,3 @@
-import { MessagePack } from "../models/socket_messages/messagePack";
-
 /**
  * It Defines the basic connection visitors info
  * ***

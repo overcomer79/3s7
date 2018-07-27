@@ -2,9 +2,8 @@ import * as _ from "lodash";
 import chai = require("chai");
 var should = chai.should();
 
-//import { TrisTable } from '../../../shared/models/tables/trisTables';
-import { User } from "../../../src/models/user";
-import { TrisTable } from "../../../shared/models/tables/trisTable";
+import { User } from "./../../../src/models/user";
+import { TrisTable } from "./../../../src/models/tables/trisTable";
 
 describe("@@ TRIS TABLE CLASS", () => {
   describe("#TrisTable Initial conditions", () => {

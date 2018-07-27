@@ -1,4 +1,4 @@
-import { Room } from "../../../../shared/models/room";
+import { Room } from "../../../../src/models/room";
 
 export class RoomUi extends Room {
 

@@ -1,5 +1,5 @@
 import * as joi from "joi";
-import { Response, NextFunction } from "../../node_modules/@types/express";
+import { Response, NextFunction } from "express";
 
 export const validateBody = schema => {
   return (req: any, res: Response, next: NextFunction) => {

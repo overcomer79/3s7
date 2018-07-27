@@ -1,4 +1,4 @@
-import { IVisitorConnectionInfo } from "../../../shared/interfaces/IVisitor";
+import { IVisitorConnectionInfo } from "./../../interfaces/IVisitor";
 import { sockets } from "../../../shared/config/sockets"
 import { core } from "../../models/core";
 

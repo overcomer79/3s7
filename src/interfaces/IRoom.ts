@@ -1,6 +1,5 @@
 import { ITable } from './ITable';
-import * as global from "../helpers/global";
-import { IUser } from "../../src/models/user";
+import { IUser } from "../models/user";
 import { Visitor } from '../models/visitor';
 
 /**

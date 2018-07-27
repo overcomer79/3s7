@@ -1,11 +1,11 @@
-import * as Global from "../helpers/global";
-import { alphanumericUnique } from "../helpers/math";
+import * as Global from "./../../shared/helpers/global";
+import { alphanumericUnique } from "./../../shared/helpers/math";
 import { IVisitor, IVisitorConnectionInfo } from "../interfaces/IVisitor";
-import { LogMessage } from "./chat_messages/logMessage";
-import { UserMessage } from "./chat_messages/userMessage";
-import { core } from "../../src/models/core";
-import { socketIO } from "../../src/socket";
-import { sockets } from "../config/sockets";
+import { LogMessage } from "./../../shared/models/chat_messages/logMessage";
+import { UserMessage } from "./../../shared/models/chat_messages/userMessage";
+import { core } from "./core";
+import { socketIO } from "./../../src/socket";
+import { sockets } from "./../../shared/config/sockets";
 
 /**
  * The Class for the Visitor

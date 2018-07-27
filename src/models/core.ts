@@ -1,9 +1,9 @@
-import { IRoom } from "../../shared/interfaces/IRoom";
-import { Room } from "../../shared/models/room";
-import { HomeResponse } from "../../shared/models/responses/home";
-import { Visitor } from "../../shared/models/visitor";
+import { IRoom } from "../interfaces/IRoom";
+import { Room } from "./room";
+import { HomeResponse } from "./../../shared/models/responses/home";
+import { Visitor } from "./visitor";
 import { IUser } from "./user";
-import { games } from "../../shared/config/games";
+import { games } from "./../../shared/config/games";
 
 /**
  * Core Singleton of the application

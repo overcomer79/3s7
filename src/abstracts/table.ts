@@ -1,7 +1,7 @@
-import { ITable, TableState, ITableSettings } from "../../shared/interfaces/ITable";
+import { ITable, TableState, ITableSettings } from "../interfaces/ITable";
 import { IUser } from "../models/user";
 import { randomIntFromInterval } from "../../shared/helpers/math";
-import { Visitor } from "../../shared/models/visitor";
+import { Visitor } from "../models/visitor";
 
 export abstract class Table implements ITable {
   state: TableState;

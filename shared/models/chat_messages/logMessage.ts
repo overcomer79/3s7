@@ -1,4 +1,4 @@
-import { Visitor } from "../visitor";
+import { Visitor } from "./../../../src/models/visitor";
 
 /**
  *  Message for logging info about visitor user
