@@ -1,5 +1,5 @@
 export interface IRoomsHomeReponse {
-  name: string;
+  type: any;
   connectedUser: number;
   connectedVisitor: number;
   tables: number;
