@@ -50,7 +50,7 @@ class Core {
 
     this.rooms.forEach(room => {
       response.rooms.push({
-        name: games[room.gameType].roomName,
+        name: games[room.gameType],
         connectedUser: room.users.length,
         connectedVisitor: room.visitors.length,
         tables: room.tables.length

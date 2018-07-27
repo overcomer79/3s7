@@ -3,6 +3,7 @@ import { Server } from "https";
 import { MessagePack } from "../shared/models/socket_messages/messagePack";
 import { GeneralSocketController } from "./controllers/socket/general";
 import { ChatSocketController } from "./controllers/socket/chat";
+import { HomeSocketController } from "./controllers/socket/home";
 import { sockets } from "../shared/config/sockets";
 
 const pack: MessagePack = new MessagePack();
@@ -19,6 +20,10 @@ export const listen: any = (server: Server) => {
   socketIO
     .of(sockets.namespaces.chat)
     .on(sockets.messages.socketConnection, ChatSocketController);
+
+  socketIO
+    .of(sockets.namespaces.home)
+    .on(sockets.messages.socketConnection, HomeSocketController);
 
   /*
   setInterval(() => {

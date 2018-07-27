@@ -14,7 +14,7 @@ export const GeneralSocketController = (socket: SocketIO.Socket) => {
   Visitor.onConnect(connectionInfo);
 
   socket.on(sockets.messages.socketDisconnect, () => {
-    connectionInfo.socket.leave(mainRoom);
+    socket.leave(mainRoom);
     Visitor.onDisconnect(connectionInfo);
   });
 };

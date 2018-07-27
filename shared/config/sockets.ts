@@ -18,7 +18,8 @@ export const sockets = {
             UserJoined: "new user joined",
             UserLeft: "left room"
         },
-        pulse: "pulse"
+        pulse: "pulse",
+        response: "response"
     }
 
 }

@@ -19,6 +19,7 @@ import { AdminModule } from "./modules/admin/admin.module";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RoomsModule } from "./modules/rooms/rooms.module";
 import { RoomsService } from "./services/rooms/rooms.service";
+import { HomeService } from "./modules/public/home/home-service";
 
 /*
 const fbLoginOptions: LoginOpt = {
@@ -75,6 +76,7 @@ export function provideConfig() {
     LocalAuthService,
     AuthGuard,
     RoomsService,
+    HomeService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
     { provide: AuthServiceConfig, useFactory: provideConfig }
   ],
