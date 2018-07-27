@@ -1,55 +1,45 @@
 import * as io from "socket.io";
 import { Server } from "https";
-import { ConnectedVisitor } from "./models/connectedVisitors";
 import { MessagePack } from "../shared/models/socket_messages/messagePack";
-
-const DEBUG: boolean = true;
-const mainRoom: string = "app";
+import { GeneralSocketController } from "./controllers/socket/general";
+import { ChatSocketController } from "./controllers/socket/chat";
+import { HomeSocketController } from "./controllers/socket/home";
+import { sockets } from "../shared/config/sockets";
 
 const pack: MessagePack = new MessagePack();
 
-let listen: any = (server: Server) => {
-  const socketIO: SocketIO.Server = io.listen(server);
+export let socketIO: SocketIO.Server;
 
-  socketIO.on("connection", (socket: SocketIO.Socket) => {
-    socket.join(mainRoom);
-    const room: any = socketIO.nsps["/"].adapter.rooms[mainRoom];
-    ConnectedVisitor.onConnect(socket, mainRoom, room, pack);
+export const listen: any = (server: Server) => {
+  socketIO = io.listen(server);
 
-    socket.on("message", data => {
-      ConnectedVisitor.connectedVisitorsList[socket.id].sendChatMessage(
-        socketIO,
-        data.room,
-        data.message
-      );
-    });
+  socketIO
+    .of(sockets.namespaces.general)
+    .on(sockets.messages.socketConnection, GeneralSocketController);
 
-    socket.on("evalServer", (data: string) => {
-      console.log("----- FROM CLIENT: TEXT TO EVAL -------");
-      if (!DEBUG) {
-        return;
-      }
-      try {
-        var res: any = eval(data);
-      } catch (err) {
-        res = { message: "nothing to eval", error: err };
-      }
-      socket.emit("evalAnswer", res);
-    });
+  socketIO
+    .of(sockets.namespaces.chat)
+    .on(sockets.messages.socketConnection, ChatSocketController);
 
-    socket.on("disconnect", () => {
-      socket.leave(mainRoom);
-      ConnectedVisitor.onDisconnect(socket, mainRoom, room, pack);
-    });
-  });
+  socketIO
+    .of(sockets.namespaces.home)
+    .on(sockets.messages.socketConnection, HomeSocketController);
 
+  /*
   setInterval(() => {
     Object.keys(socketIO.sockets.adapter.rooms).forEach(element => {
+      pack.update();
+      console.log(pack.usersInfo.numberOfUser);
       socketIO.in(element).emit("ServerMsg", pack);
     });
-  });
+  }, 100);*/
+
+  setInterval(() => {
+    pack.update();
+    socketIO
+      .of(sockets.namespaces.general)
+      .emit(sockets.messages.pulse, pack);
+  }, 100);
 
   return socketIO;
 };
-
-export { listen };

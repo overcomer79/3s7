@@ -1,10 +1,10 @@
 import { Schema, Model, model } from "mongoose";
 import * as bcrypt from "bcryptjs";
 import { IUserDocument } from "../interfaces/IUserDocument";
-import { ConnectedVisitor } from "./connectedVisitors";
-import { NextFunction } from "../../node_modules/@types/express-serve-static-core";
+import { NextFunction } from "express-serve-static-core";
+import { Visitor } from "./visitor";
 
-export interface IUser extends IUserDocument, ConnectedVisitor {
+export interface IUser extends IUserDocument, Visitor {
   isValidPassword(password: string): Promise<boolean>;
 }
 
@@ -21,28 +21,28 @@ export const userSchema: Schema = new Schema({
   },
   local: {
     email: {
-      type: String,
+      type: Schema.Types.String,
       lowercase: true
     },
     password: {
-      type: String
+      type: Schema.Types.String
     }
   },
   google: {
     id: {
-      type: String
+      type: Schema.Types.String
     },
     email: {
-      type: String,
+      type: Schema.Types.String,
       lowercase: true
     }
   },
   facebook: {
     id: {
-      type: String
+      type: Schema.Types.String
     },
     email: {
-      type: String,
+      type: Schema.Types.String,
       lowercase: true
     }
   }
