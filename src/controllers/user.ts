@@ -1,5 +1,4 @@
 import User, { IUser } from "../models/user";
-// import * as mongoose from "mongoose";
 
 export const users_get_user_by_id = async (req, res, next) => {
   const foundUser: IUser = await User.findById(req.params.userId);
@@ -9,4 +8,9 @@ export const users_get_user_by_id = async (req, res, next) => {
   res.status(200).json({ user: foundUser });
 };
 
-export const users_get_all = () => {};
+//FIXME: No send password
+//      hint: look at js old files
+export const users_get_all = async (req, res, next) => {
+  const users: IUser[] = await User.find({});
+  return res.status(200).send(users);
+};

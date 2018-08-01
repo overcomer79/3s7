@@ -3,18 +3,18 @@ import { sockets } from "./../../../shared/config/sockets";
 var should = require("chai").should();
 
 var os = require("os");
-var end_point = "https://" + os.hostname() + ":3000" + sockets.namespaces.general;
+var end_point = "https://" + os.hostname() + ":" + process.env.PORT || 3000 + sockets.namespaces.general;
 
 var opts = { forceNew: true, secure: true };
 
 describe("async test with socket.io", function() {
 
     var socket_client;
-    //var socket_client;
+
     beforeEach((done)=> {
         socket_client = socketio_client(end_point, opts);
-        
-        
+        console.log(socket_client);
+            
         socket_client.on('connect', function() {
             console.log('worked...');
             done();

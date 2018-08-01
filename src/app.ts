@@ -53,27 +53,6 @@ class App {
     this.express.use(bodyParse.json());
   }
 
-  /*
-  private handleCORSErrors(): any {
-    this.express.use((req, res, next) => {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header(
-        "Access-Control-ALlow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-      );
-      if (req.method === "OPTIONS") {
-        res.header(
-          "Access-Control-Allow-Methods",
-          "PUT, POST, PATCH, GET, DELETE"
-        );
-        return res.status(200).json({});
-      }
-      // send the request to the next middleware
-      next();
-    });
-  }
-  */
-
   private handleCORSErrors(): any {
     const corsOptions: cors.CorsOptions = {
       // Set origin into production
