@@ -16,6 +16,7 @@ export class ChatSocketService {
 
   joinRoom(data) {
     this.socket.connect(); // Need to reconnect after unsubscribe
+    console.log("DATA EMIT ON JOIN", data);
     this.socket.emit(sockets.messages.joinSocketRoom, data);
   }
 

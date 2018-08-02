@@ -39,31 +39,24 @@ export class Visitor implements IVisitor {
   }
 
   static onConnect(connInfo: IVisitorConnectionInfo) {
+
+    console.log("VISITOR IS CONNECTING...");
     // create a new visitor
     const visitor = new Visitor(connInfo.socket.id);
 
-    // Update the core 
+    // Update the core
     core.visitors[connInfo.socket.id] = visitor;
 
     // server log
     // TODO: this should be implemented with a specific library
     //        -  winston?
     console.log("user", visitor.username, "join", connInfo.roomName);
-    
+
     // Emit to the frontend the info of the connected user
     connInfo.socket.emit(sockets.messages.connectedUserInfo, { user: visitor });
 
-    // Broadcast to the room the info that a new user has joined
-    connInfo.socket.broadcast
-      .to(connInfo.roomName)
-      // TODO: 
-        // - this should be log INFO(HAPPY)
-        // the socket message just log and specify the LogMessage Class
-      .emit(
-        sockets.messages.log.UserJoined,
-        new LogMessage(visitor, Global.costants.LogMessages.ROOM_JOINED)
-      );
-
+    // visitor.sendJoinRoomInfo(connInfo);
+    
   }
 
   static onDisconnect(connInfo: IVisitorConnectionInfo) {
@@ -76,18 +69,16 @@ export class Visitor implements IVisitor {
     );
 
     // Broadcast to the room the info that a new user has left
-    connInfo.socket.broadcast
-      .to(connInfo.roomName)
-      .emit(
-        // TODO: 
-        // - this should be log INFO(SAD)
-        // the socket message just log and specify the LogMessage Class
-        sockets.messages.log.UserLeft,
-        new LogMessage(
-          core.visitors[connInfo.socket.id],
-          Global.costants.LogMessages.ROOM_LEFT
-        )
-      );
+    connInfo.socket.broadcast.to(connInfo.roomName).emit(
+      // TODO:
+      // - this should be log INFO(SAD)
+      // the socket message just log and specify the LogMessage Class
+      sockets.messages.log.UserLeft,
+      new LogMessage(
+        core.visitors[connInfo.socket.id],
+        Global.costants.LogMessages.ROOM_LEFT
+      )
+    );
 
     // Update the core
     delete core.visitors[connInfo.socket.id];
@@ -98,18 +89,21 @@ export class Visitor implements IVisitor {
       if (!data || data.trim() === "") return;
 
       // emit the chat message to the room
-      socketIO.of(sockets.namespaces.chat).in(connInfo.roomName).emit(
-        sockets.messages.chat,
-        new UserMessage({
-          user: this.username,
-          color: this.color,
-          message: data,
-          date: new Date()
-        })
-      );
+      socketIO
+        .of(sockets.namespaces.chat)
+        .in(connInfo.roomName)
+        .emit(
+          sockets.messages.chat,
+          new UserMessage({
+            user: this.username,
+            color: this.color,
+            message: data,
+            date: new Date()
+          })
+        );
     } else {
       connInfo.socket.emit(
-        // TODO: 
+        // TODO:
         // - this should be log ERROR
         // the socket message just log and specify the LogMessage Class
         "left room",
@@ -119,5 +113,18 @@ export class Visitor implements IVisitor {
         )
       );
     }
+  }
+
+  sendJoinRoomInfo(connInfo: IVisitorConnectionInfo){
+    // Broadcast to the room the info that a new user has joined
+    connInfo.socket.broadcast
+      .to(connInfo.roomName)
+      // TODO:
+      // - this should be log INFO(HAPPY)
+      // - the socket message just log and specify the LogMessage Class
+      .emit(
+        sockets.messages.log.UserJoined,
+        new LogMessage(this, Global.costants.LogMessages.ROOM_JOINED)
+      );
   }
 }

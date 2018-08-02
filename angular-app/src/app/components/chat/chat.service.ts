@@ -9,13 +9,11 @@ import { ChatSocketService } from "../../services/socket/chat-socket.service";
   providedIn: "root"
 })
 export class ChatService {
-
   user: string;
   messages: Subject<any>;
   evalMessages: Subject<any>;
   roomJoins: Observable<LogMessage>;
   roomLeaves: Observable<LogMessage>;
-
   connectedUser: Observable<string>;
 
   constructor(

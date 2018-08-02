@@ -1,6 +1,6 @@
 import * as express from "express";
 
-import oauthRoutes from './routes/oauth';
+import oauthRoutes from "./routes/oauth";
 import userRoutes from "./routes/user";
 
 import * as morgan from "morgan";
@@ -53,27 +53,6 @@ class App {
     this.express.use(bodyParse.json());
   }
 
-  /*
-  private handleCORSErrors(): any {
-    this.express.use((req, res, next) => {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header(
-        "Access-Control-ALlow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-      );
-      if (req.method === "OPTIONS") {
-        res.header(
-          "Access-Control-Allow-Methods",
-          "PUT, POST, PATCH, GET, DELETE"
-        );
-        return res.status(200).json({});
-      }
-      // send the request to the next middleware
-      next();
-    });
-  }
-  */
-
   private handleCORSErrors(): any {
     const corsOptions: cors.CorsOptions = {
       // Set origin into production
@@ -102,9 +81,7 @@ class App {
     });
   }
 
-  
   private setRouteMiddleweres(): void {
-
     this.express.use("/oauth", oauthRoutes);
     this.express.use("/user", userRoutes);
 
@@ -114,12 +91,22 @@ class App {
     this.express.use('/api/orders', orderRoutes);
     */
   }
-  
+
   /*
   private prepareStatic(): void {
     this.express.use(express.static(path.join(__dirname + '/')));
   }
   */
+
+  public disconnectMongoose() {
+    mongoose.disconnect(err => {
+      if (err) {
+        console.log("Unable to disconnect to Mongo DB:", err);
+        return;
+      }
+      console.log("Disconnected to Mongo DB....");
+    });
+  }
 }
 
-export default new App().express;
+export default new App();

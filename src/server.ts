@@ -5,20 +5,28 @@ import * as path from "path";
 import app from "./app";
 import * as io from "./socket";
 
-const httpsOptions: ServerOptions = {
-  cert: fs.readFileSync(path.join(__dirname, "../../ssl", "server.crt")),
-  key: fs.readFileSync(path.join(__dirname, "../../ssl", "server.key"))
-};
-
-const server: https.Server = https.createServer(httpsOptions, app);
-io.listen(server);
-
+//TODO: move the PORT const in a config file
 const PORT: any = process.env.PORT || 3000;
 
-server.listen(PORT, err => {
-  if (err) {
-    console.log("Unable to start the server:", err);
-    return;
-  }
-  console.log("Server listening on port", PORT, "...");
-});
+//TODO: consider to use restify
+export const startServer = () => {
+  return new Promise((success, failure) => {
+    const httpsOptions: ServerOptions = {
+      cert: fs.readFileSync(path.join(__dirname, "./../../ssl", "server.crt")),
+      key: fs.readFileSync(path.join(__dirname, "./../../ssl", "server.key"))
+    };
+    let server: https.Server = https.createServer(httpsOptions, app.express);
+    io.listen(server);
+    server.listen(PORT, err => {
+      if (err) {
+        failure(err);
+      }
+      console.log("Server listening on port", PORT, "...");
+      success(server);
+    });
+  }).catch(err => console.log("Unable to start the server:", err));
+};
+
+if (require.main === module) {
+  startServer();
+}
