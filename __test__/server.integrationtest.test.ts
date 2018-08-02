@@ -26,16 +26,13 @@ describe("#index integration", () => {
   let server;
   let client;
 
-  before(done => {
-      
+  before(done => {     
     client = clients.createJsonClient({
       url: "https://localhost:3000",
       rejectUnauthorized: false
     });
     const getURL = _.partial(get, client);
     this.allUser = _.partial(getURL, "/user");
-
-
     //getURL         = _.partial(get, client);
     /*
         ping           = _.partial(getURL, '/api/ping');
@@ -49,9 +46,7 @@ describe("#index integration", () => {
         done();
         
       })
-      .catch(done);
-      
-     
+      .catch(done); 
   });
   
   after(() => {
@@ -67,7 +62,7 @@ describe("#index integration", () => {
       return this.allUser().should.eventually.be.fulfilled;
     });
     
-    it("should have an auth object based on the access method", async () => {
+    it("Every user should be an object and it should have an auth object based on the access method", async () => {
       const response = await this.allUser();
       response.forEach(user => {          
         let myObject: IUser = user as IUser;
