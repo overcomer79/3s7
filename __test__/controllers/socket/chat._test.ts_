@@ -36,7 +36,7 @@ describe("async test with socket.io", function() {
     done();
 });
 
-  it.only("Response should be an object", function(done) {
+  it("Response should be an object", function(done) {
       socket_client.emit("join", null);
     //var 
     //console.log(socket_client);

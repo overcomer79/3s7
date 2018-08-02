@@ -15,7 +15,7 @@ export const startServer = () => {
       cert: fs.readFileSync(path.join(__dirname, "./../../ssl", "server.crt")),
       key: fs.readFileSync(path.join(__dirname, "./../../ssl", "server.key"))
     };
-    let server: https.Server = https.createServer(httpsOptions, app);
+    let server: https.Server = https.createServer(httpsOptions, app.express);
     io.listen(server);
     server.listen(PORT, err => {
       if (err) {

@@ -9,6 +9,7 @@ import { sockets } from "../shared/config/sockets";
 const pack: MessagePack = new MessagePack();
 
 export let socketIO: SocketIO.Server;
+export let pulseFunc;
 
 export const listen: any = (server: Server) => {
   socketIO = io.listen(server);
@@ -33,13 +34,13 @@ export const listen: any = (server: Server) => {
       socketIO.in(element).emit("ServerMsg", pack);
     });
   }, 100);*/
-
-  setInterval(() => {
+  
+  this.pulseFunc = setInterval(() => {
     pack.update();
     socketIO
       .of(sockets.namespaces.general)
       .emit(sockets.messages.pulse, pack);
   }, 100);
-
+  
   return socketIO;
 };
