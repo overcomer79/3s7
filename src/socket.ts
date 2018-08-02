@@ -9,7 +9,7 @@ import { sockets } from "../shared/config/sockets";
 const pack: MessagePack = new MessagePack();
 
 export let socketIO: SocketIO.Server;
-export let pulseFunc;
+export let pulseFunc: NodeJS.Timer;
 
 export const listen: any = (server: Server) => {
   socketIO = io.listen(server);
