@@ -1,6 +1,7 @@
 # 3S7
 
 #### Before start: 
+- install globally typescript compilator tsc
 - Rename shared/config/keys.temp.ts to shared/config/keys.ts (use personal keys)
 
 ## BACK-END NODEJS
